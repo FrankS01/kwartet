@@ -1,0 +1,9 @@
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.content {
+  margin: 20px;
+}
