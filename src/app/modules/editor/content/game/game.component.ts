@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./game.component.css']
 })
 export class GameComponent {
+  id: number = 0;
+  name: string = '';
 
+  constructor() {
+  }
 }

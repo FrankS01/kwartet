@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GameComponent } from "../../content/game/game.component";
 
 @Component({
   selector: 'app-games',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./games.component.css']
 })
 export class GamesComponent {
+  games: GameComponent[] = [
+    { id: 1, name: 'Spelletje'},
+    { id: 2, name: 'Spelletje'},
+    { id: 3, name: 'Spelletje'}
+  ];
+
+  constructor() {
+  }
 
 }
