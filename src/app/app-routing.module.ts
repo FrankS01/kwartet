@@ -5,11 +5,6 @@ import { NavigationComponent } from "./shared/navigation/navigation.component";
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/editor/games',
-    pathMatch: 'full'
-  },
-  {
-    path: '',
     component: NavigationComponent,
     children: [
       {

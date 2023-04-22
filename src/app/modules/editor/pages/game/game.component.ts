@@ -4,6 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Game } from "../../../../data/models/Game";
 import { GameService } from "../../../../data/services/game.service";
 
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
@@ -12,10 +16,16 @@ import { GameService } from "../../../../data/services/game.service";
 export class GameComponent implements OnInit {
   @Input() game?: Game;
 
-  constructor(private route: ActivatedRoute, private gameService: GameService) {}
+  constructor(private breakpointObserver: BreakpointObserver, private route: ActivatedRoute, private gameService: GameService) {}
   ngOnInit(): void {
     this.getGame();
   }
+
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
 
   getGame(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
