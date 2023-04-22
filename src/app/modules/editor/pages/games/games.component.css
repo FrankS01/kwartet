@@ -1,0 +1,10 @@
+.game {
+  margin: 5px;
+  float: left;
+  max-width: 180px;
+}
+
+.game img {
+  width: 180px;
+  height: 280px;
+}

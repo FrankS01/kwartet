@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { GameComponent } from "../../content/game/game.component";
+import { Game } from "../../../../data/models/Game";
+import { GAMES } from "../../../../data/mock-games";
 
 @Component({
   selector: 'app-games',
@@ -7,11 +8,7 @@ import { GameComponent } from "../../content/game/game.component";
   styleUrls: ['./games.component.css']
 })
 export class GamesComponent {
-  games: GameComponent[] = [
-    { id: 1, name: 'Spelletje'},
-    { id: 2, name: 'Spelletje'},
-    { id: 3, name: 'Spelletje'}
-  ];
+  games: Game[] = GAMES;
 
   constructor() {
   }

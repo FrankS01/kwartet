@@ -1,1 +1,11 @@
-<app-game *ngFor="let game of games "></app-game>
+<mat-card class="game" *ngFor="let game of games">
+  <mat-card-header>
+    <mat-card-title>{{game.name}}</mat-card-title>
+  </mat-card-header>
+  <a routerLink="/editor/game/{{game.id}}">
+    <img mat-card-image src="https://i.pinimg.com/originals/56/2b/78/562b780edc15e726be4cb8944922ca0a.jpg" alt="Game">
+  </a>
+  <mat-card-actions>
+    <button mat-button>DELETE</button>
+  </mat-card-actions>
+</mat-card>

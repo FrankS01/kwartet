@@ -5,5 +5,10 @@
 }
 
 .content {
-  margin: 20px;
+  margin: 40px;
+}
+
+#title {
+  margin-left: 10px;
+  margin-right: 50px;
 }

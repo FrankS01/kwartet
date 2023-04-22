@@ -1,0 +1,8 @@
+<div *ngIf="game">
+  <p>Editing the following game:</p>
+  <p>ID: {{game.id}}</p>
+  <p>Name: {{game.name}}</p>
+</div>
+<div *ngIf="!game">
+  <p>Something went wrong.</p>
+</div>

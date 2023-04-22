@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RouterOutlet} from "@angular/router";
+import { RouterOutlet } from "@angular/router";
 import { EditorRoutingModule } from './editor-routing.module';
 import { GamesComponent } from './pages/games/games.component';
-import { GameComponent } from './content/game/game.component';
-
+import { MatCardModule } from "@angular/material/card";
+import { MatButtonModule } from "@angular/material/button";
+import { GameComponent } from './pages/game/game.component';
 
 @NgModule({
     declarations: [
         GamesComponent,
-        GameComponent
+        GameComponent,
     ],
     exports: [
         GamesComponent
@@ -17,7 +18,9 @@ import { GameComponent } from './content/game/game.component';
   imports: [
     CommonModule,
     RouterOutlet,
-    EditorRoutingModule
+    EditorRoutingModule,
+    MatCardModule,
+    MatButtonModule
   ]
 })
 export class EditorModule { }
