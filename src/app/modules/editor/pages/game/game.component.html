@@ -1,6 +1,7 @@
+<div *ngIf="game">
 <mat-drawer-container class="drawer-container">
   <mat-drawer class="drawer" mode="side" opened>
-    <mat-toolbar>Sets</mat-toolbar>
+    <mat-toolbar>Sets voor {{game.name}}</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="">Test</a>
     </mat-nav-list>
@@ -8,14 +9,14 @@
   <mat-drawer-content>
     <!-- The router outlet is responsible for showing the page -->
     <div class="content">
-      <div *ngIf="game">
         <p>Editing the following game:</p>
         <p>ID: {{game.id}}</p>
         <p>Name: {{game.name}}</p>
-      </div>
+        <app-set></app-set>
     </div>
+
   </mat-drawer-content>
 </mat-drawer-container>
 
-
+</div>
 

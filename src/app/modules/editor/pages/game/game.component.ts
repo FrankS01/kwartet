@@ -14,7 +14,10 @@ import { map, shareReplay } from 'rxjs/operators';
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit {
-  @Input() game?: Game;
+  @Input() game: Game = {
+    id: -1,
+    name: "undefined game"
+  };
 
   constructor(private breakpointObserver: BreakpointObserver, private route: ActivatedRoute, private gameService: GameService) {}
   ngOnInit(): void {

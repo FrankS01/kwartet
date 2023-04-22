@@ -9,11 +9,13 @@ import { GameComponent } from './pages/game/game.component';
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatListModule } from "@angular/material/list";
+import { SetComponent } from './content/set/set.component';
 
 @NgModule({
     declarations: [
         GamesComponent,
         GameComponent,
+        SetComponent,
     ],
     exports: [
         GamesComponent
