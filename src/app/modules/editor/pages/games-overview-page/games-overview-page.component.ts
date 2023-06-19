@@ -3,11 +3,11 @@ import { Game } from "../../../../data/models/Game";
 import { GAMES } from "../../../../data/mock-games";
 
 @Component({
-  selector: 'app-games',
-  templateUrl: './games.component.html',
-  styleUrls: ['./games.component.css']
+  selector: 'app-games-overview-page',
+  templateUrl: './games-overview-page.component.html',
+  styleUrls: ['./games-overview-page.component.css']
 })
-export class GamesComponent {
+export class GamesOverviewPageComponent {
   games: Game[] = GAMES;
 
   constructor() {

@@ -14,7 +14,7 @@ export class GameService {
 
   /** GET hero by id. Will 404 if id not found */
   getGame(id: number): Observable<Game> {
-    // For now, assume that a game with the specified `id` always exists.
+    // For now, assume that a game-details-page with the specified `id` always exists.
     // TODO catch error
 
     const game = GAMES.find(g => g.id === id)!;

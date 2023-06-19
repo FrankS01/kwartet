@@ -10,11 +10,11 @@ import { map, shareReplay } from 'rxjs/operators';
 import { GAMES } from "../../../../data/mock-games";
 
 @Component({
-  selector: 'app-game',
-  templateUrl: './game.component.html',
-  styleUrls: ['./game.component.css']
+  selector: 'app-game-details-page',
+  templateUrl: './game-details-page.component.html',
+  styleUrls: ['./game-details-page.component.css']
 })
-export class GameComponent implements OnInit {
+export class GameDetailsPageComponent implements OnInit {
   @Input() game?: Game
   constructor(private breakpointObserver: BreakpointObserver, private route: ActivatedRoute, private gameService: GameService) {}
   ngOnInit(): void {
