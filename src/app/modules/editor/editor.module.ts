@@ -9,13 +9,13 @@ import { GameDetailsPageComponent } from './pages/game-details-page/game-details
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatListModule } from "@angular/material/list";
-import { SetComponent } from './content/set/set.component';
+import { SetEditorComponent } from './content/set-editor/set-editor.component';
 
 @NgModule({
     declarations: [
         GamesOverviewPageComponent,
         GameDetailsPageComponent,
-        SetComponent,
+        SetEditorComponent,
     ],
     exports: [
         GamesOverviewPageComponent
