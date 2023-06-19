@@ -7,6 +7,7 @@ import { GameService } from "../../../../data/services/game.service";
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { GAMES } from "../../../../data/mock-games";
 
 @Component({
   selector: 'app-game',
@@ -14,11 +15,7 @@ import { map, shareReplay } from 'rxjs/operators';
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit {
-  @Input() game: Game = {
-    id: -1,
-    name: "undefined game"
-  };
-
+  @Input() game?: Game
   constructor(private breakpointObserver: BreakpointObserver, private route: ActivatedRoute, private gameService: GameService) {}
   ngOnInit(): void {
     this.getGame();
@@ -36,4 +33,5 @@ export class GameComponent implements OnInit {
       .subscribe(game => this.game = game);
   }
 
+  protected readonly GAMES = GAMES;
 }
