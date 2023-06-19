@@ -1,23 +1,9 @@
 <div *ngIf="game">
-<mat-drawer-container class="drawer-container">
-  <mat-drawer class="drawer" mode="side" opened>
-    <mat-toolbar>Sets voor {{game.name}}</mat-toolbar>
-    <mat-nav-list>
-      <mat-list-item *ngFor="let set of game.sets" routerLink="">{{set.setName}}</mat-list-item>
-      <button mat-raised-button>Create new set</button>
-    </mat-nav-list>
-  </mat-drawer>
-  <mat-drawer-content>
-    <!-- The router outlet is responsible for showing the page -->
-    <div class="content">
-        <p>Editing the following game:</p>
-        <p>ID: {{game.id}}</p>
-        <p>Name: {{game.name}}</p>
-        <app-set-editor></app-set-editor>
-    </div>
-
-  </mat-drawer-content>
-</mat-drawer-container>
-
+  <div class="center frosted">
+    <p>Editing the following game:</p>
+    <p>ID: {{game.id}}</p>
+    <p>Name: {{game.name}}</p>
+    <app-set-editor></app-set-editor>
+  </div>
 </div>
 

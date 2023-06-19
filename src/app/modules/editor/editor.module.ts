@@ -10,6 +10,7 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatListModule } from "@angular/material/list";
 import { SetEditorComponent } from './content/set-editor/set-editor.component';
+import { MatIconModule } from "@angular/material/icon";
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { SetEditorComponent } from './content/set-editor/set-editor.component';
     MatButtonModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatListModule
+    MatListModule,
+    MatIconModule
   ]
 })
 export class EditorModule { }
