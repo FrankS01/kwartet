@@ -1,19 +1,22 @@
-<div *ngIf="game" class="content" [ngStyle]="{backgroundImage:'url(assets/images/background.jpg)'}">
-  <div class="center frosted">
-    <h1>{{game.name}}</h1>
-    <mat-form-field>
-      <mat-label>Set</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let set of game.sets" [value]="set.id">
-          {{set.setName}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+<div *ngIf="game" class="page-wrapper" [ngStyle]="{backgroundImage:'url(assets/images/background.jpg)'}">
+  <div class="main-pane frosted">
+    <div class="main-pane-content">
+      <h1><strong>{{game.name}}</strong></h1>
+      <br>
+      <mat-form-field *ngIf="game.sets; else elseBlock">
+        <mat-label>Set</mat-label>
+        <mat-select (selectionchange)="onSetSelectionChange(selectedSet)">
+          <mat-option *ngFor="let set of game.sets" [value]="selectedSet" >
+            {{set.setName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <ng-template #elseBlock><p>Start creating sets for this game by clicking the button below.</p>
+      </ng-template>
 
-    <p>Editing the following game:</p>
-    <p>ID: {{game.id}}</p>
-    <p>Name: {{game.name}}</p>
-    <app-set-editor></app-set-editor>
+      <p><button mat-raised-button color="primary">Create new set</button></p>
+      <app-set-editor [set]="selectedSet"></app-set-editor>
+    </div>
   </div>
 </div>
 

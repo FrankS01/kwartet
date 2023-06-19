@@ -1,13 +1,12 @@
-<div class="content">
-  <mat-card class="game" *ngFor="let game of games">
-    <mat-card-header>
-      <mat-card-title>{{game.name}}</mat-card-title>
-    </mat-card-header>
+<div class="page-wrapper" [ngStyle]="{backgroundImage:'url(assets/images/background.jpg)'}">
+  <div class="game frosted" *ngFor="let game of games">
     <a routerLink="/editor/game/{{game.id}}">
       <img mat-card-image src="https://i.pinimg.com/originals/56/2b/78/562b780edc15e726be4cb8944922ca0a.jpg" alt="Game">
     </a>
-    <mat-card-actions>
-      <button mat-button>DELETE</button>
-    </mat-card-actions>
-  </mat-card>
+    <div>
+      <p class="game-title">{{game.name}}</p>
+<!--      <button mat-button>EDIT</button>-->
+<!--      <button mat-button>DELETE</button>-->
+    </div>
+  </div>
 </div>

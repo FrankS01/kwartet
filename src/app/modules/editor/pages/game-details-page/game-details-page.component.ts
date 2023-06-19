@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Game } from "../../../../data/models/Game";
+import { Set } from "../../../../data/models/Set";
 import { GameService } from "../../../../data/services/game.service";
 
 import { GAMES } from "../../../../data/mock-games";
@@ -13,6 +14,8 @@ import { GAMES } from "../../../../data/mock-games";
 })
 export class GameDetailsPageComponent implements OnInit {
   @Input() game?: Game
+
+  selectedSet?: Set;
   constructor(private route: ActivatedRoute, private gameService: GameService) {}
   ngOnInit(): void {
     this.getGame();
@@ -24,5 +27,7 @@ export class GameDetailsPageComponent implements OnInit {
       .subscribe(game => this.game = game);
   }
 
-  protected readonly GAMES = GAMES;
+  onSetSelectionChange(set: Set): void {
+    this.selectedSet = set;
+  }
 }
