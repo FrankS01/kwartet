@@ -1,5 +1,15 @@
-<div *ngIf="game">
+<div *ngIf="game" class="content" [ngStyle]="{backgroundImage:'url(assets/images/background.jpg)'}">
   <div class="center frosted">
+    <h1>{{game.name}}</h1>
+    <mat-form-field>
+      <mat-label>Set</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let set of game.sets" [value]="set.id">
+          {{set.setName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <p>Editing the following game:</p>
     <p>ID: {{game.id}}</p>
     <p>Name: {{game.name}}</p>

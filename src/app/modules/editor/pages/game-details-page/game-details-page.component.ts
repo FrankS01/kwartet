@@ -4,9 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Game } from "../../../../data/models/Game";
 import { GameService } from "../../../../data/services/game.service";
 
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
 import { GAMES } from "../../../../data/mock-games";
 
 @Component({
