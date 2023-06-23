@@ -26,8 +26,4 @@ export class GameDetailsPageComponent implements OnInit {
     this.gameService.getGame(id)
       .subscribe(game => this.game = game);
   }
-
-  onSetSelectionChange(set: Set): void {
-    this.selectedSet = set;
-  }
 }

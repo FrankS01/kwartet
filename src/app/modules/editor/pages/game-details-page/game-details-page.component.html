@@ -5,8 +5,8 @@
       <br>
       <mat-form-field *ngIf="game.sets; else elseBlock">
         <mat-label>Set</mat-label>
-        <mat-select (selectionchange)="onSetSelectionChange(selectedSet)">
-          <mat-option *ngFor="let set of game.sets" [value]="selectedSet" >
+        <mat-select [(ngModel)]="selectedSet">
+          <mat-option *ngFor="let set of game.sets" [value]="set" >
             {{set.setName}}
           </mat-option>
         </mat-select>

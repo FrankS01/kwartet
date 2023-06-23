@@ -13,6 +13,7 @@ import { SetEditorComponent } from './content/set-editor/set-editor.component';
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -23,18 +24,19 @@ import { MatSelectModule } from "@angular/material/select";
     exports: [
         GamesOverviewPageComponent
     ],
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    EditorRoutingModule,
-    MatCardModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatToolbarModule,
-    MatListModule,
-    MatIconModule,
-    MatInputModule,
-    MatSelectModule
-  ]
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        EditorRoutingModule,
+        MatCardModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatListModule,
+        MatIconModule,
+        MatInputModule,
+        MatSelectModule,
+        FormsModule
+    ]
 })
 export class EditorModule { }
