@@ -1,5 +1,19 @@
 <div *ngIf="set">
 
-  <p>{{this.set.setName}}</p>
+  <h2>Editing set <strong>{{set.setName}}</strong></h2>
+
+  <form>
+    <mat-form-field>
+      <mat-label>Set name</mat-label>
+      <input matInput
+             required
+             [(ngModel)]="set.setName"
+             name="setName"
+             value="{{set.setName}}">
+    </mat-form-field>
+
+
+  </form>
+
 
 </div>

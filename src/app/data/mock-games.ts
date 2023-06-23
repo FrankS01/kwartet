@@ -6,7 +6,6 @@ export const GAMES: Game[] = [
     name: 'Animals',
     sets: [
       {
-        id: 1,
         setName: 'Sea animals',
         card1Name: 'Whale',
         card2Name: 'Jellyfish',
@@ -14,7 +13,6 @@ export const GAMES: Game[] = [
         card4Name: 'Shark'
       },
       {
-        id: 2,
         setName: 'Land animals',
         card1Name: 'Kangaroo',
         card2Name: 'Monkey',
@@ -23,11 +21,11 @@ export const GAMES: Game[] = [
       }
     ]
   },
-  {id: 2, name: 'IpsumGame'},
-  {id: 3, name: 'DolorGame'},
-  {id: 4, name: 'SitGame'},
-  {id: 5, name: 'AmetGame'},
-  {id: 6, name: 'AnotherGame'},
-  {id: 7, name: 'GameWithLong'},
-  {id: 8, name: 'Short'},
+  {id: 2, name: 'IpsumGame', sets: []},
+  {id: 3, name: 'DolorGame', sets: []},
+  {id: 4, name: 'SitGame', sets: []},
+  {id: 5, name: 'AmetGame', sets: []},
+  {id: 6, name: 'AnotherGame', sets: []},
+  {id: 7, name: 'GameWithLong', sets: []},
+  {id: 8, name: 'Short', sets: []},
 ];

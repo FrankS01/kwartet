@@ -34,4 +34,21 @@ export class GameDetailsPageComponent implements OnInit {
     this.gameService.getGame(id)
       .subscribe(game => this.game = game);
   }
+
+  /**
+   * Creates a new unnamed set
+   */
+  createNewUnnamedSet(): void {
+    if (!this.game) return;
+
+    const newSet = {
+      setName: 'Unnamed',
+      card1Name: '',
+      card2Name: '',
+      card3Name: '',
+      card4Name: ''
+    };
+    this.game?.sets?.push(newSet);
+    this.selectedSet = newSet;
+  }
 }

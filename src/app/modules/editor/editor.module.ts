@@ -14,6 +14,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { FormsModule } from "@angular/forms";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import { FormsModule } from "@angular/forms";
         MatIconModule,
         MatInputModule,
         MatSelectModule,
-        FormsModule
+        FormsModule,
+        MatTooltipModule
     ]
 })
 export class EditorModule { }
