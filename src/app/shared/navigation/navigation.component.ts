@@ -5,10 +5,10 @@ import { Location } from '@angular/common';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
+/**
+ * Contains the navigation toolbar
+ */
 export class NavigationComponent {
 
   constructor(private _location: Location) {}
-  // goBack(): void {
-  //   this._location.back();
-  // }
 }
