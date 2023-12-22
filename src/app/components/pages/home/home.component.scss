@@ -1,0 +1,29 @@
+@import "../../../../variables.scss";
+
+#content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  &__title {
+    font-size: 5rem;
+    font-weight: bold;
+  }
+
+  &__description {
+    font-size: 1.5rem;
+    font-style: italic;
+  }
+
+  &__button button {
+    background-color: $color-lipstick;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    font-size: 1.75rem;
+    border-radius: 8px;
+    box-shadow: 0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f
+  }
+}

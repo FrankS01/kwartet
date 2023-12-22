@@ -1,8 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-$color-white: #FFFFFF;
-$color-lipstick: #6F2232;
-$color-dark: #1A1A1D;
-$color-link: #125699;
+@import "variables.scss";
 
 body {
   background-color: $color-dark;
@@ -10,3 +7,6 @@ body {
   font-family: 'Rubik', sans-serif;
 }
 
+a {
+  color: $color-link;
+}
