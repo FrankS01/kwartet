@@ -7,17 +7,24 @@
   align-items: center;
   text-align: center;
 
+
   &__title {
     font-size: 5rem;
     font-weight: bold;
+
+    margin-top: 40px;
+    margin-bottom: 16px;
   }
 
   &__description {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    font-weight: lighter;
     font-style: italic;
+    margin-top: 0;
+    margin-bottom: 40px;
   }
 
-  &__button button {
+  &__button {
     background-color: $color-lipstick;
     border: none;
     color: white;
