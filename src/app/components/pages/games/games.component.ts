@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class GamesComponent {
 
+  //function to return list of numbers from 0 to n-1
+  numSequence(n: number): Array<number> {
+    return Array(n);
+  }
 }

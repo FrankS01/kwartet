@@ -1,1 +1,11 @@
-<p>games works!</p>
+<app-header></app-header>
+
+<div id="content">
+  <app-button label="+ Create new game" route="newgame" [animateOnHover]="true"></app-button>
+
+  <div id="games">
+    <div class="game" *ngFor="let n of numSequence(10); let i = index;">
+      <p>Ik ben een spel</p>
+    </div>
+  </div>
+</div>
