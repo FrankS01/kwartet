@@ -1,13 +1,30 @@
 @import "../../../../variables.scss";
 
 header {
-  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 30px;
+  padding-right: 30px;
   background-color: $color-lipstick;
+}
 
+#header__backbutton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+#header__logo {
+  flex: 1;
   h1 {
     text-align: center;
     margin-top: 13px;
     margin-bottom: 13px;
-    font-size:3rem;
+    font-size: 3rem;
   }
+}
+
+#filler {
+  flex: 1;
 }

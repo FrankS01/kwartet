@@ -6,27 +6,45 @@
   align-items: center;
 }
 
+app-button {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
 #games {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: 95%;
+  width: 98%;
 }
 
 .game {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 15px 20px;
 
-  width: 163px;
-  height: 255px;
-  margin: 15px;
+  &__cover {
+    width: 163px;
+    height: 255px;
 
-  background-color: white;
 
-  border-style: solid;
-  border-width: medium;
-  border-color: $color-lipstick;
-  border-radius: 8px;
+    background-color: white;
+
+    border-style: solid;
+    border-width: medium;
+    border-color: $color-lipstick;
+    border-radius: 8px;
+  }
+
+  &__title {
+    text-align: center;
+
+    p {
+      margin-top: 15px;
+      margin-bottom: 0;
+    }
+  }
+
 }
 
-app-button {
-  margin-top: 40px;
-}
+

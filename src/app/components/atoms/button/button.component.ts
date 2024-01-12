@@ -10,7 +10,7 @@ export class ButtonComponent {
   @Input() label: string = "";
 
   // The route this button takes you to when clicked (optional)
-  @Input() route: string = "";
+  @Input() route: string | null = null;
 
   // Whether to use float animation on hover
   @Input() animateOnHover: boolean = false;
