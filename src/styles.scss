@@ -1,10 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import "variables.scss";
 
+// THEME
+@import "primeng/resources/themes/lara-dark-blue/theme.css";
+
+// ICONS
+@import "primeicons/primeicons.css";
+
 body {
-  background-color: $color-dark;
-  color: $color-white;
-  font-family: 'Rubik', sans-serif;
   margin: 0;
 }
 
@@ -12,4 +15,3 @@ a {
   color: $color-link;
   text-decoration: none;
 }
-

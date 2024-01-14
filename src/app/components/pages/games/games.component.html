@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <div id="content">
-  <app-button label="+ Create new game" (onClick)="createNewGame()"  [animateOnHover]="true"></app-button>
+  <p-button label="+ Create new game" size="large" (onClick)="createNewGame()"></p-button>
 
   <div id="games">
     <div class="game" *ngFor="let game of games">

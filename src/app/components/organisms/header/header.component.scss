@@ -5,7 +5,7 @@ header {
   justify-content: space-between;
   padding-left: 30px;
   padding-right: 30px;
-  background-color: $color-lipstick;
+  background-color: var(--primary-color);
 }
 
 #header__backbutton {
@@ -19,9 +19,9 @@ header {
   flex: 1;
   h1 {
     text-align: center;
-    margin-top: 13px;
-    margin-bottom: 13px;
+    margin: 0;
     font-size: 3rem;
+    color: var(--primary-color-text);
   }
 }
 
