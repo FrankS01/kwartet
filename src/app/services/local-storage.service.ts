@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
+import { StorageService } from "./storage.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class LocalStorageService {
+export class LocalStorageService extends StorageService {
 
-  constructor() { }
+  constructor() {
+    super();
+  }
 
   /**
    * Store an object in local storage

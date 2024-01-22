@@ -1,16 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from "../../../services/local-storage.service";
 import { KwartetGame } from "../../../data/models/KwartetGame";
+import { MessageService } from "primeng/api";
+import { FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-games',
   templateUrl: './games.component.html',
-  styleUrls: ['./games.component.scss']
+  styleUrls: ['./games.component.scss'],
+  providers: [MessageService],
 })
 export class GamesComponent implements OnInit {
   games: KwartetGame[] = [];
+  createGameDialogIsVisible: boolean = false;
 
-  constructor(private localStorageService: LocalStorageService) { }
+  // Form values
+  name = new FormControl('', {
+    nonNullable: true,
+    validators: [
+      Validators.required,
+      Validators.maxLength(17)]
+  });
+
+  constructor(private localStorageService: LocalStorageService, private messageService: MessageService) {
+  }
+
   ngOnInit(): void {
     this.retrieveStoredGames();
   }
@@ -25,25 +39,34 @@ export class GamesComponent implements OnInit {
     }
   }
 
-  // Temp function to return list of numbers from 0 to n-1
-  numSequence(n: number): Array<number> {
-    return Array(n);
-  }
-
   /**
    * Create a new game, add it to the list of games and store it in local storage.
    */
-  createNewGame(): void {
+  private createNewGame(): void {
     let game: KwartetGame = {
-      name: "TestGame",
+      name: this.name.value,
       sets: []
     }
     // Push to games array
     this.games.push(game);
 
     // Store updated game array in local storage
-    this.localStorageService.storeObject("games", this.games)
+    this.localStorageService.storeObject("games", this.games);
+
+    // Show confirmation toast
+    this.messageService.add({severity: 'success', summary: 'Success', detail: 'Game was succesfully created.'});
+
+    // Reset form value
+    this.name.reset();
   }
 
+  showCreateGameDialog() {
+    this.createGameDialogIsVisible = true;
+  }
+
+  onClickCreateGameButton() {
+    this.createGameDialogIsVisible = false;
+    this.createNewGame();
+  }
 
 }

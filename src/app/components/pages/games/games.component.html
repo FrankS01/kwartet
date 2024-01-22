@@ -1,13 +1,27 @@
 <app-header></app-header>
 
 <div id="content">
-  <p-button label="+ Create new game" size="large" (onClick)="createNewGame()"></p-button>
+  <p-button label="+ New game" size="large" (click)="showCreateGameDialog()"></p-button>
+
+  <p-toast position="bottom-center"></p-toast>
+  <p-dialog header="New game" [(visible)]="createGameDialogIsVisible" [modal]="true"
+            [style]="{ width: '20vw' }" [draggable]="false" [resizable]="false">
+    <div class="p-dialog-content">
+      <p class="m-0">What will be the name of this game?</p>
+      <input id="name" type="text" placeholder="Game name" required pInputText [formControl]="name"/>
+      <br>
+      <small class="p-error block" *ngIf="name.errors?.['maxlength']">The name must not be longer than 17 characters.</small>
+    </div>
+    <div class="p-dialog-footer">
+      <p-button (click)="onClickCreateGameButton()" [disabled]=name.invalid>Create</p-button>
+    </div>
+  </p-dialog>
 
   <div id="games">
     <div class="game" *ngFor="let game of games">
       <div class="game__cover"></div>
       <div class="game__title">
-        <p>{{game.name}}</p>
+        <p>{{ game.name }}</p>
       </div>
     </div>
   </div>

@@ -9,6 +9,11 @@ import { GamesComponent } from './components/pages/games/games.component';
 import { HeaderComponent } from './components/organisms/header/header.component';
 import { ButtonModule } from "primeng/button";
 import { RippleModule } from "primeng/ripple";
+import { DialogModule } from "primeng/dialog";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { InputTextModule } from "primeng/inputtext";
+import { ReactiveFormsModule } from "@angular/forms";
+import { ToastModule } from "primeng/toast";
 
 @NgModule({
   declarations: [
@@ -22,7 +27,12 @@ import { RippleModule } from "primeng/ripple";
     BrowserModule,
     AppRoutingModule,
     ButtonModule,
-    RippleModule
+    RippleModule,
+    DialogModule,
+    BrowserAnimationsModule,
+    InputTextModule,
+    ToastModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [ShellComponent]
