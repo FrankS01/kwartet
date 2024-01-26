@@ -59,7 +59,7 @@ export class GamesComponent implements OnInit {
     this.localStorageService.storeObject("games", this.loadedGames);
 
     // Show confirmation toast to user
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: `Game ${ this.titleFormControl.value } was succesfully created.` });
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: `Game "${ this.titleFormControl.value }" was succesfully created.` });
 
     // Reset form value
     this.titleFormControl.reset();

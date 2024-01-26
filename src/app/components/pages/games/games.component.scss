@@ -21,17 +21,25 @@ p-button {
 .game {
   display: flex;
   flex-direction: column;
-  margin: 15px 15px 20px;
+  align-items: center;
+  margin: 18px 18px 20px;
 
   &__cover {
     width: 163px;
     height: 255px;
 
-    background-color: white;
     border-style: solid;
     border-width: medium;
     border-color: var(--primary-color);
     border-radius: 8px;
+
+    background: repeating-linear-gradient(
+        45deg,
+        #333,
+        #333 10px,
+        #444 10px,
+        #444 20px
+    );
   }
 
   &__title {
@@ -44,5 +52,4 @@ p-button {
   }
 
 }
-
 
