@@ -2,8 +2,7 @@ import { KwartetGame } from "./models/KwartetGame";
 
 export const GAMES: KwartetGame[] = [
   {
-    id: 1,
-    name: 'Animals',
+    title: 'Animals',
     sets: [
       {
         setName: 'Sea animals',
@@ -21,11 +20,11 @@ export const GAMES: KwartetGame[] = [
       }
     ]
   },
-  {id: 2, name: 'IpsumGame', sets: []},
-  {id: 3, name: 'DolorGame', sets: []},
-  {id: 4, name: 'SitGame', sets: []},
-  {id: 5, name: 'AmetGame', sets: []},
-  {id: 6, name: 'AnotherGame', sets: []},
-  {id: 7, name: 'GameWithLong', sets: []},
-  {id: 8, name: 'Short', sets: []},
+  {title: 'IpsumGame', sets: []},
+  {title: 'DolorGame', sets: []},
+  {title: 'SitGame', sets: []},
+  {title: 'AmetGame', sets: []},
+  {title: 'AnotherGame', sets: []},
+  {title: 'GameWithLong', sets: []},
+  {title: 'Short', sets: []},
 ];

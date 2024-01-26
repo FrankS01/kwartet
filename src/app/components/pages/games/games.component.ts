@@ -3,6 +3,7 @@ import { LocalStorageService } from "../../../services/local-storage.service";
 import { KwartetGame } from "../../../data/models/KwartetGame";
 import { MessageService } from "primeng/api";
 import { FormControl, Validators } from "@angular/forms";
+import { GAME_TITLE_CHARACTER_LIMIT } from "../../../config/global-settings";
 
 @Component({
   selector: 'app-games',
@@ -11,15 +12,18 @@ import { FormControl, Validators } from "@angular/forms";
   providers: [MessageService],
 })
 export class GamesComponent implements OnInit {
-  games: KwartetGame[] = [];
+
+  // List of currently loaded games
+  loadedGames: KwartetGame[] = [];
+
+  // Whether the "create game" dialog is visible or not
   createGameDialogIsVisible: boolean = false;
 
-  // Form values
-  name = new FormControl('', {
+  // Form value, used in "create game" dialog
+  titleFormControl = new FormControl('', {
     nonNullable: true,
-    validators: [
-      Validators.required,
-      Validators.maxLength(17)]
+    validators: [Validators.required,
+      Validators.maxLength(GAME_TITLE_CHARACTER_LIMIT)]
   });
 
   constructor(private localStorageService: LocalStorageService, private messageService: MessageService) {
@@ -35,7 +39,7 @@ export class GamesComponent implements OnInit {
   private retrieveStoredGames(): void {
     // If there are any games stored in local storage, retrieve them.
     if (this.localStorageService.getObject("games") != null) {
-      this.games = this.localStorageService.getObject("games") as KwartetGame[];
+      this.loadedGames = this.localStorageService.getObject("games") as KwartetGame[];
     }
   }
 
@@ -43,21 +47,22 @@ export class GamesComponent implements OnInit {
    * Create a new game, add it to the list of games and store it in local storage.
    */
   private createNewGame(): void {
+    // Create game object
     let game: KwartetGame = {
-      name: this.name.value,
+      title: this.titleFormControl.value,
       sets: []
     }
-    // Push to games array
-    this.games.push(game);
+    // Push to loaded games array
+    this.loadedGames.push(game);
 
     // Store updated game array in local storage
-    this.localStorageService.storeObject("games", this.games);
+    this.localStorageService.storeObject("games", this.loadedGames);
 
-    // Show confirmation toast
-    this.messageService.add({severity: 'success', summary: 'Success', detail: 'Game was succesfully created.'});
+    // Show confirmation toast to user
+    this.messageService.add({severity: 'success', summary: 'Success', detail: `Game ${ this.titleFormControl.value } was succesfully created.`});
 
     // Reset form value
-    this.name.reset();
+    this.titleFormControl.reset();
   }
 
   showCreateGameDialog() {

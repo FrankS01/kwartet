@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +14,12 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { InputTextModule } from "primeng/inputtext";
 import { ReactiveFormsModule } from "@angular/forms";
 import { ToastModule } from "primeng/toast";
+import { PrimeNGConfig } from "primeng/api";
+
+
+const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
+  primeConfig.ripple = true;
+};
 
 @NgModule({
   declarations: [
@@ -34,7 +40,14 @@ import { ToastModule } from "primeng/toast";
     ToastModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeAppFactory,
+      deps: [PrimeNGConfig],
+      multi: true,
+    },
+  ],
   bootstrap: [ShellComponent]
 })
 export class AppModule { }

@@ -6,12 +6,6 @@ import { PrimeNGConfig } from "primeng/api";
   templateUrl: './shell.component.html',
   styleUrls: ['./shell.component.scss']
 })
-export class ShellComponent implements OnInit {
+export class ShellComponent {
   title = 'Kwartet';
-
-  constructor(private primengConfig: PrimeNGConfig) {}
-
-  ngOnInit() {
-    this.primengConfig.ripple = true;
-  }
 }

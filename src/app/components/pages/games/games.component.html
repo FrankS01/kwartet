@@ -4,24 +4,23 @@
   <p-button label="+ New game" size="large" (click)="showCreateGameDialog()"></p-button>
 
   <p-toast position="bottom-center"></p-toast>
-  <p-dialog header="New game" [(visible)]="createGameDialogIsVisible" [modal]="true"
-            [style]="{ width: '20vw' }" [draggable]="false" [resizable]="false">
+  <p-dialog header="New game" [(visible)]="createGameDialogIsVisible" [modal]="true" [draggable]="false" [resizable]="false" [style]="{width: '22vw'}">
     <div class="p-dialog-content">
-      <p class="m-0">What will be the name of this game?</p>
-      <input id="name" type="text" placeholder="Game name" required pInputText [formControl]="name"/>
+      <p>Choose a game title</p>
+      <input id="name" type="text" placeholder="Game title" required pInputText [formControl]="titleFormControl"/>
       <br>
-      <small class="p-error block" *ngIf="name.errors?.['maxlength']">The name must not be longer than 17 characters.</small>
+      <small class="p-error" *ngIf="titleFormControl.errors?.['maxlength']">The name must not be longer than 20 characters.</small>
     </div>
     <div class="p-dialog-footer">
-      <p-button (click)="onClickCreateGameButton()" [disabled]=name.invalid>Create</p-button>
+      <p-button (click)="onClickCreateGameButton()" [disabled]=titleFormControl.invalid>Create</p-button>
     </div>
   </p-dialog>
 
   <div id="games">
-    <div class="game" *ngFor="let game of games">
+    <div class="game" *ngFor="let game of loadedGames">
       <div class="game__cover"></div>
       <div class="game__title">
-        <p>{{ game.name }}</p>
+        <p>{{ game.title }}</p>
       </div>
     </div>
   </div>
