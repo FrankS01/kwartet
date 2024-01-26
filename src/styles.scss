@@ -1,11 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-@import "variables.scss";
 
 body {
   margin: 0;
 }
 
 a {
-  color: $color-link;
+  color: var(--primary-color);
   text-decoration: none;
 }
