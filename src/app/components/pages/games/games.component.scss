@@ -23,6 +23,8 @@ p-button {
   margin: 18px 18px 20px;
 
   &__cover {
+    cursor: pointer;
+
     width: 163px;
     height: 255px;
 
@@ -38,6 +40,7 @@ p-button {
         #444 10px,
         #444 20px
     );
+
   }
 
   &__title {
