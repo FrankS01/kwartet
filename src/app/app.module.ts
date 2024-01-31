@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { ToastModule } from "primeng/toast";
 import { PrimeNGConfig } from "primeng/api";
 import { EditGameComponent } from "./components/pages/edit-game/edit-game.component";
+import { EditSetComponent } from "./components/organisms/edit-set/edit-set.component";
 
 
 const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
@@ -29,7 +30,8 @@ const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
     HomeComponent,
     FooterComponent,
     GamesComponent,
-    EditGameComponent
+    EditGameComponent,
+    EditSetComponent
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalStorageService } from "../../../services/local-storage.service";
 import { KwartetGame } from "../../../data/models/KwartetGame";
 import { MessageService } from "primeng/api";
 import { FormControl, Validators } from "@angular/forms";
 import { GAME_TITLE_CHARACTER_LIMIT } from "../../../config/global-settings";
+import { StorageService } from "../../../services/storage.service";
 
 @Component({
   selector: 'app-games',
@@ -26,25 +26,26 @@ export class GamesComponent implements OnInit {
       Validators.maxLength(GAME_TITLE_CHARACTER_LIMIT)]
   });
 
-  constructor(private localStorageService: LocalStorageService, private messageService: MessageService) {
-  }
+  constructor(private storageService: StorageService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.retrieveStoredGames();
   }
 
   /**
-   * Retrieve stored games from local storage and cast them to the right object type
+   * Retrieve stored games and cast them to the right object type
    */
   private retrieveStoredGames(): void {
-    // If there are any games stored in local storage, retrieve them.
-    if (this.localStorageService.getObject("games") != null) {
-      this.loadedGames = this.localStorageService.getObject("games") as KwartetGame[];
-    }
+    // If there are any games stored, retrieve them.
+    this.storageService.getObject("games").subscribe(games => {
+      if (games != null) {
+        this.loadedGames = games as KwartetGame[];
+      }
+    });
   }
 
   /**
-   * Create a new game, add it to the list of games and store it in local storage.
+   * Create a new game, add it to the list of games and store it.
    */
   private createNewGame(): void {
     // Create game object
@@ -55,8 +56,8 @@ export class GamesComponent implements OnInit {
     // Push to loaded games array
     this.loadedGames.push(game);
 
-    // Store updated game array in local storage
-    this.localStorageService.storeObject("games", this.loadedGames);
+    // Store updated game array in storage
+    this.storageService.storeObject("games", this.loadedGames).subscribe();
 
     // Show confirmation toast to user
     this.messageService.add({ severity: 'success', summary: 'Success', detail: `Game "${ this.titleFormControl.value }" was succesfully created.` });
