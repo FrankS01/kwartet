@@ -31,8 +31,10 @@ export class LocalStorageStrategy implements StorageStrategy {
   }
 
   public getObject(key: string): Observable<Object> {
-    const stringifiedObject = localStorage.getItem(key);
-    return of(stringifiedObject ? JSON.parse(stringifiedObject) : null);
+    const stringifiedObject: string | null = localStorage.getItem(key);
+    if (stringifiedObject == null) {
+      throwError(() => new Error("There was no object found for this key"));
+    }
+    return of(JSON.parse(stringifiedObject!));
   }
-
 }
