@@ -1,4 +1,4 @@
-import { KwartetGame } from "./models/KwartetGame";
+import { KwartetGame } from "./models/kwartetgame-model";
 
 export const GAMES: KwartetGame[] = [
   {

@@ -1,5 +1,5 @@
-import { StorageStrategy } from "../data/models/storage-strategy/StorageStrategy";
-import { LocalStorageStrategy } from "../data/models/storage-strategy/LocalStorageStrategy";
+import { StorageStrategy } from "../data/models/storage-strategy/storage-strategy";
+import { LocalStorageStrategy } from "../data/models/storage-strategy/local-storage-strategy";
 
 // The character limit for Kwartet game titles
 export const GAME_TITLE_CHARACTER_LIMIT: number = 20;

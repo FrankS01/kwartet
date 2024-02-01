@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { StorageStrategy } from "../data/models/storage-strategy/StorageStrategy";
+import { StorageStrategy } from "../data/models/storage-strategy/storage-strategy";
 import { STORAGE_STRATEGY } from "../config/global-settings";
 import { Observable, of } from "rxjs";
 

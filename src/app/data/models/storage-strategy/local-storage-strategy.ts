@@ -1,4 +1,4 @@
-import { StorageStrategy } from "./StorageStrategy";
+import { StorageStrategy } from "./storage-strategy";
 import { Observable, of, throwError } from "rxjs";
 
 export class LocalStorageStrategy implements StorageStrategy {

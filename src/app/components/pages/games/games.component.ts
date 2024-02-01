@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { KwartetGame } from "../../../data/models/KwartetGame";
+import { KwartetGame } from "../../../data/models/kwartetgame-model";
 import { MessageService } from "primeng/api";
 import { FormControl, Validators } from "@angular/forms";
 import { GAME_TITLE_CHARACTER_LIMIT } from "../../../config/global-settings";
 import { StorageService } from "../../../services/storage.service";
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'app-games',
@@ -49,7 +50,9 @@ export class GamesComponent implements OnInit {
    */
   private createNewGame(): void {
     // Create game object
+
     let game: KwartetGame = {
+      uuid: uuid.v4(),
       title: this.titleFormControl.value,
       sets: []
     }

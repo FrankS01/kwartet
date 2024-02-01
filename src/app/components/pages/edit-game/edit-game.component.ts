@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AppModule } from "../../../app.module";
 import { ActivatedRoute } from "@angular/router";
-import { KwartetGame } from "../../../data/models/KwartetGame";
-import { KwartetSet } from "../../../data/models/KwartetSet";
+import { KwartetGame } from "../../../data/models/kwartetgame-model";
+import { KwartetSet } from "../../../data/models/kwartetset-model";
 import { StorageService } from "../../../services/storage.service";
 
 @Component({

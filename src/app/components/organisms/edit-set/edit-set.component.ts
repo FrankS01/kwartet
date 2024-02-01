@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { KwartetSet } from "../../../data/models/KwartetSet";
+import { KwartetSet } from "../../../data/models/kwartetset-model";
 
 @Component({
   selector: 'app-edit-set',
@@ -8,4 +8,6 @@ import { KwartetSet } from "../../../data/models/KwartetSet";
 })
 export class EditSetComponent {
   @Input() kwartetSet?: KwartetSet;
+
+
 }
