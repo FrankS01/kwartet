@@ -1,10 +1,17 @@
 <app-header></app-header>
 <div *ngIf="kwartetGame; else notLoaded">
+
   <p>Editing game {{kwartetGame.title}}</p>
-  <ng-template *ngFor="let set of kwartetGame.sets">
-    <p>{{set.setName}}</p>
-  </ng-template>
+
+  <div [ngSwitch]="selectedMenuItem">
+    <app-game-settings *ngSwitchCase="'settings'"></app-game-settings>
+    <app-print *ngSwitchCase="'print'"></app-print>
+    <app-edit-set [kwartetSet]="kwartetGame.sets[0]" *ngSwitchDefault></app-edit-set>
+  </div>
+
+  <app-edit-set></app-edit-set>
 </div>
+
 <ng-template #notLoaded>
   <p>The game could not be loaded.</p>
 </ng-template>

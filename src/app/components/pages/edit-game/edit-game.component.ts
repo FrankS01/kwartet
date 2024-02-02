@@ -15,6 +15,8 @@ export class EditGameComponent implements OnInit {
   /** The game that is being edited */
   @Input() kwartetGame?: KwartetGame
 
+  selectedMenuItem: string = "settings";
+
   constructor(private route: ActivatedRoute, private storageService: StorageService) { }
 
   ngOnInit(): void {

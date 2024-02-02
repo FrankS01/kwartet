@@ -17,6 +17,8 @@ import { ToastModule } from "primeng/toast";
 import { PrimeNGConfig } from "primeng/api";
 import { EditGameComponent } from "./components/pages/edit-game/edit-game.component";
 import { EditSetComponent } from "./components/organisms/edit-set/edit-set.component";
+import { GameSettingsComponent } from "./components/organisms/game-settings/game-settings.component";
+import { PrintComponent } from "./components/organisms/print/print.component";
 
 
 const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
@@ -31,7 +33,9 @@ const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
     FooterComponent,
     GamesComponent,
     EditGameComponent,
-    EditSetComponent
+    EditSetComponent,
+    GameSettingsComponent,
+    PrintComponent
   ],
   imports: [
     BrowserModule,
