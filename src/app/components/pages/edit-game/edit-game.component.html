@@ -1,2 +1,10 @@
 <app-header></app-header>
-<app-edit-set ></app-edit-set>
+<div *ngIf="kwartetGame; else notLoaded">
+  <p>Editing game {{kwartetGame.title}}</p>
+  <ng-template *ngFor="let set of kwartetGame.sets">
+    <p>{{set.setName}}</p>
+  </ng-template>
+</div>
+<ng-template #notLoaded>
+  <p>The game could not be loaded.</p>
+</ng-template>

@@ -6,6 +6,9 @@ import { Observable, of } from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * Service for retrieving data using different storage strategies
+ */
 export class StorageService {
   private storageStrategy: StorageStrategy;
   constructor() {

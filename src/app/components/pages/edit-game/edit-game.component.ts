@@ -22,10 +22,15 @@ export class EditGameComponent implements OnInit {
   }
 
   /**
-   * Using the router game id and the {@link GameService}, retrieves a kwartet game
+   * Using the kwartet game uuid from the router and the {@link StorageService}, retrieves a kwartet game
    */
   getKwartetGame(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.storageService.getObject("games").subscribe()
+    const uuid = String(this.route.snapshot.paramMap.get('uuid'));
+    this.storageService.getObject("games").subscribe(games => {
+      if (games != null) {
+        let storedGames = games as KwartetGame[];
+        this.kwartetGame = storedGames.find(game => game.uuid == uuid);
+      }
+    });
   }
 }

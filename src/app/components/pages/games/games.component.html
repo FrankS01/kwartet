@@ -20,7 +20,7 @@
 
   <div id="games">
     <div class="game" *ngFor="let game of loadedGames">
-      <div class="game__cover" routerLink="/edit-game/{{game.uuid}}"></div>
+      <div class="game__cover" [routerLink]="['/edit-game', game.uuid]"></div>
       <div class="game__title">
         <p>{{ game.title }}</p>
       </div>
