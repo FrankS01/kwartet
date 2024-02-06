@@ -1,8 +1,23 @@
 <app-header></app-header>
-<div *ngIf="kwartetGame; else notLoaded" class="min-h-screen flex relative lg:static surface-ground">
-  <app-sidebar>
+<div *ngIf="kwartetGame; else notLoaded" class="min-h-screen flex relative lg:static">
+  <app-sidebar footerText="Editing game {{kwartetGame.title}}">
+    <h1 class="pl-5 pt-3 m-0">GENERAL</h1>
+    <ul class="list-none p-3 m-0">
+      <li>
+        <app-sidebar-item icon="pi-cog">Game Settings</app-sidebar-item>
+      </li>
+      <li>
+        <app-sidebar-item icon="pi-print">Print</app-sidebar-item>
+      </li>
+    </ul>
+    <h1 class="pl-5 m-0">SETS</h1>
+    <ul class="list-none p-3 m-0">
+      <li *ngFor="let set of kwartetGame.sets">
+        <app-sidebar-item icon="pi-pencil">{{set.setName}}</app-sidebar-item>
+      </li>
+    </ul>
   </app-sidebar>
-  <div class="min-h-screen flex flex-column relative flex-auto">
+  <div class="min-h-full flex flex-column relative flex-auto">
     <p>Editing game {{ kwartetGame.title }}</p>
 
     <div [ngSwitch]="selectedMenuItem">

@@ -20,6 +20,7 @@ import { EditSetComponent } from "./components/organisms/edit-set/edit-set.compo
 import { GameSettingsComponent } from "./components/organisms/game-settings/game-settings.component";
 import { PrintComponent } from "./components/organisms/print/print.component";
 import { SidebarComponent } from "./components/organisms/sidebar/sidebar.component";
+import { SidebarItemComponent } from "./components/molecules/sidebar-item/sidebar-item.component";
 
 
 const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
@@ -39,17 +40,18 @@ const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
     PrintComponent,
     SidebarComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ButtonModule,
-    RippleModule,
-    DialogModule,
-    BrowserAnimationsModule,
-    InputTextModule,
-    ToastModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ButtonModule,
+        RippleModule,
+        DialogModule,
+        BrowserAnimationsModule,
+        InputTextModule,
+        ToastModule,
+        ReactiveFormsModule,
+        SidebarItemComponent
+    ],
   providers: [
     {
       provide: APP_INITIALIZER,
