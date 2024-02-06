@@ -19,6 +19,7 @@ import { EditGameComponent } from "./components/pages/edit-game/edit-game.compon
 import { EditSetComponent } from "./components/organisms/edit-set/edit-set.component";
 import { GameSettingsComponent } from "./components/organisms/game-settings/game-settings.component";
 import { PrintComponent } from "./components/organisms/print/print.component";
+import { SidebarComponent } from "./components/organisms/sidebar/sidebar.component";
 
 
 const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
@@ -35,7 +36,8 @@ const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
     EditGameComponent,
     EditSetComponent,
     GameSettingsComponent,
-    PrintComponent
+    PrintComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

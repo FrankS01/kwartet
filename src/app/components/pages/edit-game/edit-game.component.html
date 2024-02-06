@@ -1,15 +1,16 @@
 <app-header></app-header>
-<div *ngIf="kwartetGame; else notLoaded">
+<div *ngIf="kwartetGame; else notLoaded" class="min-h-screen flex relative lg:static surface-ground">
+  <app-sidebar>
+  </app-sidebar>
+  <div class="min-h-screen flex flex-column relative flex-auto">
+    <p>Editing game {{ kwartetGame.title }}</p>
 
-  <p>Editing game {{kwartetGame.title}}</p>
-
-  <div [ngSwitch]="selectedMenuItem">
-    <app-game-settings *ngSwitchCase="'settings'"></app-game-settings>
-    <app-print *ngSwitchCase="'print'"></app-print>
-    <app-edit-set [kwartetSet]="kwartetGame.sets[0]" *ngSwitchDefault></app-edit-set>
+    <div [ngSwitch]="selectedMenuItem">
+      <app-game-settings *ngSwitchCase="'settings'"></app-game-settings>
+      <app-print *ngSwitchCase="'print'"></app-print>
+      <app-edit-set [kwartetSet]="kwartetGame.sets[0]" *ngSwitchDefault></app-edit-set>
+    </div>
   </div>
-
-  <app-edit-set></app-edit-set>
 </div>
 
 <ng-template #notLoaded>
