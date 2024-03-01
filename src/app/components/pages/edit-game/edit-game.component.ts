@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AppModule } from "../../../app.module";
 import { ActivatedRoute } from "@angular/router";
 import { KwartetGame } from "../../../data/models/kwartetgame-model";
-import { KwartetSet } from "../../../data/models/kwartetset-model";
 import { StorageService } from "../../../services/storage.service";
+import { GameSettingsComponent } from "../../organisms/game-settings/game-settings.component";
 
 @Component({
   selector: 'app-edit-game',
@@ -14,8 +13,6 @@ export class EditGameComponent implements OnInit {
 
   /** The game that is being edited */
   @Input() kwartetGame?: KwartetGame
-
-  selectedMenuItem: string = "settings";
 
   constructor(private route: ActivatedRoute, private storageService: StorageService) { }
 
@@ -35,4 +32,6 @@ export class EditGameComponent implements OnInit {
       }
     });
   }
+
+  protected readonly GameSettingsComponent = GameSettingsComponent;
 }

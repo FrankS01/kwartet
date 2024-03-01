@@ -1,33 +1,41 @@
+<!-- Wrapper -->
 <div class="flex flex-column min-h-screen">
+
+  <!-- Header -->
   <app-header></app-header>
-  <div *ngIf="kwartetGame; else notLoaded" class="flex-1 flex relative lg:static">
+
+  <div *ngIf="kwartetGame; else notLoaded" class="flex-1 flex relative ">
+
+    <!-- Sidebar -->
     <app-sidebar footerText="Editing game {{kwartetGame.title}}">
+
+      <!-- General sidebar items -->
       <h1 class="pl-5 pt-3 m-0">GENERAL</h1>
       <ul class="list-none p-3 m-0">
         <li>
-          <app-sidebar-item icon="pi-cog">Game Settings</app-sidebar-item>
+          <app-sidebar-item icon="pi-cog" text="Settings" route="./settings"></app-sidebar-item>
         </li>
         <li>
-          <app-sidebar-item icon="pi-print">Print</app-sidebar-item>
+          <app-sidebar-item icon="pi-print" text="Print" route="./print"></app-sidebar-item>
         </li>
       </ul>
+
+      <!-- Kwartet set sidebar items -->
       <h1 class="pl-5 m-0">SETS</h1>
       <ul class="list-none p-3 m-0">
         <li *ngFor="let set of kwartetGame.sets">
-          <app-sidebar-item icon="pi-pencil">{{ set.setName }}</app-sidebar-item>
+          <app-sidebar-item icon="pi-pencil" text="{{ set.setName }}"></app-sidebar-item>
         </li>
       </ul>
-    </app-sidebar>
-    <div class="min-h-full flex flex-column relative flex-auto">
-      <p>Editing game {{ kwartetGame.title }}</p>
 
-      <div [ngSwitch]="selectedMenuItem">
-        <app-game-settings *ngSwitchCase="'settings'"></app-game-settings>
-        <app-print *ngSwitchCase="'print'"></app-print>
-        <app-edit-set [kwartetSet]="kwartetGame.sets[0]" *ngSwitchDefault></app-edit-set>
-      </div>
-    </div>
+    </app-sidebar>
+
+    <!-- Content -->
+    <main class="m-5">
+      <router-outlet></router-outlet>
+    </main>
   </div>
+
 </div>
 
 <ng-template #notLoaded>
