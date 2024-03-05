@@ -44,17 +44,17 @@ export class GamesComponent implements OnInit {
    */
   private createNewGame(): void {
     // Create game object
-    let game: KwartetGame = {
+    let newGame: KwartetGame = {
       uuid: uuid.v4(),
       title: this.titleFormControl.value,
       sets: []
     }
 
     // Store updated game array in storage
-    this.kwartetGameService.createKwartetGame(game);
+    this.kwartetGameService.createKwartetGame(newGame);
 
-    // Retrieve games again now that the new game has been added
-    this.retrieveStoredGamesFromService();
+    // Update currently loaded games array with new game
+    this.loadedGames.push(newGame)
 
     // Show confirmation toast to user
     this.messageService.add({ severity: 'success', summary: 'Success', detail: `Game "${ this.titleFormControl.value }" was succesfully created.` });
