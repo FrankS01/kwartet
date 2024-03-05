@@ -2,7 +2,7 @@
 <p-dialog header="New game" [(visible)]="createGameDialogIsVisible" [modal]="true" [draggable]="false"
           [resizable]="false">
   <div>
-    <p>Choose a game title</p>
+    <p>Choose a game title.</p>
     <input id="name" type="text" placeholder="Game title" required pInputText [formControl]="titleFormControl"/>
     <br>
     <small class="p-error" *ngIf="titleFormControl.errors?.['maxlength']">The name must not be longer than 20
@@ -13,11 +13,11 @@
   </ng-template>
 </p-dialog>
 
-<div id="content">
-  <p-button label="+ New game" size="large" (click)="showCreateGameDialog()"></p-button>
+<div class="flex flex-column align-items-center">
+  <p-button class="m-5" label="+ New game" size="large" (click)="showCreateGameDialog()"></p-button>
 
-  <div id="games">
-    <div *ngFor="let game of loadedGames" class="game flipright animation-duration-500 animation-iteration-1" >
+  <div class="flex justify-content-center flex-wrap ml-3 mr-3" id="games">
+    <div *ngFor="let game of loadedGames" class="flex flex-column align-items-center ml-3 mr-3 mb-5 flipright animation-duration-500 animation-iteration-1" >
       <div class="game__cover" [routerLink]="['/edit-game', game.uuid]"></div>
       <div class="game__title">
         <p>{{ game.title }}</p>

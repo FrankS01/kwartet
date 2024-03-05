@@ -38,7 +38,7 @@ export class GameSettingsComponent implements OnInit {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: 'Are you sure you want to delete this game? All data will be irretrievably lost.',
-      header: 'Delete Confirmation',
+      header: `Deleting game ${this.kwartetGame?.title}`,
       icon: 'pi pi-info-circle',
       acceptButtonStyleClass: "p-button-danger p-button-text",
       rejectButtonStyleClass: "p-button-text p-button-text",

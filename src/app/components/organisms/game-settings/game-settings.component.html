@@ -1,6 +1,6 @@
 <div class="flex flex-column justify-content-center align-items-center">
-  <h1>Game Settings</h1>
-  <p>Game name: {{kwartetGame?.title}}</p>
+  <h1 class="m-0">Game Settings</h1>
+  <p class="m-4">Game name: {{kwartetGame?.title}}</p>
+  <p-button class="m-4" (click)="confirmDelete($event)" icon="pi pi-times" label="Delete game" [outlined]="true" severity="danger"></p-button>
   <p-confirmDialog></p-confirmDialog>
-  <p-button (click)="confirmDelete($event)" icon="pi pi-times" label="Delete game" [outlined]="true" severity="danger"></p-button>
 </div>
