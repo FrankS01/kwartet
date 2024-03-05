@@ -3,8 +3,8 @@ import { KwartetGame } from "../../../data/models/kwartetgame-model";
 import { MessageService } from "primeng/api";
 import { FormControl, Validators } from "@angular/forms";
 import { GAME_TITLE_CHARACTER_LIMIT } from "../../../config/global-settings";
-import { StorageService } from "../../../services/storage.service";
 import * as uuid from 'uuid';
+import { KwartetGameService } from "../../../services/kwartet-game.service";
 
 @Component({
   selector: 'app-games',
@@ -27,22 +27,17 @@ export class GamesComponent implements OnInit {
       Validators.maxLength(GAME_TITLE_CHARACTER_LIMIT)]
   });
 
-  constructor(private storageService: StorageService, private messageService: MessageService) { }
+  constructor(private kwartetGameService: KwartetGameService, private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.retrieveStoredGames();
+    this.retrieveStoredGamesFromService();
   }
 
   /**
    * Retrieve stored games and cast them to the right object type
    */
-  private retrieveStoredGames(): void {
-    // If there are any games stored, retrieve them.
-    this.storageService.getObject("games").subscribe(games => {
-      if (games != null) {
-        this.loadedGames = games as KwartetGame[];
-      }
-    });
+  private retrieveStoredGamesFromService(): void {
+    this.loadedGames = this.kwartetGameService.getKwartetGames();
   }
 
   /**
@@ -50,17 +45,14 @@ export class GamesComponent implements OnInit {
    */
   private createNewGame(): void {
     // Create game object
-
     let game: KwartetGame = {
       uuid: uuid.v4(),
       title: this.titleFormControl.value,
       sets: []
     }
-    // Push to loaded games array
-    this.loadedGames.push(game);
 
     // Store updated game array in storage
-    this.storageService.storeObject("games", this.loadedGames).subscribe();
+    this.kwartetGameService.createKwartetGame(game);
 
     // Show confirmation toast to user
     this.messageService.add({ severity: 'success', summary: 'Success', detail: `Game "${ this.titleFormControl.value }" was succesfully created.` });

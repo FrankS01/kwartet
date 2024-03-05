@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { KwartetGame } from "../../../data/models/kwartetgame-model";
-import { StorageService } from "../../../services/storage.service";
-import { GameSettingsComponent } from "../../organisms/game-settings/game-settings.component";
+import { KwartetGameService } from "../../../services/kwartet-game.service";
 
 @Component({
   selector: 'app-edit-game',
@@ -14,24 +13,17 @@ export class EditGameComponent implements OnInit {
   /** The game that is being edited */
   @Input() kwartetGame?: KwartetGame
 
-  constructor(private route: ActivatedRoute, private storageService: StorageService) { }
+  constructor(private route: ActivatedRoute, private kwartetGameService: KwartetGameService) { }
 
   ngOnInit(): void {
-    this.getKwartetGame();
+    this.getKwartetGameFromService();
   }
 
   /**
-   * Using the kwartet game uuid from the router and the {@link StorageService}, retrieves a kwartet game
+   * Using the kwartet game uuid from the router and the {@link KwartetGameService}, retrieves a kwartet game
    */
-  getKwartetGame(): void {
+  getKwartetGameFromService(): void {
     const uuid = String(this.route.snapshot.paramMap.get('uuid'));
-    this.storageService.getObject("games").subscribe(games => {
-      if (games != null) {
-        let storedGames = games as KwartetGame[];
-        this.kwartetGame = storedGames.find(game => game.uuid == uuid);
-      }
-    });
+    this.kwartetGame = this.kwartetGameService.getKwartetGameByUuid(uuid);
   }
-
-  protected readonly GameSettingsComponent = GameSettingsComponent;
 }
