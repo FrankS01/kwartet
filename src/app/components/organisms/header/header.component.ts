@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
+import { NavigationService } from "../../../services/navigation.service";
 
 @Component({
   selector: 'app-header',
@@ -8,9 +9,9 @@ import { Location } from '@angular/common';
 })
 export class HeaderComponent {
 
-  constructor(private location: Location) { }
+  constructor(private location: Location, private navigationService: NavigationService) { }
   goBack() {
-    this.location.back();
+    this.navigationService.goBack()
   }
 
 }

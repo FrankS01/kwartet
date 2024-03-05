@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { PrimeNGConfig } from "primeng/api";
+import { Component } from '@angular/core';
+import { NavigationService } from "../../../services/navigation.service";
 
 @Component({
   selector: 'app-shell',
@@ -8,4 +8,8 @@ import { PrimeNGConfig } from "primeng/api";
 })
 export class ShellComponent {
   title = 'Kwartet';
+
+  constructor(private navigation: NavigationService) {
+    this.navigation.startSavingNavigationHistory()
+  }
 }
