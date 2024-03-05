@@ -37,16 +37,40 @@ export class KwartetGameService {
 
   /**
    * Creates a new kwartet game and stores it using the {@link StorageService}
-   * @param newGame The new kwartet game to be created
+   * @param gameToCreate The new kwartet game to be created
    */
-  createKwartetGame(newGame: KwartetGame) {
+  createKwartetGame(gameToCreate: KwartetGame) {
     // Retrieve existing games
     let games: KwartetGame[] = this.getKwartetGames();
 
     // Push new game to games array
-    games.push(newGame);
+    games.push(gameToCreate);
 
     // Store updated game array in storage
     this.storageService.storeObject("games", games).subscribe();
+  }
+
+  /**
+   * Deletes a kwartet game
+   * @param gameToDeleteUuid UUID of the game to delete
+   */
+  deleteKwartetGame(gameToDeleteUuid: string) {
+    // Retrieve existing games
+    let games: KwartetGame[] = this.getKwartetGames();
+
+    // Find the index of the game to delete
+    const indexToDelete: number = games.findIndex(game => game.uuid === gameToDeleteUuid);
+
+    // If the game with the provided UUID exists
+    if (indexToDelete !== -1) {
+      // Delete the game from the array
+      games.splice(indexToDelete, 1);
+
+      // Store updated game array in storage
+      this.storageService.storeObject("games", games).subscribe();
+
+    } else {
+      throw new Error(`KwartetGame with UUID ${gameToDeleteUuid} was not found`);
+    }
   }
 }

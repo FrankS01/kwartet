@@ -10,7 +10,6 @@ import { KwartetGameService } from "../../../services/kwartet-game.service";
   selector: 'app-games',
   templateUrl: './games.component.html',
   styleUrls: ['./games.component.scss'],
-  providers: [MessageService],
 })
 export class GamesComponent implements OnInit {
 
@@ -53,6 +52,9 @@ export class GamesComponent implements OnInit {
 
     // Store updated game array in storage
     this.kwartetGameService.createKwartetGame(game);
+
+    // Retrieve games again now that the new game has been added
+    this.retrieveStoredGamesFromService();
 
     // Show confirmation toast to user
     this.messageService.add({ severity: 'success', summary: 'Success', detail: `Game "${ this.titleFormControl.value }" was succesfully created.` });

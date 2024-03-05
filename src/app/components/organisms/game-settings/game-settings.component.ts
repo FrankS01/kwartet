@@ -1,19 +1,26 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { KwartetGame } from "../../../data/models/kwartetgame-model";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { KwartetGameService } from "../../../services/kwartet-game.service";
+import { ConfirmationService, MessageService } from "primeng/api";
 
 @Component({
   selector: 'app-game-settings',
   templateUrl: './game-settings.component.html',
-  styleUrl: './game-settings.component.scss'
+  styleUrl: './game-settings.component.scss',
+  providers: [ConfirmationService],
 })
 export class GameSettingsComponent implements OnInit {
 
   /** The game whose settings are being edited */
   @Input() kwartetGame?: KwartetGame
 
-  constructor(private route: ActivatedRoute, private kwartetGameService: KwartetGameService) { }
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private kwartetGameService: KwartetGameService,
+              private confirmationService: ConfirmationService,
+              private messageService: MessageService) {
+  }
 
   ngOnInit(): void {
     this.getKwartetGameFromService()
@@ -25,5 +32,25 @@ export class GameSettingsComponent implements OnInit {
   getKwartetGameFromService(): void {
     const uuid = String(this.route.snapshot.parent?.paramMap.get('uuid'));
     this.kwartetGame = this.kwartetGameService.getKwartetGameByUuid(uuid);
+  }
+
+  confirmDelete(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Are you sure you want to delete this game? All data will be irretrievably lost.',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      acceptButtonStyleClass: "p-button-danger p-button-text",
+      rejectButtonStyleClass: "p-button-text p-button-text",
+      acceptIcon: "none",
+      rejectIcon: "none",
+
+      accept: () => {
+        this.kwartetGameService.deleteKwartetGame(<string>this.kwartetGame?.uuid);
+        this.router.navigateByUrl("/games").then(() =>
+          this.messageService.add({ severity: 'success', summary: 'Deleted game', detail: `Game "${this.kwartetGame?.title}" has been successfully deleted` })
+        );
+      }
+    });
   }
 }

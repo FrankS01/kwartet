@@ -14,13 +14,14 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { InputTextModule } from "primeng/inputtext";
 import { ReactiveFormsModule } from "@angular/forms";
 import { ToastModule } from "primeng/toast";
-import { PrimeNGConfig } from "primeng/api";
+import { MessageService, PrimeNGConfig } from "primeng/api";
 import { EditGameComponent } from "./components/pages/edit-game/edit-game.component";
 import { EditSetComponent } from "./components/organisms/edit-set/edit-set.component";
 import { GameSettingsComponent } from "./components/organisms/game-settings/game-settings.component";
 import { PrintComponent } from "./components/organisms/print/print.component";
 import { SidebarComponent } from "./components/organisms/sidebar/sidebar.component";
 import { SidebarItemComponent } from "./components/molecules/sidebar-item/sidebar-item.component";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
 
 
 const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
@@ -40,19 +41,21 @@ const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
     PrintComponent,
     SidebarComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        ButtonModule,
-        RippleModule,
-        DialogModule,
-        BrowserAnimationsModule,
-        InputTextModule,
-        ToastModule,
-        ReactiveFormsModule,
-        SidebarItemComponent
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ButtonModule,
+    RippleModule,
+    DialogModule,
+    BrowserAnimationsModule,
+    InputTextModule,
+    ToastModule,
+    ReactiveFormsModule,
+    SidebarItemComponent,
+    ConfirmDialogModule
+  ],
   providers: [
+    MessageService,
     {
       provide: APP_INITIALIZER,
       useFactory: initializeAppFactory,
