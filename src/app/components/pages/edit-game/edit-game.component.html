@@ -4,7 +4,7 @@
   <!-- Header -->
   <app-header></app-header>
 
-  <div *ngIf="kwartetGame; else notLoaded" class="flex-1 flex relative ">
+  <div *ngIf="kwartetGame; else notLoaded" class="flex-1 flex relative">
 
     <!-- Sidebar -->
     <app-sidebar footerText="Editing game {{kwartetGame.title}}">
@@ -24,7 +24,13 @@
       <h1 class="pl-5 m-0">SETS</h1>
       <ul class="list-none p-3 m-0">
         <li *ngFor="let set of kwartetGame.sets">
-          <app-sidebar-item icon="pi-pencil" text="{{ set.setName }}"></app-sidebar-item>
+          <app-sidebar-item icon="pi-pencil" text="{{ set.setName }}" route=""></app-sidebar-item>
+        </li>
+        <li *ngIf="kwartetGame.sets.length == 0">
+          <p class="font-italic pl-3 pr-3 m-0">Add your first set by clicking the button below!</p>
+        </li>
+        <li class="pt-3">
+          <p-button class="pl-3 m-0" [rounded]="true" icon="pi pi-plus" label="New set" (click)="showCreateSetDialog()"></p-button>
         </li>
       </ul>
 
@@ -41,3 +47,18 @@
 <ng-template #notLoaded>
   <p>The game could not be loaded.</p>
 </ng-template>
+
+
+<p-dialog header="New set" [(visible)]="createSetDialogIsVisible" [modal]="true" [draggable]="false"
+          [resizable]="false">
+  <div>
+    <p>What will be the name of this set?</p>
+    <input id="name" type="text" placeholder="Set title" required pInputText [formControl]="nameFormControl"/>
+    <br>
+    <small class="p-error" *ngIf="nameFormControl.errors?.['maxlength']">The name must not be longer than 20
+      characters.</small>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button (click)="onClickCreateSetButton()" [disabled]=nameFormControl.invalid>Create</p-button>
+  </ng-template>
+</p-dialog>

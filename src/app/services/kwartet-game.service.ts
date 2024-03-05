@@ -16,13 +16,16 @@ export class KwartetGameService {
   getKwartetGames(): KwartetGame[] {
     let games: KwartetGame[] = [];
     this.storageService.getObject("games").subscribe(retrievedGames => {
-      games = retrievedGames as KwartetGame[];
+      if (retrievedGames != null) {
+        games = retrievedGames as KwartetGame[];
+
+      }
     })
     return games;
   }
 
   /**
-   * Using the kwartet game uuid, retrieves a single kwartet game
+   * Using the kwartet game UUID, retrieves a single kwartet game
    */
   getKwartetGameByUuid(uuid: string): KwartetGame {
     const games: KwartetGame[] = this.getKwartetGames();
@@ -72,5 +75,23 @@ export class KwartetGameService {
     } else {
       throw new Error(`KwartetGame with UUID ${gameToDeleteUuid} was not found`);
     }
+  }
+
+  /**
+   * Update an existing kwartet game
+   * @param updatedGame
+   */
+  updateKwartetGame(updatedGame: KwartetGame) {
+    // Retrieve existing games
+    let games: KwartetGame[] = this.getKwartetGames();
+
+    // Find the index of the game to update
+    const indexToUpdate: number = games.findIndex(game => game.uuid === updatedGame.uuid);
+
+    // Update game
+    games[indexToUpdate] = updatedGame;
+
+    // Store updated game array in storage
+    this.storageService.storeObject("games", games).subscribe();
   }
 }

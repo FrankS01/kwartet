@@ -50,10 +50,11 @@ export class GamesComponent implements OnInit {
       sets: []
     }
 
-    // Store updated game array in storage
+    // Create new game using service
     this.kwartetGameService.createKwartetGame(newGame);
 
     // Update currently loaded games array with new game
+    // (by only adding this game instead of retrieving the entire array, the flip animation only plays on this game)
     this.loadedGames.push(newGame)
 
     // Show confirmation toast to user
