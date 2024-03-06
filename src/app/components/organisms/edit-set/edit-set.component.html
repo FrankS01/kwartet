@@ -1,4 +1,13 @@
-<div *ngIf="kwartetSet">
-  <p>Kwartetset loaded</p>
+<div class="flex flex-column justify-content-center align-items-center">
+  <h1 class="m-0">Set Editor</h1>
+
+  <div *ngIf="currentEditedSet; else notLoaded" class="flex flex-column justify-content-center align-items-center">
+    <p class="m-5">Set name: {{currentEditedSet.setName}}</p>
+    <p-button (click)="confirmDelete($event)" icon="pi pi-times" label="Delete set" [outlined]="true" severity="danger"></p-button>
+    <p-confirmDialog></p-confirmDialog>
+
+  </div>
+  <ng-template #notLoaded>
+    <p>The set could not be loaded.</p>
+  </ng-template>
 </div>
-<p>Kwartetset not loaded</p>

@@ -5,6 +5,7 @@ import { GamesComponent } from "./components/pages/games/games.component";
 import { EditGameComponent } from "./components/pages/edit-game/edit-game.component";
 import { GameSettingsComponent } from "./components/organisms/game-settings/game-settings.component";
 import { PrintComponent } from "./components/organisms/print/print.component";
+import { EditSetComponent } from "./components/organisms/edit-set/edit-set.component";
 
 const titlePrefix = "Kwartet - "
 
@@ -20,7 +21,7 @@ const routes: Routes = [
     title: titlePrefix + "Manage games"
   },
   {
-    path: 'edit-game/:uuid',
+    path: 'edit-game/:game-uuid',
     component: EditGameComponent,
     title: titlePrefix + "Editing game",
     children: [
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: 'print',
         component: PrintComponent
+      },
+      {
+        path: 'edit-set/:set-uuid',
+        component: EditSetComponent,
       },
       {
         path: '',
@@ -55,7 +60,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    onSameUrlNavigation: 'reload'
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

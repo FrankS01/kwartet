@@ -14,7 +14,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { InputTextModule } from "primeng/inputtext";
 import { ReactiveFormsModule } from "@angular/forms";
 import { ToastModule } from "primeng/toast";
-import { MessageService, PrimeNGConfig } from "primeng/api";
+import { ConfirmationService, MessageService, PrimeNGConfig } from "primeng/api";
 import { EditGameComponent } from "./components/pages/edit-game/edit-game.component";
 import { EditSetComponent } from "./components/organisms/edit-set/edit-set.component";
 import { GameSettingsComponent } from "./components/organisms/game-settings/game-settings.component";
@@ -56,12 +56,13 @@ const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
   ],
   providers: [
     MessageService,
+    ConfirmationService,
     {
       provide: APP_INITIALIZER,
       useFactory: initializeAppFactory,
       deps: [PrimeNGConfig],
       multi: true,
-    },
+    }
   ],
   bootstrap: [ShellComponent]
 })

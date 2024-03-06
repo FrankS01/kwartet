@@ -13,21 +13,21 @@
       <h1 class="pl-5 pt-3 m-0">GENERAL</h1>
       <ul class="list-none p-3 m-0">
         <li>
-          <app-sidebar-item icon="pi-cog" text="Settings" route="./settings"></app-sidebar-item>
+          <app-sidebar-item icon="pi-cog" text="Game Overview" routerLink="./settings"></app-sidebar-item>
         </li>
         <li>
-          <app-sidebar-item icon="pi-print" text="Print" route="./print"></app-sidebar-item>
+          <app-sidebar-item icon="pi-print" text="Print" routerLink="./print"></app-sidebar-item>
         </li>
       </ul>
 
       <!-- Kwartet set sidebar items -->
-      <h1 class="pl-5 m-0">SETS</h1>
+      <h1 class="pl-5 pt-3 m-0">SETS</h1>
       <ul class="list-none p-3 m-0">
         <li *ngFor="let set of kwartetGame.sets">
-          <app-sidebar-item icon="pi-pencil" text="{{ set.setName }}"></app-sidebar-item>
+          <app-sidebar-item icon="pi-pencil" text="{{ set.setName }}" [routerLink]="['./edit-set', set.uuid]"></app-sidebar-item>
         </li>
         <li *ngIf="kwartetGame.sets.length == 0">
-          <p class="font-italic pl-3 pr-3 m-0">Add your first set by clicking the button below!</p>
+          <p class="font-italic pl-3 pr-3 m-0">Add a set by clicking the button below!</p>
         </li>
         <li class="pt-3">
           <p-button class="pl-3 m-0" [rounded]="true" icon="pi pi-plus" label="New set"

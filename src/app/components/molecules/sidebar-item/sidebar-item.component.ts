@@ -19,5 +19,4 @@ import { NgIf } from "@angular/common";
 export class SidebarItemComponent {
   @Input() icon?: string = ""
   @Input() text?: string = ""
-  @Input() route?: string
 }

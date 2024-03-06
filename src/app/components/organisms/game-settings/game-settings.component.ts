@@ -8,7 +8,6 @@ import { ConfirmationService, MessageService } from "primeng/api";
   selector: 'app-game-settings',
   templateUrl: './game-settings.component.html',
   styleUrl: './game-settings.component.scss',
-  providers: [ConfirmationService],
 })
 export class GameSettingsComponent implements OnInit {
 
@@ -30,7 +29,7 @@ export class GameSettingsComponent implements OnInit {
    * Using the kwartet game uuid from the router and the {@link KwartetGameService}, retrieves a kwartet game
    */
   getKwartetGameFromService(): void {
-    const uuid = String(this.route.snapshot.parent?.paramMap.get('uuid'));
+    const uuid = String(this.route.snapshot.parent?.paramMap.get('game-uuid'));
     this.kwartetGame = this.kwartetGameService.getKwartetGameByUuid(uuid);
   }
 

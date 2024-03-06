@@ -79,7 +79,7 @@ export class KwartetGameService {
 
   /**
    * Update an existing kwartet game
-   * @param updatedGame
+   * @param updatedGame The updated kwartet game
    */
   updateKwartetGame(updatedGame: KwartetGame) {
     // Retrieve existing games

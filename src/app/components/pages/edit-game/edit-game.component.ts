@@ -6,6 +6,7 @@ import { KwartetSet } from "../../../data/models/kwartetset-model";
 import { FormControl, Validators } from "@angular/forms";
 import { SET_TITLE_CHARACTER_LIMIT } from "../../../config/global-settings";
 import { MessageService } from "primeng/api";
+import * as uuid from "uuid";
 
 @Component({
   selector: 'app-edit-game',
@@ -29,9 +30,10 @@ export class EditGameComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private kwartetGameService: KwartetGameService,
-              private messageService: MessageService) { }
+              private messageService: MessageService) {
+  }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.getKwartetGameFromService();
   }
 
@@ -39,13 +41,14 @@ export class EditGameComponent implements OnInit {
    * Using the kwartet game uuid from the router and the {@link KwartetGameService}, retrieves a kwartet game
    */
   getKwartetGameFromService(): void {
-    const uuid = String(this.route.snapshot.paramMap.get('uuid'));
+    const uuid = String(this.route.snapshot.paramMap.get('game-uuid'));
     this.kwartetGame = this.kwartetGameService.getKwartetGameByUuid(uuid);
   }
 
   private createNewSet(): void {
     // Create set object
     let newSet: KwartetSet = {
+      uuid: uuid.v4(),
       setName: this.nameFormControl.value,
       card1Name: "",
       card2Name: "",
@@ -57,7 +60,7 @@ export class EditGameComponent implements OnInit {
     this.kwartetGame?.sets.push(newSet);
 
     // Update game using service
-    this.kwartetGameService.updateKwartetGame(<KwartetGame> this.kwartetGame);
+    this.kwartetGameService.updateKwartetGame(this.kwartetGame as KwartetGame);
 
     // Show confirmation toast to user
     this.messageService.add({ severity: 'success', summary: 'Success', detail: `Set "${ this.nameFormControl.value }" was succesfully created.` });
