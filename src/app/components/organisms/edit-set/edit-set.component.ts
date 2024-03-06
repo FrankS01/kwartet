@@ -76,7 +76,6 @@ export class EditSetComponent implements OnInit {
     if (this.kwartetGame == undefined) return;
 
     const indexToDelete: number = this.kwartetGame?.sets?.findIndex(set => set.uuid == this.currentEditedSet?.uuid);
-    console.log(indexToDelete)
     // If the set with the provided UUID exists and the sets array has been loaded
     if (indexToDelete !== -1 && this.kwartetGame?.sets != undefined) {
 
@@ -84,7 +83,6 @@ export class EditSetComponent implements OnInit {
       this.kwartetGame?.sets.splice(indexToDelete, 1);
 
     }
-    console.log(this.kwartetGame)
     this.kwartetGameService.updateKwartetGame(this.kwartetGame);
   }
 }
