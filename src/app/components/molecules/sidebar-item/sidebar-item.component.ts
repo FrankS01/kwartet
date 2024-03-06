@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ButtonModule } from "primeng/button";
 import { RippleModule } from "primeng/ripple";
 import { RouterLink } from "@angular/router";
+import { NgIf } from "@angular/common";
 
 @Component({
   selector: 'app-sidebar-item',
@@ -9,7 +10,8 @@ import { RouterLink } from "@angular/router";
   imports: [
     ButtonModule,
     RippleModule,
-    RouterLink
+    RouterLink,
+    NgIf
   ],
   templateUrl: './sidebar-item.component.html',
   styleUrl: './sidebar-item.component.scss'
@@ -17,5 +19,5 @@ import { RouterLink } from "@angular/router";
 export class SidebarItemComponent {
   @Input() icon?: string = ""
   @Input() text?: string = ""
-  @Input() route?: string = ""
+  @Input() route?: string
 }
