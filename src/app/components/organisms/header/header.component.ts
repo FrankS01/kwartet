@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { Location } from '@angular/common';
-import { NavigationService } from "../../../services/navigation.service";
+import { Component, Input } from '@angular/core';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -9,9 +8,11 @@ import { NavigationService } from "../../../services/navigation.service";
 })
 export class HeaderComponent {
 
-  constructor(private location: Location, private navigationService: NavigationService) { }
-  goBack() {
-    this.navigationService.goBack()
+  @Input() previousRoute: string = '';
+
+  constructor(private router: Router) { }
+  goBack(route: string) {
+    void this.router.navigateByUrl(route);
   }
 
 }

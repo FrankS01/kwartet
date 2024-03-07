@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationService } from "../../../services/navigation.service";
+
 import { Router } from "@angular/router";
 
 @Component({
@@ -10,9 +10,7 @@ import { Router } from "@angular/router";
 export class ShellComponent implements OnInit {
   title = 'Kwartet';
 
-  constructor(private navigation: NavigationService, private router: Router) {
-    this.navigation.startSavingNavigationHistory()
-  }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     // Allows for ngOnInit to be called on routing to the same routing Component since we will never reuse a route

@@ -42,7 +42,9 @@ const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
     EditSetComponent,
     GameSettingsComponent,
     PrintComponent,
-    SidebarComponent
+    SidebarComponent,
+    SidebarItemComponent,
+    KwartetCardPreviewComponent
   ],
   imports: [
     BrowserModule,
@@ -54,9 +56,7 @@ const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
     InputTextModule,
     ToastModule,
     ReactiveFormsModule,
-    SidebarItemComponent,
-    ConfirmDialogModule,
-    KwartetCardPreviewComponent
+    ConfirmDialogModule
   ],
   providers: [
     MessageService,
