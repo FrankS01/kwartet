@@ -16,11 +16,11 @@
 <div class="flex flex-column align-items-center">
   <p-button class="m-5" icon="pi pi-plus" label="New game" size="large" (click)="showCreateGameDialog()"></p-button>
 
-  <div class="flex justify-content-center flex-wrap ml-3 mr-3" id="games">
-    <div *ngFor="let game of loadedGames" class="flex flex-column align-items-center ml-3 mr-3 mb-5 flipright animation-duration-500 animation-iteration-1" >
-      <div class="game__cover" [routerLink]="['/edit-game', game.uuid]"></div>
+  <div class="flex justify-content-center flex-wrap ml-3 mr-3">
+    <div *ngFor="let game of loadedGames" class="flex flex-column align-items-center ml-3 mr-3 mb-5 flipright animation-duration-400" >
+      <div class="game__cover " [routerLink]="['/edit-game', game.uuid]"></div>
       <div class="game__title">
-        <p>{{ game.title }}</p>
+        <p>{{game.title}}</p>
       </div>
     </div>
   </div>

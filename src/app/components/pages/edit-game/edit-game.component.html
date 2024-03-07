@@ -24,7 +24,7 @@
       <h1 class="pl-5 pt-3 m-0">SETS</h1>
       <ul class="list-none p-3 m-0">
         <li *ngFor="let set of kwartetGame.sets">
-          <app-sidebar-item icon="pi-pencil" text="{{ set.setName }}" [routerLink]="['./edit-set', set.uuid]"></app-sidebar-item>
+          <app-sidebar-item icon="pi-pencil" text="{{set.setName}}" [routerLink]="['./edit-set', set.uuid]"></app-sidebar-item>
         </li>
         <li *ngIf="kwartetGame.sets.length == 0">
           <p class="font-italic pl-3 pr-3 m-0">Add a set by clicking the button below!</p>

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { KwartetGame } from "../../../data/models/kwartetgame-model";
 import { KwartetGameService } from "../../../services/kwartet-game.service";
 import { KwartetSet } from "../../../data/models/kwartetset-model";
@@ -29,6 +29,7 @@ export class EditGameComponent implements OnInit {
   });
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private kwartetGameService: KwartetGameService,
               private messageService: MessageService) {
   }
@@ -50,10 +51,10 @@ export class EditGameComponent implements OnInit {
     let newSet: KwartetSet = {
       uuid: uuid.v4(),
       setName: this.nameFormControl.value,
-      card1Name: "",
-      card2Name: "",
-      card3Name: "",
-      card4Name: ""
+      card1Name: "Unnamed card",
+      card2Name: "Unnamed card",
+      card3Name: "Unnamed card",
+      card4Name: "Unnamed card"
     }
 
     // Add set object to kwartet game that is currently being edited
@@ -63,10 +64,17 @@ export class EditGameComponent implements OnInit {
     this.kwartetGameService.updateKwartetGame(this.kwartetGame as KwartetGame);
 
     // Show confirmation toast to user
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: `Set "${ this.nameFormControl.value }" was succesfully created.` });
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: `Set "${this.nameFormControl.value}" was succesfully created.`
+    });
 
     // Reset form value
     this.nameFormControl.reset();
+
+    // Navigate to newly created set
+    void this.router.navigateByUrl(`/edit-game/${this.kwartetGame?.uuid}/edit-set/${newSet.uuid}`)
   }
 
   showCreateSetDialog() {

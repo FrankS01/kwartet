@@ -1,9 +1,38 @@
 <div class="flex flex-column justify-content-center align-items-center">
-  <h1 class="m-0">Set Editor</h1>
+  <h1 class="m-0 mb-4">Set Editor</h1>
 
   <div *ngIf="currentEditedSet; else notLoaded" class="flex flex-column justify-content-center align-items-center">
-    <p class="m-5">Set name: {{currentEditedSet.setName}}</p>
-    <p-button (click)="confirmDelete($event)" icon="pi pi-times" label="Delete set" [outlined]="true" severity="danger"></p-button>
+    <p class="m-0 mb-6">Set name: {{currentEditedSet.setName}}</p>
+
+    <div class="flex justify-content-center flex-wrap">
+      <div
+        class="flex flex-column align-items-center ml-3 mr-3">
+        <p>Card 1</p>
+        <app-kwartet-card-preview class=""></app-kwartet-card-preview>
+        <p>{{currentEditedSet.card1Name}}</p>
+      </div>
+      <div
+        class="flex flex-column align-items-center ml-3 mr-3">
+        <p>Card 2</p>
+        <app-kwartet-card-preview></app-kwartet-card-preview>
+        <p>{{currentEditedSet.card2Name}}</p>
+      </div>
+      <div
+        class="flex flex-column align-items-center ml-3 mr-3">
+        <p>Card 3</p>
+        <app-kwartet-card-preview></app-kwartet-card-preview>
+        <p>{{currentEditedSet.card3Name}}</p>
+      </div>
+      <div
+        class="flex flex-column align-items-center ml-3 mr-3">
+        <p>Card 4</p>
+        <app-kwartet-card-preview></app-kwartet-card-preview>
+        <p>{{currentEditedSet.card4Name}}</p>
+      </div>
+    </div>
+
+    <p-button class="mt-6" (click)="confirmDelete($event)" icon="pi pi-times" label="Delete set" [outlined]="true"
+              severity="danger"></p-button>
     <p-confirmDialog></p-confirmDialog>
 
   </div>

@@ -22,6 +22,9 @@ import { PrintComponent } from "./components/pages/print/print.component";
 import { SidebarComponent } from "./components/organisms/sidebar/sidebar.component";
 import { SidebarItemComponent } from "./components/molecules/sidebar-item/sidebar-item.component";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
+import {
+  KwartetCardPreviewComponent
+} from "./components/molecules/kwartet-card-preview/kwartet-card-preview.component";
 
 
 const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
@@ -52,7 +55,8 @@ const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
     ToastModule,
     ReactiveFormsModule,
     SidebarItemComponent,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    KwartetCardPreviewComponent
   ],
   providers: [
     MessageService,
