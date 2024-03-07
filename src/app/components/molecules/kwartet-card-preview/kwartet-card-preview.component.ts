@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { KwartetSet } from "../../../data/models/kwartetset-model";
 
 @Component({
   selector: 'app-kwartet-card-preview',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './kwartet-card-preview.component.scss'
 })
 export class KwartetCardPreviewComponent {
+
+  @Input() kwartetSet?: KwartetSet;
 
 }

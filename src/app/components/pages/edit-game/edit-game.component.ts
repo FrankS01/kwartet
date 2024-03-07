@@ -51,10 +51,22 @@ export class EditGameComponent implements OnInit {
     let newSet: KwartetSet = {
       uuid: uuid.v4(),
       setName: this.nameFormControl.value,
-      card1Name: "Unnamed card",
-      card2Name: "Unnamed card",
-      card3Name: "Unnamed card",
-      card4Name: "Unnamed card"
+      card1: {
+        name: "Unnamed card",
+        base64CoverImage: ""
+      },
+      card2: {
+        name: "Unnamed card",
+        base64CoverImage: ""
+      },
+      card3: {
+        name: "Unnamed card",
+        base64CoverImage: ""
+      },
+      card4: {
+        name: "Unnamed card",
+        base64CoverImage: ""
+      },
     }
 
     // Add set object to kwartet game that is currently being edited

@@ -1,1 +1,23 @@
-<div class="cover"></div>
+<div *ngIf="kwartetSet; else notLoaded" class="cover flex flex-column">
+  <div class="flex align-items-center justify-content-center h-2rem w-full">
+    <p class="m-1 text-0">{{ kwartetSet.setName }}</p>
+  </div>
+  <div class="flex align-items-center justify-content-center h-6rem w-full">
+    Image</div>
+  <div class="flex align-items-center justify-content-center h-2rem w-full">
+    <p class="m-0 text-0">{{ kwartetSet.card1.name }}</p>
+  </div>
+  <div class="flex align-items-center justify-content-center h-2rem w-full">
+    <p class="m-0 text-0">{{ kwartetSet.card2.name }}</p>
+  </div>
+  <div class="flex align-items-center justify-content-center h-2rem w-full">
+    <p class="m-0 text-0">{{ kwartetSet.card3.name }}</p>
+  </div>
+  <div class="flex align-items-center justify-content-center h-2rem w-full">
+    <p class="m-0 text-0">{{ kwartetSet.card4.name }}</p>
+  </div>
+</div>
+
+<ng-template #notLoaded>
+  <p>The set could not be loaded.</p>
+</ng-template>
