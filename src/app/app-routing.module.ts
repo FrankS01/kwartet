@@ -3,9 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from "./components/pages/home/home.component";
 import { GamesComponent } from "./components/pages/games/games.component";
 import { EditGameComponent } from "./components/pages/edit-game/edit-game.component";
-import { GameSettingsComponent } from "./components/organisms/game-settings/game-settings.component";
-import { PrintComponent } from "./components/organisms/print/print.component";
-import { EditSetComponent } from "./components/organisms/edit-set/edit-set.component";
+import { GameSettingsComponent } from "./components/pages/game-settings/game-settings.component";
+import { PrintComponent } from "./components/pages/print/print.component";
+import { EditSetComponent } from "./components/pages/edit-set/edit-set.component";
 
 const titlePrefix = "Kwartet - "
 

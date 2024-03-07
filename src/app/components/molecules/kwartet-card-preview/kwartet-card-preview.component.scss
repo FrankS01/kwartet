@@ -1,0 +1,17 @@
+.cover {
+  width: 163px;
+  height: 255px;
+
+  border-style: solid;
+  border-width: medium;
+  border-color: var(--primary-color);
+  border-radius: 8px;
+
+  background: repeating-linear-gradient(
+      45deg,
+      #333,
+      #333 10px,
+      #444 10px,
+      #444 20px
+  );
+}
