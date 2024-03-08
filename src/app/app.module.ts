@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -25,6 +25,7 @@ import { ConfirmDialogModule } from "primeng/confirmdialog";
 import {
   KwartetCardPreviewComponent
 } from "./components/molecules/kwartet-card-preview/kwartet-card-preview.component";
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
@@ -56,7 +57,13 @@ const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
     InputTextModule,
     ToastModule,
     ReactiveFormsModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     MessageService,
