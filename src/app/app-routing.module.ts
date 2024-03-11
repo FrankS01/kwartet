@@ -21,7 +21,7 @@ const routes: Routes = [
     title: titlePrefix + "Manage games"
   },
   {
-    path: 'edit-game/:game-uuid',
+    path: 'edit-game/:game-id',
     component: EditGameComponent,
     title: titlePrefix + "Editing game",
     children: [

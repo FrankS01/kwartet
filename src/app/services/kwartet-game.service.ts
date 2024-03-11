@@ -1,97 +1,47 @@
 import { Injectable } from '@angular/core';
 import { KwartetGame } from "../data/models/kwartetgame-model";
-import { StorageService } from "./storage.service";
+import { db } from "../data/models/db";
 
 @Injectable({
   providedIn: 'root'
 })
 export class KwartetGameService {
 
-  constructor(private storageService: StorageService) {
-  }
-
   /**
-   * Return all kwartet games using the {@link StorageService}
+   * Return all kwartet games
    */
-  getKwartetGames(): KwartetGame[] {
-    let games: KwartetGame[] = [];
-    this.storageService.getObject("games").subscribe(retrievedGames => {
-      if (retrievedGames != null) {
-        games = retrievedGames as KwartetGame[];
-
-      }
-    })
-    return games;
+  async getKwartetGames() {
+    return db.kwartetGames.toArray();
   }
 
   /**
-   * Using the kwartet game UUID, retrieves a single kwartet game
+   * Using the kwartet game id, retrieves a single kwartet game
    */
-  getKwartetGameByUuid(uuid: string): KwartetGame {
-    const games: KwartetGame[] = this.getKwartetGames();
-    const game = games.find(game => game.uuid == uuid);
-
-    if (!game) {
-      throw new Error(`KwartetGame with UUID ${uuid} was not found`);
-    }
-
-    return game;
+  async getKwartetGameById(id: number) {
+    return db.kwartetGames.where("id").equals(id).first();
   }
 
   /**
-   * Creates a new kwartet game and stores it using the {@link StorageService}
+   * Creates a new kwartet game and stores it
    * @param gameToCreate The new kwartet game to be created
    */
-  createKwartetGame(gameToCreate: KwartetGame) {
-    // Retrieve existing games
-    let games: KwartetGame[] = this.getKwartetGames();
-
-    // Push new game to games array
-    games.push(gameToCreate);
-
-    // Store updated game array in storage
-    this.storageService.storeObject("games", games).subscribe();
+  async createKwartetGame(gameToCreate: KwartetGame) {
+    db.kwartetGames.add(gameToCreate);
   }
 
   /**
    * Deletes a kwartet game
-   * @param gameToDeleteUuid UUID of the game to delete
+   * @param gameToDeleteId Id of the game to delete
    */
-  deleteKwartetGame(gameToDeleteUuid: string) {
-    // Retrieve existing games
-    let games: KwartetGame[] = this.getKwartetGames();
-
-    // Find the index of the game to delete
-    const indexToDelete: number = games.findIndex(game => game.uuid === gameToDeleteUuid);
-
-    // If the game with the provided UUID exists
-    if (indexToDelete !== -1) {
-      // Delete the game from the array
-      games.splice(indexToDelete, 1);
-
-      // Store updated game array in storage
-      this.storageService.storeObject("games", games).subscribe();
-
-    } else {
-      throw new Error(`KwartetGame with UUID ${gameToDeleteUuid} was not found`);
-    }
+  async deleteKwartetGame(gameToDeleteId: number) {
+    await db.kwartetGames.delete(gameToDeleteId)
   }
 
   /**
    * Update an existing kwartet game
    * @param updatedGame The updated kwartet game
    */
-  updateKwartetGame(updatedGame: KwartetGame) {
-    // Retrieve existing games
-    let games: KwartetGame[] = this.getKwartetGames();
-
-    // Find the index of the game to update
-    const indexToUpdate: number = games.findIndex(game => game.uuid === updatedGame.uuid);
-
-    // Update game
-    games[indexToUpdate] = updatedGame;
-
-    // Store updated game array in storage
-    this.storageService.storeObject("games", games).subscribe();
+  async updateKwartetGame(updatedGame: KwartetGame) {
+    await db.kwartetGames.update(updatedGame.id!, updatedGame);
   }
 }

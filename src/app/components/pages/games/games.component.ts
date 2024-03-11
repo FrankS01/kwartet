@@ -1,20 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { KwartetGame } from "../../../data/models/kwartetgame-model";
 import { MessageService } from "primeng/api";
 import { FormControl, Validators } from "@angular/forms";
 import { GAME_TITLE_CHARACTER_LIMIT } from "../../../config/global-settings";
-import * as uuid from 'uuid';
 import { KwartetGameService } from "../../../services/kwartet-game.service";
+import { liveQuery } from "dexie";
+import { db } from "../../../data/models/db";
 
 @Component({
   selector: 'app-games',
   templateUrl: './games.component.html',
   styleUrls: ['./games.component.scss'],
 })
-export class GamesComponent implements OnInit {
+export class GamesComponent {
 
   // List of currently loaded games
-  loadedGames: KwartetGame[] = [];
+  loadedGames$ = liveQuery(() => db.kwartetGames.toArray());
 
   // Whether the "create game" dialog is visible or not
   createGameDialogIsVisible: boolean = false;
@@ -28,34 +29,18 @@ export class GamesComponent implements OnInit {
 
   constructor(private kwartetGameService: KwartetGameService, private messageService: MessageService) { }
 
-  ngOnInit(): void {
-    this.retrieveStoredGamesFromService();
-  }
-
-  /**
-   * Retrieve stored games and cast them to the right object type
-   */
-  private retrieveStoredGamesFromService(): void {
-    this.loadedGames = this.kwartetGameService.getKwartetGames();
-  }
-
   /**
    * Create a new game, add it to the list of games and store it.
    */
-  private createNewGame(): void {
+  private async createNewGame(){
     // Create game object
     let newGame: KwartetGame = {
-      uuid: uuid.v4(),
       title: this.titleFormControl.value,
       sets: []
     }
 
     // Create new game using service
-    this.kwartetGameService.createKwartetGame(newGame);
-
-    // Update currently loaded games array with new game
-    // (by only adding this game instead of retrieving the entire array, the flip animation only plays on this game)
-    this.loadedGames.push(newGame)
+    await this.kwartetGameService.createKwartetGame(newGame);
 
     // Show confirmation toast to user
     this.messageService.add({ severity: 'success', summary: 'Success', detail: `Game "${ this.titleFormControl.value }" was succesfully created.` });
@@ -68,9 +53,9 @@ export class GamesComponent implements OnInit {
     this.createGameDialogIsVisible = true;
   }
 
-  onClickCreateGameButton() {
+  async onClickCreateGameButton() {
     this.createGameDialogIsVisible = false;
-    this.createNewGame();
+    await this.createNewGame();
   }
 
 }

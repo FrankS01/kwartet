@@ -21,16 +21,16 @@ export class GameSettingsComponent implements OnInit {
               private messageService: MessageService) {
   }
 
-  ngOnInit(): void {
-    this.getKwartetGameFromService()
+  async ngOnInit() {
+    await this.getKwartetGameFromService()
   }
 
   /**
    * Using the kwartet game uuid from the router and the {@link KwartetGameService}, retrieves a kwartet game
    */
-  getKwartetGameFromService(): void {
-    const uuid = String(this.route.snapshot.parent?.paramMap.get('game-uuid'));
-    this.kwartetGame = this.kwartetGameService.getKwartetGameByUuid(uuid);
+  async getKwartetGameFromService() {
+    const id: number = Number(this.route.snapshot.parent?.paramMap.get('game-id'));
+    this.kwartetGame = await this.kwartetGameService.getKwartetGameById(id);
   }
 
   confirmDelete(event: Event) {
@@ -44,10 +44,14 @@ export class GameSettingsComponent implements OnInit {
       acceptIcon: "none",
       rejectIcon: "none",
 
-      accept: () => {
-        this.kwartetGameService.deleteKwartetGame(<string>this.kwartetGame?.uuid);
+      accept: async () => {
+        await this.kwartetGameService.deleteKwartetGame(this.kwartetGame?.id!);
         this.router.navigateByUrl("/games").then(() =>
-          this.messageService.add({ severity: 'success', summary: 'Deleted game', detail: `Game "${this.kwartetGame?.title}" has been successfully deleted` })
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Deleted game',
+            detail: `Game "${this.kwartetGame?.title}" has been successfully deleted`
+          })
         );
       }
     });

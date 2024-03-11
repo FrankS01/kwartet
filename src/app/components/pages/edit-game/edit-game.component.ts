@@ -34,19 +34,19 @@ export class EditGameComponent implements OnInit {
               private messageService: MessageService) {
   }
 
-  ngOnInit() {
-    this.getKwartetGameFromService();
+  async ngOnInit() {
+    await this.getKwartetGameFromService();
   }
 
   /**
    * Using the kwartet game uuid from the router and the {@link KwartetGameService}, retrieves a kwartet game
    */
-  getKwartetGameFromService(): void {
-    const uuid = String(this.route.snapshot.paramMap.get('game-uuid'));
-    this.kwartetGame = this.kwartetGameService.getKwartetGameByUuid(uuid);
+  async getKwartetGameFromService() {
+    const id: number = Number(this.route.snapshot.paramMap.get('game-id'));
+    this.kwartetGame = await this.kwartetGameService.getKwartetGameById(id);
   }
 
-  private createNewSet(): void {
+  async createNewSet() {
     // Create set object
     let newSet: KwartetSet = {
       uuid: uuid.v4(),
@@ -73,7 +73,7 @@ export class EditGameComponent implements OnInit {
     this.kwartetGame?.sets.push(newSet);
 
     // Update game using service
-    this.kwartetGameService.updateKwartetGame(this.kwartetGame as KwartetGame);
+    await this.kwartetGameService.updateKwartetGame(this.kwartetGame as KwartetGame);
 
     // Show confirmation toast to user
     this.messageService.add({
@@ -86,15 +86,15 @@ export class EditGameComponent implements OnInit {
     this.nameFormControl.reset();
 
     // Navigate to newly created set
-    void this.router.navigateByUrl(`/edit-game/${this.kwartetGame?.uuid}/edit-set/${newSet.uuid}`)
+    void this.router.navigateByUrl(`/edit-game/${this.kwartetGame?.id}/edit-set/${newSet.uuid}`)
   }
 
   showCreateSetDialog() {
     this.createSetDialogIsVisible = true;
   }
 
-  onClickCreateSetButton() {
+  async onClickCreateSetButton() {
     this.createSetDialogIsVisible = false;
-    this.createNewSet();
+    await this.createNewSet();
   }
 }

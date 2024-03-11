@@ -23,17 +23,17 @@ export class EditSetComponent implements OnInit {
               private messageService: MessageService) {
   }
 
-  ngOnInit(): void {
-    this.getKwartetGameFromService();
+  async ngOnInit() {
+    await this.getKwartetGameFromService();
     this.getCurrentEditedSet();
   }
 
   /**
    * Using the kwartet game uuid from the router and the {@link KwartetGameService}, retrieves a kwartet game
    */
-  getKwartetGameFromService(): void {
-    const uuid = String(this.route.snapshot.parent?.paramMap.get('game-uuid'));
-    this.kwartetGame = this.kwartetGameService.getKwartetGameByUuid(uuid);
+  async getKwartetGameFromService() {
+    const id: number = Number(this.route.snapshot.parent?.paramMap.get('game-id'));
+    this.kwartetGame = await this.kwartetGameService.getKwartetGameById(id);
   }
 
   getCurrentEditedSet(): void {
@@ -44,7 +44,7 @@ export class EditSetComponent implements OnInit {
     this.currentEditedSet = this.kwartetGame?.sets.find(set => set.uuid == setUuid);
   }
 
-  confirmDelete(event: Event) {
+  async confirmDelete(event: Event) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: 'Are you sure you want to delete this set? All data will be irretrievably lost.',
@@ -55,8 +55,8 @@ export class EditSetComponent implements OnInit {
       acceptIcon: "none",
       rejectIcon: "none",
 
-      accept: () => {
-        this.deleteCurrentEditedSet();
+      accept: async () => {
+        await this.deleteCurrentEditedSet();
         this.router.navigate(['../../settings'], {relativeTo: this.route}).then(() =>
           this.messageService.add({
             severity: 'success',
@@ -71,18 +71,18 @@ export class EditSetComponent implements OnInit {
   /**
    * Deletes the kwartet set that is currently being edited.
    */
-  deleteCurrentEditedSet() {
+  async deleteCurrentEditedSet() {
     // If there is no kwartet game loaded, its set can't be deleted
     if (this.kwartetGame == undefined) return;
 
     const indexToDelete: number = this.kwartetGame?.sets?.findIndex(set => set.uuid == this.currentEditedSet?.uuid);
     // If the set with the provided UUID exists and the sets array has been loaded
-    if (indexToDelete !== -1 && this.kwartetGame?.sets != undefined) {
+    if (indexToDelete !== -1) {
 
       // Delete the set from the kwartet game set array
       this.kwartetGame?.sets.splice(indexToDelete, 1);
 
     }
-    this.kwartetGameService.updateKwartetGame(this.kwartetGame);
+    await this.kwartetGameService.updateKwartetGame(this.kwartetGame);
   }
 }
