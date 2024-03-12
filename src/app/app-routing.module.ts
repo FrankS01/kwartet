@@ -34,7 +34,7 @@ const routes: Routes = [
         component: PrintComponent
       },
       {
-        path: 'edit-set/:set-uuid',
+        path: 'edit-set/:set-id',
         component: EditSetComponent,
       },
       {

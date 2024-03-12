@@ -35,8 +35,7 @@ export class GamesComponent {
   private async createNewGame(){
     // Create game object
     let newGame: KwartetGame = {
-      title: this.titleFormControl.value,
-      sets: []
+      title: this.titleFormControl.value
     }
 
     // Create new game using service

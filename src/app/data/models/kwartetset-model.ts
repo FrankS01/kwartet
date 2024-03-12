@@ -1,7 +1,8 @@
 import { KwartetCard } from "./kwartetcard-model";
 
 export interface KwartetSet {
-  uuid: string;
+  id?: number;
+  kwartetGameId: number;
   setName: string;
   card1: KwartetCard;
   card2: KwartetCard;

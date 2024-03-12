@@ -16,6 +16,7 @@ export class KwartetGameService {
 
   /**
    * Using the kwartet game id, retrieves a single kwartet game
+   * @param id The kwartet game id to retrieve
    */
   async getKwartetGameById(id: number) {
     return db.kwartetGames.where("id").equals(id).first();
