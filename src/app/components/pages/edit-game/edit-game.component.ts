@@ -7,6 +7,9 @@ import { FormControl, Validators } from "@angular/forms";
 import { SET_TITLE_CHARACTER_LIMIT } from "../../../config/global-settings";
 import { MessageService } from "primeng/api";
 import { KwartetSetService } from "../../../services/kwartet-set.service";
+import { liveQuery } from "dexie";
+import { from, Observable } from "rxjs";
+import { Page } from "../../../data/models/page-enum";
 
 @Component({
   selector: 'app-edit-game',
@@ -16,9 +19,12 @@ import { KwartetSetService } from "../../../services/kwartet-set.service";
 export class EditGameComponent implements OnInit {
 
   /** The game that is being edited */
-  kwartetGame?: KwartetGame
+  public kwartetGame$: Observable<KwartetGame | undefined>
 
   kwartetSets?: KwartetSet[]
+
+  currentPage: Page = Page.GameOverview;
+  currentSetId?: number = 0;
 
   // Whether the "create set" dialog is visible or not
   createSetDialogIsVisible: boolean = false;
@@ -35,19 +41,13 @@ export class EditGameComponent implements OnInit {
               private kwartetGameService: KwartetGameService,
               private kwartetSetService: KwartetSetService,
               private messageService: MessageService) {
+    const gameId: number = Number(this.route.snapshot.paramMap.get('game-id'));
+    this.kwartetGame$ = from(liveQuery(() => this.kwartetGameService.getKwartetGameById(gameId)));
   }
 
   async ngOnInit() {
-    await this.getKwartetGameFromService();
+    // await this.getKwartetGameFromService();
     await this.getKwartetSetsFromService();
-  }
-
-  /**
-   * Using the kwartet game id from the router and the {@link KwartetGameService}, retrieves a kwartet game
-   */
-  async getKwartetGameFromService() {
-    const id: number = Number(this.route.snapshot.paramMap.get('game-id'));
-    this.kwartetGame = await this.kwartetGameService.getKwartetGameById(id);
   }
 
   /**
@@ -59,46 +59,41 @@ export class EditGameComponent implements OnInit {
   }
 
   async createNewSet() {
-    // Create set object
-    let newSet: KwartetSet = {
-      kwartetGameId: this.kwartetGame?.id!,
-      setName: this.nameFormControl.value,
-      card1: {
-        name: "Unnamed card",
-        base64CoverImage: ""
-      },
-      card2: {
-        name: "Unnamed card",
-        base64CoverImage: ""
-      },
-      card3: {
-        name: "Unnamed card",
-        base64CoverImage: ""
-      },
-      card4: {
-        name: "Unnamed card",
-        base64CoverImage: ""
-      },
-    }
+    this.kwartetGame$.subscribe(
+      async (kwartetGame) => {
 
-    // Create new kwartet set
-    await this.kwartetSetService.createKwartetSet(newSet);
+        // Create set object
+        let newSet: KwartetSet = {
+          kwartetGameId: kwartetGame?.id!,
+          setName: this.nameFormControl.value,
+          card1: {name: "Unnamed card", base64CoverImage: ""},
+          card2: {name: "Unnamed card", base64CoverImage: ""},
+          card3: {name: "Unnamed card", base64CoverImage: ""},
+          card4: {name: "Unnamed card", base64CoverImage: ""}
+        }
 
-    // Update kwartet sets
-    await this.getKwartetSetsFromService();
+        // Create new kwartet set
+        await this.kwartetSetService.createKwartetSet(newSet);
 
-    // Show confirmation toast to user
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Success',
-      detail: `Set "${this.nameFormControl.value}" was succesfully created.`
-    });
+        // Update kwartet sets
+        await this.getKwartetSetsFromService();
 
-    // Reset form value
-    this.nameFormControl.reset();
+        // Show confirmation toast to user
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: `Set "${this.nameFormControl.value}" was successfully created.`
+        });
 
-    // Navigate to newly created set
-    void this.router.navigateByUrl(`/edit-game/${this.kwartetGame?.id}/edit-set/${newSet.id}`)
+        // Reset form value
+        this.nameFormControl.reset();
+
+        // Navigate to newly created set
+        this.currentSetId = newSet.id;
+        this.currentPage = Page.EditSet;
+      }
+    );
+
   }
 
   showCreateSetDialog() {
@@ -109,4 +104,6 @@ export class EditGameComponent implements OnInit {
     this.createSetDialogIsVisible = false;
     await this.createNewSet();
   }
+
+  protected readonly PageName = Page;
 }

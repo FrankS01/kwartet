@@ -1,10 +1,8 @@
 <!-- Wrapper -->
 <div class="flex flex-column min-h-screen">
-
   <!-- Header -->
   <app-header previousRoute="/games"></app-header>
-
-  <div *ngIf="kwartetGame; else notLoaded" class="flex-1 flex relative">
+  <div *ngIf="kwartetGame$ | async as kwartetGame; else loading" class="flex-1 flex relative">
 
     <!-- Sidebar -->
     <app-sidebar footerText="Editing game {{kwartetGame.title}}">
@@ -13,10 +11,10 @@
       <h1 class="pl-5 pt-3 m-0">GENERAL</h1>
       <ul class="list-none p-3 m-0">
         <li>
-          <app-sidebar-item icon="pi-cog" text="Game Overview" routerLink="./settings"></app-sidebar-item>
+          <app-sidebar-item icon="pi-cog" text="Game Overview" (click)="currentPage = PageName.GameOverview"></app-sidebar-item>
         </li>
         <li>
-          <app-sidebar-item icon="pi-print" text="Print" routerLink="./print"></app-sidebar-item>
+          <app-sidebar-item icon="pi-print" text="Print" (click)="currentPage = PageName.Print"></app-sidebar-item>
         </li>
       </ul>
 
@@ -24,8 +22,7 @@
       <h1 class="pl-5 pt-3 m-0">SETS</h1>
       <ul class="list-none p-3 m-0">
         <li *ngFor="let set of kwartetSets">
-          <app-sidebar-item icon="pi-pencil" text="{{set.setName}}"
-                            [routerLink]="['./edit-set', set.id]"></app-sidebar-item>
+          <app-sidebar-item icon="pi-pencil" text="{{set.setName}}" (click)="currentPage = PageName.EditSet; currentSetId = set.id"></app-sidebar-item>
         </li>
         <li *ngIf="kwartetSets?.length == 0">
           <p class="font-italic pl-3 pr-3 m-0">Add a set by clicking the button below!</p>
@@ -40,13 +37,17 @@
 
     <!-- Main content -->
     <main class="w-full m-6">
-      <router-outlet></router-outlet>
+      <div [ngSwitch]="currentPage">
+        <app-game-settings *ngSwitchCase=PageName.GameOverview [kwartetGame]="kwartetGame"></app-game-settings>
+        <app-print *ngSwitchCase=PageName.Print></app-print>
+        <app-edit-set *ngSwitchCase=PageName.EditSet [currentSetId]="currentSetId!"></app-edit-set>
+      </div>
     </main>
   </div>
 
 </div>
 
-<ng-template #notLoaded>
+<ng-template #loading>
   <p>The game could not be loaded.</p>
 </ng-template>
 

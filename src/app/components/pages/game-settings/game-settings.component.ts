@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { KwartetGame } from "../../../data/models/kwartetgame-model";
 import { ActivatedRoute, Router } from "@angular/router";
 import { KwartetGameService } from "../../../services/kwartet-game.service";
@@ -9,7 +9,7 @@ import { ConfirmationService, MessageService } from "primeng/api";
   templateUrl: './game-settings.component.html',
   styleUrl: './game-settings.component.scss',
 })
-export class GameSettingsComponent implements OnInit {
+export class GameSettingsComponent {
 
   /** The game whose settings are being edited */
   @Input() kwartetGame?: KwartetGame
@@ -20,19 +20,6 @@ export class GameSettingsComponent implements OnInit {
               private confirmationService: ConfirmationService,
               private messageService: MessageService) {
   }
-
-  async ngOnInit() {
-    await this.getKwartetGameFromService()
-  }
-
-  /**
-   * Using the kwartet game uuid from the router and the {@link KwartetGameService}, retrieves a kwartet game
-   */
-  async getKwartetGameFromService() {
-    const id: number = Number(this.route.snapshot.parent?.paramMap.get('game-id'));
-    this.kwartetGame = await this.kwartetGameService.getKwartetGameById(id);
-  }
-
   confirmDelete(event: Event) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,

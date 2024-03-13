@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { KwartetSet } from "../../../data/models/kwartetset-model";
-import { KwartetGame } from "../../../data/models/kwartetgame-model";
 import { KwartetGameService } from "../../../services/kwartet-game.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ConfirmationService, MessageService } from "primeng/api";
@@ -11,10 +10,9 @@ import { KwartetSetService } from "../../../services/kwartet-set.service";
   templateUrl: './edit-set.component.html',
   styleUrl: './edit-set.component.scss'
 })
-export class EditSetComponent implements OnInit {
-  /** The game whose set is being edited */
-  @Input() kwartetGame?: KwartetGame
+export class EditSetComponent implements OnInit, OnChanges {
 
+  @Input() currentSetId?: number;
   currentEditedSet?: KwartetSet
 
   constructor(private route: ActivatedRoute,
@@ -26,21 +24,15 @@ export class EditSetComponent implements OnInit {
   }
 
   async ngOnInit() {
-    await this.getKwartetGameFromService();
     await this.getCurrentEditedSet();
   }
 
-  /**
-   * Using the kwartet game uuid from the router and the {@link KwartetGameService}, retrieves a kwartet game
-   */
-  async getKwartetGameFromService() {
-    const id: number = Number(this.route.snapshot.parent?.paramMap.get('game-id'));
-    this.kwartetGame = await this.kwartetGameService.getKwartetGameById(id);
+  async ngOnChanges() {
+    await this.getCurrentEditedSet();
   }
 
   async getCurrentEditedSet() {
-    const id: number = Number(this.route.snapshot.paramMap.get('set-id'));
-    this.currentEditedSet = await this.kwartetSetService.getKwartetSetById(id);
+    this.currentEditedSet = await this.kwartetSetService.getKwartetSetById(this.currentSetId!);
   }
 
   async confirmDelete(event: Event) {
