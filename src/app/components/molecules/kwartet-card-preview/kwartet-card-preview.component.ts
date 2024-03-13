@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { KwartetSet } from "../../../data/models/kwartetset-model";
 
 @Component({
@@ -9,5 +9,10 @@ import { KwartetSet } from "../../../data/models/kwartetset-model";
 export class KwartetCardPreviewComponent {
 
   @Input() kwartetSet?: KwartetSet;
+  @Output() onCardClick = new EventEmitter<KwartetSet>();
+
+  onCardClicked() {
+    this.onCardClick.emit(this.kwartetSet!);
+  }
 
 }

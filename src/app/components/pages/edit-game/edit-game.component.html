@@ -11,10 +11,10 @@
       <h1 class="pl-5 pt-3 m-0">GENERAL</h1>
       <ul class="list-none p-3 m-0">
         <li>
-          <app-sidebar-item icon="pi-cog" text="Game Overview" (click)="currentPage = PageName.GameOverview"></app-sidebar-item>
+          <app-sidebar-item icon="pi-cog" text="Game Overview" (click)="currentPage = Page.GameOverview"></app-sidebar-item>
         </li>
         <li>
-          <app-sidebar-item icon="pi-print" text="Print" (click)="currentPage = PageName.Print"></app-sidebar-item>
+          <app-sidebar-item icon="pi-print" text="Print" (click)="currentPage = Page.Print"></app-sidebar-item>
         </li>
       </ul>
 
@@ -22,7 +22,7 @@
       <h1 class="pl-5 pt-3 m-0">SETS</h1>
       <ul class="list-none p-3 m-0">
         <li *ngFor="let set of kwartetSets">
-          <app-sidebar-item icon="pi-pencil" text="{{set.setName}}" (click)="currentPage = PageName.EditSet; currentSetId = set.id"></app-sidebar-item>
+          <app-sidebar-item icon="pi-pencil" text="{{set.setName}}" (click)="currentPage = Page.EditSet; currentSetId = set.id"></app-sidebar-item>
         </li>
         <li *ngIf="kwartetSets?.length == 0">
           <p class="font-italic pl-3 pr-3 m-0">Add a set by clicking the button below!</p>
@@ -38,9 +38,9 @@
     <!-- Main content -->
     <main class="w-full m-6">
       <div [ngSwitch]="currentPage">
-        <app-game-settings *ngSwitchCase=PageName.GameOverview [kwartetGame]="kwartetGame"></app-game-settings>
-        <app-print *ngSwitchCase=PageName.Print></app-print>
-        <app-edit-set *ngSwitchCase=PageName.EditSet [currentSetId]="currentSetId!"></app-edit-set>
+        <app-game-settings *ngSwitchCase=Page.GameOverview [kwartetGame]="kwartetGame"></app-game-settings>
+        <app-print *ngSwitchCase=Page.Print></app-print>
+        <app-edit-set *ngSwitchCase=Page.EditSet [currentSetId]="currentSetId!"></app-edit-set>
       </div>
     </main>
   </div>

@@ -4,6 +4,8 @@ import { KwartetGameService } from "../../../services/kwartet-game.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { KwartetSetService } from "../../../services/kwartet-set.service";
+import { FormControl, Validators } from "@angular/forms";
+import { GAME_TITLE_CHARACTER_LIMIT } from "../../../config/global-settings";
 
 @Component({
   selector: 'app-edit-set',
@@ -14,6 +16,17 @@ export class EditSetComponent implements OnInit, OnChanges {
 
   @Input() currentSetId?: number;
   currentEditedSet?: KwartetSet
+
+  // Whether the "edit card" dialog is visible or not
+  editCardDialogIsVisible: boolean = false;
+
+  // Form value, used in "edit card" dialog
+  // TODO
+  cardFormControl = new FormControl('', {
+    nonNullable: true,
+    validators: [Validators.required,
+      Validators.maxLength(GAME_TITLE_CHARACTER_LIMIT)]
+  });
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -64,5 +77,14 @@ export class EditSetComponent implements OnInit, OnChanges {
    */
   async deleteCurrentEditedSet() {
     await this.kwartetSetService.deleteKwartetSet(this.currentEditedSet?.id!)
+  }
+
+  async onClickSaveCardButton() {
+    this.editCardDialogIsVisible = false;
+    await this.saveCard();
+  }
+
+  async saveCard() {
+    // TODO
   }
 }

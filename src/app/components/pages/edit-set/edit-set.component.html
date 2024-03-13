@@ -40,3 +40,13 @@
     <p>The set could not be loaded.</p>
   </ng-template>
 </div>
+
+<p-dialog header="Edit card" [(visible)]="editCardDialogIsVisible" [modal]="true" [draggable]="false"
+          [resizable]="false">
+  <div>
+<!--    TODO-->
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button (click)="onClickSaveCardButton()" [disabled]=cardFormControl.invalid>Save</p-button>
+  </ng-template>
+</p-dialog>

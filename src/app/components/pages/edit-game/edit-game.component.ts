@@ -66,10 +66,10 @@ export class EditGameComponent implements OnInit {
         let newSet: KwartetSet = {
           kwartetGameId: kwartetGame?.id!,
           setName: this.nameFormControl.value,
-          card1: {name: "Unnamed card", base64CoverImage: ""},
-          card2: {name: "Unnamed card", base64CoverImage: ""},
-          card3: {name: "Unnamed card", base64CoverImage: ""},
-          card4: {name: "Unnamed card", base64CoverImage: ""}
+          card1: {name: "Unnamed card"},
+          card2: {name: "Unnamed card"},
+          card3: {name: "Unnamed card"},
+          card4: {name: "Unnamed card"}
         }
 
         // Create new kwartet set
@@ -105,5 +105,5 @@ export class EditGameComponent implements OnInit {
     await this.createNewSet();
   }
 
-  protected readonly PageName = Page;
+  protected readonly Page = Page;
 }

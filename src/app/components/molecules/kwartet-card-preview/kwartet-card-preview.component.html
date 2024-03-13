@@ -1,4 +1,5 @@
-<div *ngIf="kwartetSet; else notLoaded" class="cover flex flex-column">
+<div *ngIf="kwartetSet; else notLoaded" class="cover flex flex-column"
+     (mouseover)="onCardClick" (click)="onCardClicked()" >
   <div class="flex align-items-center justify-content-center h-2rem w-full">
     <p class="m-1 text-0">{{ kwartetSet.setName }}</p>
   </div>
