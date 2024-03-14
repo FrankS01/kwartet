@@ -4,8 +4,7 @@ import { KwartetGameService } from "../../../services/kwartet-game.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { KwartetSetService } from "../../../services/kwartet-set.service";
-import { FormControl, Validators } from "@angular/forms";
-import { GAME_TITLE_CHARACTER_LIMIT } from "../../../config/global-settings";
+import { KwartetCard } from "../../../data/models/kwartetcard-model";
 
 @Component({
   selector: 'app-edit-set',
@@ -17,16 +16,10 @@ export class EditSetComponent implements OnInit, OnChanges {
   @Input() currentSetId?: number;
   currentEditedSet?: KwartetSet
 
+  kwartetCardToEdit?: KwartetCard;
+
   // Whether the "edit card" dialog is visible or not
   editCardDialogIsVisible: boolean = false;
-
-  // Form value, used in "edit card" dialog
-  // TODO
-  cardFormControl = new FormControl('', {
-    nonNullable: true,
-    validators: [Validators.required,
-      Validators.maxLength(GAME_TITLE_CHARACTER_LIMIT)]
-  });
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -61,13 +54,14 @@ export class EditSetComponent implements OnInit, OnChanges {
 
       accept: async () => {
         await this.deleteCurrentEditedSet();
-        this.router.navigate(['../../settings'], {relativeTo: this.route}).then(() =>
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Deleted set',
-            detail: `Set "${this.currentEditedSet?.setName}" has been successfully deleted`
-          })
-        );
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Deleted set',
+          detail: `Set "${this.currentEditedSet?.setName}" has been successfully deleted`
+        })
+        this.kwartetGameService.getKwartetGameById(this.currentEditedSet?.kwartetGameId!).then(game => {
+          void this.router.navigateByUrl("edit-game/" + game?.id!);
+        })
       }
     });
   }
@@ -79,12 +73,8 @@ export class EditSetComponent implements OnInit, OnChanges {
     await this.kwartetSetService.deleteKwartetSet(this.currentEditedSet?.id!)
   }
 
-  async onClickSaveCardButton() {
-    this.editCardDialogIsVisible = false;
-    await this.saveCard();
-  }
-
-  async saveCard() {
-    // TODO
+  openEditCardDialog(cardToEdit: KwartetCard) {
+    this.kwartetCardToEdit = cardToEdit;
+    this.editCardDialogIsVisible = true;
   }
 }

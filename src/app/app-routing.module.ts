@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    title: titlePrefix + "create your own quartets games!"
+    title: titlePrefix + "Create your own quartets games!"
   },
   {
     path: 'games',

@@ -2,33 +2,39 @@
   <h1 class="m-0 mb-4">Set Editor</h1>
 
   <div *ngIf="currentEditedSet; else notLoaded" class="flex flex-column justify-content-center align-items-center">
-    <p class="m-0 mb-6">Set name: {{currentEditedSet.setName}}</p>
+    <p class="m-0 mb-4">Set name: {{currentEditedSet.setName}}</p>
+    <p class="m-0 mb-4">Click on a card to edit it</p>
 
     <div class="flex justify-content-center flex-wrap">
+
       <div
         class="flex flex-column align-items-center ml-3 mr-3">
         <p>Card 1</p>
-        <app-kwartet-card-preview [kwartetSet]="currentEditedSet"></app-kwartet-card-preview>
+        <app-kwartet-card-preview [kwartetSet]="currentEditedSet" [currentKwartetCard]="1" (onCardClick)="openEditCardDialog(currentEditedSet.card1)"></app-kwartet-card-preview>
         <p>{{currentEditedSet.card1.name}}</p>
       </div>
+
       <div
         class="flex flex-column align-items-center ml-3 mr-3">
         <p>Card 2</p>
-        <app-kwartet-card-preview [kwartetSet]="currentEditedSet"></app-kwartet-card-preview>
+        <app-kwartet-card-preview [kwartetSet]="currentEditedSet" [currentKwartetCard]="2" (onCardClick)="openEditCardDialog(currentEditedSet.card2)"></app-kwartet-card-preview>
         <p>{{currentEditedSet.card2.name}}</p>
       </div>
+
       <div
         class="flex flex-column align-items-center ml-3 mr-3">
         <p>Card 3</p>
-        <app-kwartet-card-preview [kwartetSet]="currentEditedSet"></app-kwartet-card-preview>
+        <app-kwartet-card-preview [kwartetSet]="currentEditedSet" [currentKwartetCard]="3" (onCardClick)="openEditCardDialog(currentEditedSet.card3)"></app-kwartet-card-preview>
         <p>{{currentEditedSet.card3.name}}</p>
       </div>
+
       <div
         class="flex flex-column align-items-center ml-3 mr-3">
         <p>Card 4</p>
-        <app-kwartet-card-preview [kwartetSet]="currentEditedSet"></app-kwartet-card-preview>
+        <app-kwartet-card-preview [kwartetSet]="currentEditedSet" [currentKwartetCard]="4" (onCardClick)="openEditCardDialog(currentEditedSet.card4)"></app-kwartet-card-preview>
         <p>{{currentEditedSet.card4.name}}</p>
       </div>
+
     </div>
 
     <p-button class="mt-6" (click)="confirmDelete($event)" icon="pi pi-times" label="Delete set" [outlined]="true"
@@ -40,13 +46,5 @@
     <p>The set could not be loaded.</p>
   </ng-template>
 </div>
-
-<p-dialog header="Edit card" [(visible)]="editCardDialogIsVisible" [modal]="true" [draggable]="false"
-          [resizable]="false">
-  <div>
-<!--    TODO-->
-  </div>
-  <ng-template pTemplate="footer">
-    <p-button (click)="onClickSaveCardButton()" [disabled]=cardFormControl.invalid>Save</p-button>
-  </ng-template>
-</p-dialog>
+<p>{{editCardDialogIsVisible}}</p>
+<app-edit-card-dialog [currentEditedCard]="kwartetCardToEdit" [editCardDialogIsVisible]="editCardDialogIsVisible"></app-edit-card-dialog>

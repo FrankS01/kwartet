@@ -1,21 +1,28 @@
-<div *ngIf="kwartetSet; else notLoaded" class="cover flex flex-column"
-     (mouseover)="onCardClick" (click)="onCardClicked()" >
-  <div class="flex align-items-center justify-content-center h-2rem w-full">
-    <p class="m-1 text-0">{{ kwartetSet.setName }}</p>
+<div class="relative">
+  <div (click)="onCardClicked()"
+       class="absolute w-full h-full transition-colors transition-duration-150 hover:bg-black-alpha-80 border-overlay cursor-pointer flex justify-content-center align-items-center"
+       (mouseenter)="showEditOverlay = true" (mouseleave)="showEditOverlay = false">
+    <i *ngIf="showEditOverlay" class="pi pi-pencil" style="font-size: 2.5rem"></i>
   </div>
-  <div class="flex align-items-center justify-content-center h-6rem w-full">
-    Image</div>
-  <div class="flex align-items-center justify-content-center h-2rem w-full">
-    <p class="m-0 text-0">{{ kwartetSet.card1.name }}</p>
-  </div>
-  <div class="flex align-items-center justify-content-center h-2rem w-full">
-    <p class="m-0 text-0">{{ kwartetSet.card2.name }}</p>
-  </div>
-  <div class="flex align-items-center justify-content-center h-2rem w-full">
-    <p class="m-0 text-0">{{ kwartetSet.card3.name }}</p>
-  </div>
-  <div class="flex align-items-center justify-content-center h-2rem w-full">
-    <p class="m-0 text-0">{{ kwartetSet.card4.name }}</p>
+  <div *ngIf="kwartetSet; else notLoaded" class="cover flex flex-column">
+    <div class="flex align-items-center justify-content-center h-2rem w-full">
+      <p class="m-1 text-0">{{ kwartetSet.setName }}</p>
+    </div>
+    <div class="flex align-items-center justify-content-center h-6rem w-full">
+      Image
+    </div>
+    <div class="flex align-items-center justify-content-center h-2rem w-full">
+      <p class="m-0 text-0">{{ kwartetSet.card1.name }}</p>
+    </div>
+    <div class="flex align-items-center justify-content-center h-2rem w-full">
+      <p class="m-0 text-0">{{ kwartetSet.card2.name }}</p>
+    </div>
+    <div class="flex align-items-center justify-content-center h-2rem w-full">
+      <p class="m-0 text-0">{{ kwartetSet.card3.name }}</p>
+    </div>
+    <div class="flex align-items-center justify-content-center h-2rem w-full">
+      <p class="m-0 text-0">{{ kwartetSet.card4.name }}</p>
+    </div>
   </div>
 </div>
 
