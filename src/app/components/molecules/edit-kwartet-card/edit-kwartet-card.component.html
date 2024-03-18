@@ -8,11 +8,21 @@
     <div class="flex align-items-center justify-content-center h-2rem w-full">
       <p class="m-1 text-0">{{ kwartetSet.setName }}</p>
     </div>
-    <div class="flex align-items-center justify-content-center h-6rem w-full">
-      Image
+    <div class="flex align-items-center justify-content-center h-6rem w-full bg-gray-300">
+      <img *ngIf="currentKwartetCard?.coverImage; else noImage"
+           class="w-full h-full"
+           style="object-fit: cover;"
+           [src]="existingCoverImageUrl"
+           alt="Card cover image">
+      <ng-template #noImage>
+        <p class="m-1 text-0">No cover image yet</p>
+      </ng-template>
     </div>
-    <div *ngFor="let card of kwartetCards; let i = index" class="flex align-items-center justify-content-center h-2rem w-full">
-      <p [class.font-bold]="card == currentKwartetCard" class="m-0 text-0">{{ kwartetCards![i].name }}</p>
+    <div *ngFor="let card of kwartetCards; let i = index"
+         class="flex align-items-center justify-content-center h-2rem w-full">
+      <p [class.font-bold]="card == currentKwartetCard"
+         [class.text-gray-500]="card.name == 'Unnamed card'"
+         class="m-0 text-0">{{ kwartetCards![i].name }}</p>
     </div>
   </div>
 </div>
@@ -21,9 +31,14 @@
   <p>The set could not be loaded.</p>
 </ng-template>
 
-<p-dialog header="Edit card" [(visible)]="editCardDialogIsVisible" [modal]="true" [draggable]="false"
-          [resizable]="false">
+<p-dialog header="Editing card {{kwartetCardNumber}} in set {{kwartetSet?.setName}}"
+          [(visible)]="editCardDialogIsVisible"
+          [modal]="true"
+          [draggable]="false"
+          [resizable]="false"
+          (onHide)="onHideDialog()">
   <form [formGroup]="editCardForm">
+
     <p>Name</p>
     <!-- If the cards name is Unnamed card, the value should not be filled in -->
     <input id="name" type="text" placeholder="Enter card name..." required pInputText formControlName="name"/>
@@ -31,9 +46,18 @@
     <small class="p-error" *ngIf="editCardForm.controls.name.errors?.['maxlength']">The name must not be longer
       than {{ SET_TITLE_CHARACTER_LIMIT }}
       characters.</small>
+
     <p class="mt-4">Cover image</p>
+    <img *ngIf="editCardForm.controls.coverImage.value != null"
+         class="h-10rem mb-2"
+         [src]="temporaryCoverImageUrl"
+         alt="Card cover image">
+    <p-fileUpload #fileUploadButton mode="basic" chooseLabel="Upload" uploadIcon="pi pi-upload"
+                  accept="image/*"
+                  [fileLimit]="1"
+                  [maxFileSize]="CARD_COVER_FILE_SIZE" (onSelect)="onSelectCoverImage($event)"></p-fileUpload>
   </form>
   <ng-template pTemplate="footer">
-    <p-button (click)="onClickSaveCardButton()" [disabled]=editCardForm.invalid>Save</p-button>
+    <p-button label="Save" (click)="onClickSaveCardButton()" [disabled]=editCardForm.invalid></p-button>
   </ng-template>
 </p-dialog>

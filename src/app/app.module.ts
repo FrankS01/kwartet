@@ -26,6 +26,8 @@ import {
   EditKwartetCardComponent
 } from "./components/molecules/edit-kwartet-card/edit-kwartet-card.component";
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { NgOptimizedImage } from "@angular/common";
+import { FileUploadModule } from "primeng/fileupload";
 
 const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
   primeConfig.ripple = true;
@@ -62,7 +64,9 @@ const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }),
+    NgOptimizedImage,
+    FileUploadModule
   ],
   providers: [
     MessageService,
