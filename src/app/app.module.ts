@@ -24,7 +24,7 @@ import { SidebarItemComponent } from "./components/molecules/sidebar-item/sideba
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import {
   EditKwartetCardComponent
-} from "./components/molecules/kwartet-card-preview/edit-kwartet-card.component";
+} from "./components/molecules/edit-kwartet-card/edit-kwartet-card.component";
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {

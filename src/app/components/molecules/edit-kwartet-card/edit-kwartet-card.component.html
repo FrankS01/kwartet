@@ -1,5 +1,5 @@
 <div class="relative">
-  <div (click)="onCardClicked()"
+  <div (click)="onCardPreviewClicked()"
        class="absolute w-full h-full transition-colors transition-duration-150 hover:bg-black-alpha-80 border-overlay cursor-pointer flex justify-content-center align-items-center"
        (mouseenter)="showEditOverlay = true" (mouseleave)="showEditOverlay = false">
     <i *ngIf="showEditOverlay" class="pi pi-pencil" style="font-size: 2.5rem"></i>
@@ -32,10 +32,17 @@
 
 <p-dialog header="Edit card" [(visible)]="editCardDialogIsVisible" [modal]="true" [draggable]="false"
           [resizable]="false">
-  <div>
-    <p>{{currentKwartetCard?.name}}</p>
-  </div>
+  <form [formGroup]="editCardForm">
+    <p>Name</p>
+    <!-- If the cards name is Unnamed card, the value should not be filled in -->
+    <input id="name" type="text" placeholder="Enter card name..." required pInputText formControlName="name"/>
+    <br>
+    <small class="p-error" *ngIf="editCardForm.controls.name.errors?.['maxlength']">The name must not be longer
+      than {{ SET_TITLE_CHARACTER_LIMIT }}
+      characters.</small>
+    <p class="mt-4">Cover image</p>
+  </form>
   <ng-template pTemplate="footer">
-    <p-button (click)="onClickSaveCardButton()" [disabled]=cardFormControl.invalid>Save</p-button>
+    <p-button (click)="onClickSaveCardButton()" [disabled]=editCardForm.invalid>Save</p-button>
   </ng-template>
 </p-dialog>
