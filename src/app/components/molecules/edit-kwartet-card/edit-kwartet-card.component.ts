@@ -4,6 +4,7 @@ import { KwartetCard } from "../../../data/models/kwartetcard-model";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { CARD_NAME_CHARACTER_LIMIT, SET_TITLE_CHARACTER_LIMIT } from "../../../config/global-settings";
 import { MessageService } from "primeng/api";
+import { KwartetCardService } from "../../../services/kwartet-card.service";
 
 @Component({
   selector: 'app-edit-kwartet-card',
@@ -36,14 +37,20 @@ export class EditKwartetCardComponent implements OnInit {
       validators: [Validators.required,
         Validators.maxLength(CARD_NAME_CHARACTER_LIMIT)]
     }),
-    coverImage: new FormControl<Blob | null>(null)
+    coverImage: new FormControl<Blob | null>(null, {
+      nonNullable: false,
+    })
   })
 
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService,
+              private kwartetCardService: KwartetCardService) {
+  }
 
   ngOnInit(): void {
     // Fill in existing form values
-    this.editCardForm.controls.name.setValue(this.currentKwartetCard!.name == 'Unnamed card' ? 'AAA' : 'B');
+
+    // If the name of the card is "Unnamed card", don't set a value.
+    this.editCardForm.controls.name.setValue(this.currentKwartetCard!.name == 'Unnamed card' ? '' : this.currentKwartetCard!.name);
     this.editCardForm.controls.coverImage.setValue(this.currentKwartetCard!.coverImage!);
   }
 
@@ -59,13 +66,21 @@ export class EditKwartetCardComponent implements OnInit {
 
 
   async saveCard() {
-    // TODO
+    let updatedCard = this.currentKwartetCard!;
+    updatedCard.name = this.editCardForm.controls.name.value;
+    if (this.editCardForm.controls.coverImage) {
+      updatedCard.coverImage = this.editCardForm.controls.coverImage.value!
+    }
 
-    // Show confirmation toast to user
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Success',
-      detail: `Changes to the card have been saved.`
-    });
+    await this.kwartetCardService.updateKwartetCard(updatedCard).then(() => {
+        // Show confirmation toast to user
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: `Changes to the card have been saved.`
+        });
+    },
+    );
+
   }
 }

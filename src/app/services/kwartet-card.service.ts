@@ -16,4 +16,8 @@ export class KwartetCardService {
   async getKwartetCardsBySetId(setId: number) {
     return db.kwartetCards.where("kwartetSetId").equals(setId).toArray();
   }
+
+  async updateKwartetCard(cardToUpdate: KwartetCard) {
+    await db.kwartetCards.update(cardToUpdate.id!, cardToUpdate)
+  }
 }

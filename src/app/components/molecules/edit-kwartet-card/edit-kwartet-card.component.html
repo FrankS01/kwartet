@@ -12,7 +12,7 @@
       Image
     </div>
     <div *ngFor="let card of kwartetCards; let i = index" class="flex align-items-center justify-content-center h-2rem w-full">
-      <p class="m-0 text-0">{{ kwartetCards![i].name }}</p>
+      <p [class.font-bold]="card == currentKwartetCard" class="m-0 text-0">{{ kwartetCards![i].name }}</p>
     </div>
   </div>
 </div>
