@@ -10,6 +10,8 @@ import { KwartetSetService } from "../../../services/kwartet-set.service";
 import { liveQuery } from "dexie";
 import { from, Observable } from "rxjs";
 import { Page } from "../../../data/models/page-enum";
+import { KwartetCard } from "../../../data/models/kwartetcard-model";
+import { KwartetCardService } from "../../../services/kwartet-card.service";
 
 @Component({
   selector: 'app-edit-game',
@@ -44,6 +46,7 @@ export class EditGameComponent implements OnInit {
               private router: Router,
               private kwartetGameService: KwartetGameService,
               private kwartetSetService: KwartetSetService,
+              private kwartetCardService: KwartetCardService,
               private messageService: MessageService) {
     const gameId: number = Number(this.route.snapshot.paramMap.get('game-id'));
     this.kwartetGame$ = from(liveQuery(() => this.kwartetGameService.getKwartetGameById(gameId)));
@@ -66,20 +69,26 @@ export class EditGameComponent implements OnInit {
     this.kwartetGame$.subscribe(
       async (kwartetGame) => {
 
-        // Create set object
+        // Create new kwartet set object
         let newSet: KwartetSet = {
           kwartetGameId: kwartetGame?.id!,
-          setName: this.nameFormControl.value,
-          card1: {name: "Unnamed card"},
-          card2: {name: "Unnamed card"},
-          card3: {name: "Unnamed card"},
-          card4: {name: "Unnamed card"}
+          setName: this.nameFormControl.value
         }
 
-        // Create new kwartet set
-        await this.kwartetSetService.createKwartetSet(newSet);
+        // Store kwartet set
+        let kwartetSetId = await this.kwartetSetService.createKwartetSet(newSet);
 
-        // Update kwartet sets
+        // Create 4 new card objects and store them
+        for (let i = 0; i < 4; i++) {
+          let newCard: KwartetCard = {
+            kwartetSetId: kwartetSetId,
+            name: "Unnamed card"
+          }
+          await this.kwartetCardService.createKwartetCard(newCard);
+        }
+
+        // Update kwartet sets in this component
+        // TODO Maybe this can be done using a live query?
         await this.getKwartetSetsFromService();
 
         // Show confirmation toast to user

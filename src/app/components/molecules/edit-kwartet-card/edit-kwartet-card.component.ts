@@ -15,11 +15,14 @@ export class EditKwartetCardComponent implements OnInit {
   // Used by the .html markup
   protected readonly SET_TITLE_CHARACTER_LIMIT = SET_TITLE_CHARACTER_LIMIT;
 
+  // The full kwartet set that this card is a part of
+  @Input() kwartetSet?: KwartetSet;
+
+  // All kwartet cards that are part of this kwartet set
+  @Input() kwartetCards?: KwartetCard[];
+
   // The kwartet card that is currently being previewed by this component
   @Input() currentKwartetCard?: KwartetCard;
-
-  // The full kwartet set that this card is a part of (this is needed because it is shown on the card as well)
-  @Input() kwartetSet?: KwartetSet;
 
   // Whether the "edit card" dialog is visible or not
   editCardDialogIsVisible: boolean = false;

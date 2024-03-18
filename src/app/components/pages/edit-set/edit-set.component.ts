@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { KwartetSetService } from "../../../services/kwartet-set.service";
 import { KwartetCard } from "../../../data/models/kwartetcard-model";
+import { KwartetCardService } from "../../../services/kwartet-card.service";
 
 @Component({
   selector: 'app-edit-set',
@@ -16,29 +17,36 @@ export class EditSetComponent implements OnInit, OnChanges {
   @Input() currentSetId?: number;
   currentEditedSet?: KwartetSet
 
-  kwartetCardToEdit?: KwartetCard;
+  kwartetCards: KwartetCard[] = []
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private kwartetGameService: KwartetGameService,
               private kwartetSetService: KwartetSetService,
+              private kwartetCardService: KwartetCardService,
               private confirmationService: ConfirmationService,
               private messageService: MessageService) {
   }
 
   async ngOnInit() {
     await this.getCurrentEditedSet();
+    await this.getKwartetCardsBySetId(this.currentEditedSet?.id!)
   }
 
   async ngOnChanges() {
     await this.getCurrentEditedSet();
+    await this.getKwartetCardsBySetId(this.currentEditedSet?.id!)
   }
 
   async getCurrentEditedSet() {
     this.currentEditedSet = await this.kwartetSetService.getKwartetSetById(this.currentSetId!);
   }
 
-  async confirmDelete(event: Event) {
+  async getKwartetCardsBySetId(setId: number) {
+    this.kwartetCards =  await this.kwartetCardService.getKwartetCardsBySetId(setId);
+  }
+
+  async confirmDeleteSet(event: Event) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: 'Are you sure you want to delete this set? All data will be irretrievably lost.',

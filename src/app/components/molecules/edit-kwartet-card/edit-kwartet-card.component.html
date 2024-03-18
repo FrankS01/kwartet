@@ -11,17 +11,8 @@
     <div class="flex align-items-center justify-content-center h-6rem w-full">
       Image
     </div>
-    <div class="flex align-items-center justify-content-center h-2rem w-full">
-      <p class="m-0 text-0">{{ kwartetSet.card1.name }}</p>
-    </div>
-    <div class="flex align-items-center justify-content-center h-2rem w-full">
-      <p class="m-0 text-0">{{ kwartetSet.card2.name }}</p>
-    </div>
-    <div class="flex align-items-center justify-content-center h-2rem w-full">
-      <p class="m-0 text-0">{{ kwartetSet.card3.name }}</p>
-    </div>
-    <div class="flex align-items-center justify-content-center h-2rem w-full">
-      <p class="m-0 text-0">{{ kwartetSet.card4.name }}</p>
+    <div *ngFor="let card of kwartetCards; let i = index" class="flex align-items-center justify-content-center h-2rem w-full">
+      <p class="m-0 text-0">{{ kwartetCards![i].name }}</p>
     </div>
   </div>
 </div>

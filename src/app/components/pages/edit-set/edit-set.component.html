@@ -2,42 +2,25 @@
   <h1 class="m-0 mb-4">Set Editor</h1>
 
   <div *ngIf="currentEditedSet; else notLoaded" class="flex flex-column justify-content-center align-items-center">
-    <p class="m-0 mb-4">Set name: {{currentEditedSet.setName}}</p>
+    <p class="m-0 mb-4">Set name: {{ currentEditedSet.setName }}</p>
     <p class="m-0 mb-4">Click on a card to edit it</p>
 
+    <!-- Card previews -->
     <div class="flex justify-content-center flex-wrap">
 
-      <div
-        class="flex flex-column align-items-center ml-3 mr-3">
-        <p>Card 1</p>
-        <app-edit-kwartet-card [kwartetSet]="currentEditedSet" [currentKwartetCard]="currentEditedSet.card1"></app-edit-kwartet-card>
-        <p>{{currentEditedSet.card1.name}}</p>
-      </div>
-
-      <div
-        class="flex flex-column align-items-center ml-3 mr-3">
-        <p>Card 2</p>
-        <app-edit-kwartet-card [kwartetSet]="currentEditedSet" [currentKwartetCard]="currentEditedSet.card2"></app-edit-kwartet-card>
-        <p>{{currentEditedSet.card2.name}}</p>
-      </div>
-
-      <div
-        class="flex flex-column align-items-center ml-3 mr-3">
-        <p>Card 3</p>
-        <app-edit-kwartet-card [kwartetSet]="currentEditedSet" [currentKwartetCard]="currentEditedSet.card3"></app-edit-kwartet-card>
-        <p>{{currentEditedSet.card3.name}}</p>
-      </div>
-
-      <div
-        class="flex flex-column align-items-center ml-3 mr-3">
-        <p>Card 4</p>
-        <app-edit-kwartet-card [kwartetSet]="currentEditedSet" [currentKwartetCard]="currentEditedSet.card4"></app-edit-kwartet-card>
-        <p>{{currentEditedSet.card4.name}}</p>
+      <div *ngFor="let card of kwartetCards; let i = index"
+           class="flex flex-column align-items-center ml-3 mr-3">
+        <p>Card {{ i + 1 }}</p>
+        <app-edit-kwartet-card [kwartetSet]="currentEditedSet"
+                               [currentKwartetCard]="card"
+                               [kwartetCards]="kwartetCards">
+        </app-edit-kwartet-card>
+        <p>{{ card.name }}</p>
       </div>
 
     </div>
 
-    <p-button class="mt-6" (click)="confirmDelete($event)" icon="pi pi-times" label="Delete set" [outlined]="true"
+    <p-button class="mt-6" (click)="confirmDeleteSet($event)" icon="pi pi-times" label="Delete set" [outlined]="true"
               severity="danger"></p-button>
     <p-confirmDialog></p-confirmDialog>
 

@@ -27,6 +27,6 @@ export class KwartetSetService {
   }
 
   async createKwartetSet(set: KwartetSet) {
-    await db.kwartetSets.add(set);
+    return await db.kwartetSets.add(set);
   }
 }
