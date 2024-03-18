@@ -23,8 +23,8 @@ import { SidebarComponent } from "./components/organisms/sidebar/sidebar.compone
 import { SidebarItemComponent } from "./components/molecules/sidebar-item/sidebar-item.component";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import {
-  KwartetCardPreviewComponent
-} from "./components/molecules/kwartet-card-preview/kwartet-card-preview.component";
+  EditKwartetCardComponent
+} from "./components/molecules/kwartet-card-preview/edit-kwartet-card.component";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { EditCardDialogComponent } from "./components/organisms/edit-card-dialog/edit-card-dialog.component";
 
@@ -47,7 +47,7 @@ const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
     PrintComponent,
     SidebarComponent,
     SidebarItemComponent,
-    KwartetCardPreviewComponent
+    EditKwartetCardComponent
   ],
   imports: [
     BrowserModule,

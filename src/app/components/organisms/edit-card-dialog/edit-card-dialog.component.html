@@ -1,9 +1,0 @@
-<p-dialog header="Edit card" [(visible)]="editCardDialogIsVisible" [modal]="true" [draggable]="false"
-          [resizable]="false">
-  <div>
-    <p>{{currentEditedCard?.name}}</p>
-  </div>
-  <ng-template pTemplate="footer">
-    <p-button (click)="onClickSaveCardButton()" [disabled]=cardFormControl.invalid>Save</p-button>
-  </ng-template>
-</p-dialog>

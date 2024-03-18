@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { KwartetCardPreviewComponent } from './kwartet-card-preview.component';
+import { EditKwartetCardComponent } from './edit-kwartet-card.component';
 
 describe('KwartetCardPreviewComponent', () => {
-  let component: KwartetCardPreviewComponent;
-  let fixture: ComponentFixture<KwartetCardPreviewComponent>;
+  let component: EditKwartetCardComponent;
+  let fixture: ComponentFixture<EditKwartetCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [KwartetCardPreviewComponent]
+      imports: [EditKwartetCardComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(KwartetCardPreviewComponent);
+
+    fixture = TestBed.createComponent(EditKwartetCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

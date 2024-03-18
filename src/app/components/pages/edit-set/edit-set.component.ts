@@ -18,9 +18,6 @@ export class EditSetComponent implements OnInit, OnChanges {
 
   kwartetCardToEdit?: KwartetCard;
 
-  // Whether the "edit card" dialog is visible or not
-  editCardDialogIsVisible: boolean = false;
-
   constructor(private route: ActivatedRoute,
               private router: Router,
               private kwartetGameService: KwartetGameService,
@@ -71,10 +68,5 @@ export class EditSetComponent implements OnInit, OnChanges {
    */
   async deleteCurrentEditedSet() {
     await this.kwartetSetService.deleteKwartetSet(this.currentEditedSet?.id!)
-  }
-
-  openEditCardDialog(cardToEdit: KwartetCard) {
-    this.kwartetCardToEdit = cardToEdit;
-    this.editCardDialogIsVisible = true;
   }
 }

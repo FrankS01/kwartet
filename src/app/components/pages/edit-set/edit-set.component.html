@@ -10,28 +10,28 @@
       <div
         class="flex flex-column align-items-center ml-3 mr-3">
         <p>Card 1</p>
-        <app-kwartet-card-preview [kwartetSet]="currentEditedSet" [currentKwartetCard]="1" (onCardClick)="openEditCardDialog(currentEditedSet.card1)"></app-kwartet-card-preview>
+        <app-kwartet-card-preview [kwartetSet]="currentEditedSet" [currentKwartetCard]="currentEditedSet.card1"></app-kwartet-card-preview>
         <p>{{currentEditedSet.card1.name}}</p>
       </div>
 
       <div
         class="flex flex-column align-items-center ml-3 mr-3">
         <p>Card 2</p>
-        <app-kwartet-card-preview [kwartetSet]="currentEditedSet" [currentKwartetCard]="2" (onCardClick)="openEditCardDialog(currentEditedSet.card2)"></app-kwartet-card-preview>
+        <app-kwartet-card-preview [kwartetSet]="currentEditedSet" [currentKwartetCard]="currentEditedSet.card2"></app-kwartet-card-preview>
         <p>{{currentEditedSet.card2.name}}</p>
       </div>
 
       <div
         class="flex flex-column align-items-center ml-3 mr-3">
         <p>Card 3</p>
-        <app-kwartet-card-preview [kwartetSet]="currentEditedSet" [currentKwartetCard]="3" (onCardClick)="openEditCardDialog(currentEditedSet.card3)"></app-kwartet-card-preview>
+        <app-kwartet-card-preview [kwartetSet]="currentEditedSet" [currentKwartetCard]="currentEditedSet.card3"></app-kwartet-card-preview>
         <p>{{currentEditedSet.card3.name}}</p>
       </div>
 
       <div
         class="flex flex-column align-items-center ml-3 mr-3">
         <p>Card 4</p>
-        <app-kwartet-card-preview [kwartetSet]="currentEditedSet" [currentKwartetCard]="4" (onCardClick)="openEditCardDialog(currentEditedSet.card4)"></app-kwartet-card-preview>
+        <app-kwartet-card-preview [kwartetSet]="currentEditedSet" [currentKwartetCard]="currentEditedSet.card4"></app-kwartet-card-preview>
         <p>{{currentEditedSet.card4.name}}</p>
       </div>
 
@@ -46,5 +46,3 @@
     <p>The set could not be loaded.</p>
   </ng-template>
 </div>
-<p>{{editCardDialogIsVisible}}</p>
-<app-edit-card-dialog [currentEditedCard]="kwartetCardToEdit" [editCardDialogIsVisible]="editCardDialogIsVisible"></app-edit-card-dialog>
