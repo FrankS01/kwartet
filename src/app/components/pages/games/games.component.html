@@ -5,7 +5,7 @@
     <p>What will this game be called?</p>
     <input id="name" type="text" placeholder="Game title" required pInputText [formControl]="titleFormControl"/>
     <br>
-    <small class="p-error" *ngIf="titleFormControl.errors?.['maxlength']">The name must not be longer than 20
+    <small class="p-error" *ngIf="titleFormControl.errors?.['maxlength']">The name must not be longer than {{GAME_TITLE_CHARACTER_LIMIT}}
       characters.</small>
   </div>
   <ng-template pTemplate="footer">

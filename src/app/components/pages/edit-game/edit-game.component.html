@@ -57,7 +57,7 @@
     <p>What will be the name of this set?</p>
     <input id="name" type="text" placeholder="Set title" required pInputText [formControl]="nameFormControl"/>
     <br>
-    <small class="p-error" *ngIf="nameFormControl.errors?.['maxlength']">The name must not be longer than 20
+    <small class="p-error" *ngIf="nameFormControl.errors?.['maxlength']">The name must not be longer than {{SET_TITLE_CHARACTER_LIMIT}}
       characters.</small>
   </div>
   <ng-template pTemplate="footer">

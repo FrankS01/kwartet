@@ -18,6 +18,10 @@ import { Page } from "../../../data/models/page-enum";
 })
 export class EditGameComponent implements OnInit {
 
+  // Used by the .html markup
+  protected readonly Page = Page;
+  protected readonly SET_TITLE_CHARACTER_LIMIT = SET_TITLE_CHARACTER_LIMIT;
+
   /** The game that is being edited */
   public kwartetGame$: Observable<KwartetGame | undefined>
 
@@ -104,6 +108,4 @@ export class EditGameComponent implements OnInit {
     this.createSetDialogIsVisible = false;
     await this.createNewSet();
   }
-
-  protected readonly Page = Page;
 }

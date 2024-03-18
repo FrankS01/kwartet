@@ -26,8 +26,6 @@ import {
   EditKwartetCardComponent
 } from "./components/molecules/kwartet-card-preview/edit-kwartet-card.component";
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { EditCardDialogComponent } from "./components/organisms/edit-card-dialog/edit-card-dialog.component";
-
 
 const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
   primeConfig.ripple = true;
@@ -42,7 +40,6 @@ const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
     GamesComponent,
     EditGameComponent,
     EditSetComponent,
-    EditCardDialogComponent,
     GameSettingsComponent,
     PrintComponent,
     SidebarComponent,

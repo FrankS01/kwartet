@@ -14,6 +14,9 @@ import { db } from "../../../data/models/db";
 })
 export class GamesComponent {
 
+  // Used by the .html markup
+  protected readonly GAME_TITLE_CHARACTER_LIMIT = GAME_TITLE_CHARACTER_LIMIT;
+
   // List of currently loaded games
   loadedGames$ = liveQuery(() => db.kwartetGames.toArray());
 
@@ -56,5 +59,6 @@ export class GamesComponent {
     this.createGameDialogIsVisible = false;
     await this.createNewGame();
   }
+
 
 }
