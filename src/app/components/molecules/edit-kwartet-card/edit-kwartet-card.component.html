@@ -1,14 +1,23 @@
 <div class="relative">
+
+  <!-- Hover overlay -->
   <div (click)="onCardPreviewClicked()"
        class="absolute w-full h-full transition-colors transition-duration-150 hover:bg-black-alpha-80 border-overlay cursor-pointer flex justify-content-center align-items-center"
        (mouseenter)="showEditOverlay = true" (mouseleave)="showEditOverlay = false">
     <i *ngIf="showEditOverlay" class="pi pi-pencil" style="font-size: 2.5rem"></i>
   </div>
+
+  <!-- Kwartet card -->
   <div *ngIf="kwartetSet; else notLoaded" class="cover flex flex-column">
-    <div class="flex align-items-center justify-content-center h-2rem w-full">
-      <p class="m-1 text-0">{{ kwartetSet.setName }}</p>
+
+    <!-- Kwartet card - set name -->
+    <div class="flex align-items-center justify-content-center w-full bg-primary"
+    style="height: 1.5rem;">
+      <p class="m-1 text-0 font-medium">{{ kwartetSet.setName }}</p>
     </div>
-    <div class="flex align-items-center justify-content-center h-6rem w-full bg-gray-300">
+
+    <!-- Kwartet card - cover image -->
+    <div class="flex align-items-center justify-content-center h-8rem w-full bg-gray-300">
       <img *ngIf="currentKwartetCard?.coverImage; else noImage"
            class="w-full h-full"
            style="object-fit: cover;"
@@ -18,11 +27,13 @@
         <p class="m-1 text-0">No cover image yet</p>
       </ng-template>
     </div>
-    <div *ngFor="let card of kwartetCards; let i = index"
-         class="flex align-items-center justify-content-center h-2rem w-full">
-      <p [class.font-bold]="card == currentKwartetCard"
-         [class.text-gray-500]="card.name == 'Unnamed card'"
-         class="m-0 text-0">{{ kwartetCards![i].name }}</p>
+
+    <!-- Kwartet card - all card names in this set -->
+    <div *ngFor="let card of kwartetCards; let i = index" [class.bg-primary]="card == currentKwartetCard"
+         class="flex align-items-center justify-content-center w-full"
+         style="height: 1.5rem;">
+      <p [class.text-gray-500]="card.name == 'Unnamed card'"
+         class="m-0 text-0 font-medium">{{ kwartetCards![i].name }}</p>
     </div>
   </div>
 </div>
@@ -31,6 +42,7 @@
   <p>The set could not be loaded.</p>
 </ng-template>
 
+<!-- Edit card dialog -->
 <p-dialog header="Editing card {{kwartetCardNumber}} in set {{kwartetSet?.setName}}"
           [(visible)]="editCardDialogIsVisible"
           [modal]="true"
