@@ -65,9 +65,9 @@ export class EditKwartetCardComponent implements OnInit {
 
   ngOnInit(): void {
     // Fill in existing form values
-    // If the name of the card is "Unnamed card", don't set a value.
-    this.editCardForm.controls.name.setValue(this.currentKwartetCard!.name == 'Unnamed card' ? '' : this.currentKwartetCard!.name);
+    this.autofillForm()
 
+    // Generate existing cover image url
     this.generateExistingCoverImageUrl();
   }
 
@@ -98,7 +98,7 @@ export class EditKwartetCardComponent implements OnInit {
           detail: `Changes to card ${this.kwartetCardNumber} have been saved.`,
           life: 1500
         });
-    },
+      },
     );
 
     // Reset form
@@ -136,14 +136,30 @@ export class EditKwartetCardComponent implements OnInit {
     this.resetEditCardForm();
   }
 
+  /**
+   * Resets the edit card form to their default values
+   */
   resetEditCardForm() {
+
     // Reset form group
     this.editCardForm.reset();
 
-    // Autofill the card name
+    // Reset upload button
+    this.fileUploadButton!.clear();
+
+    // Autofill the form
+    this.autofillForm();
+
+  }
+
+  autofillForm() {
+    // If the name of the card is "Unnamed card", don't set a value.
     this.editCardForm.controls.name.setValue(this.currentKwartetCard!.name == 'Unnamed card' ? '' : this.currentKwartetCard!.name);
 
-    // Reset upload
-    this.fileUploadButton!.clear();
+    if (this.currentKwartetCard!.coverImage) {
+      this.editCardForm.controls.coverImage.setValue(this.currentKwartetCard!.coverImage);
+      this.generateTemporaryCoverImageUrl();
+    }
   }
+
 }
