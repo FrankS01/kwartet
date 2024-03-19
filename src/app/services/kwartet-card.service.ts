@@ -20,4 +20,8 @@ export class KwartetCardService {
   async updateKwartetCard(cardToUpdate: KwartetCard) {
     await db.kwartetCards.update(cardToUpdate.id!, cardToUpdate)
   }
+
+  async deleteKwartetCard(cardId: number) {
+    await db.kwartetCards.delete(cardId);
+  }
 }
