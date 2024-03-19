@@ -66,7 +66,7 @@ export class EditGameComponent implements OnInit {
   }
 
   async createNewSet() {
-    this.kwartetGame$.subscribe(
+    let subscription = this.kwartetGame$.subscribe(
       async (kwartetGame) => {
 
         // Create new kwartet set object
@@ -90,7 +90,6 @@ export class EditGameComponent implements OnInit {
         // Update kwartet sets in this component
         // TODO Maybe this can be done using a live query?
         await this.getKwartetSetsFromService();
-
         // Show confirmation toast to user
         this.messageService.add({
           severity: 'success',
@@ -104,9 +103,11 @@ export class EditGameComponent implements OnInit {
         // Navigate to newly created set
         this.currentSetId = newSet.id;
         this.currentPage = Page.EditSet;
+
+        // Unsubscribe
+        subscription.unsubscribe();
       }
     );
-
   }
 
   showCreateSetDialog() {

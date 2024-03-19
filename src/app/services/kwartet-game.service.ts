@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { KwartetGame } from "../data/models/kwartetgame-model";
 import { db } from "../data/models/db";
+import { KwartetSetService } from "./kwartet-set.service";
+import { KwartetSet } from "../data/models/kwartetset-model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class KwartetGameService {
+
+  constructor(private kwartetSetService: KwartetSetService) {}
 
   /**
    * Return all kwartet games
@@ -31,10 +35,19 @@ export class KwartetGameService {
   }
 
   /**
-   * Deletes a kwartet game
+   * Deletes a kwartet game and all sets (and cards) belonging to it
    * @param gameToDeleteId Id of the game to delete
    */
   async deleteKwartetGame(gameToDeleteId: number) {
+    // Find all kwartet sets belonging to this game
+    let kwartetSets: KwartetSet[] = await this.kwartetSetService.getKwartetSetsByGameId(gameToDeleteId);
+
+    // Loop through all kwartet sets and delete them one by one
+    for (const kwartetSet of kwartetSets) {
+      await this.kwartetSetService.deleteKwartetSet(kwartetSet.id!);
+    }
+
+    // Delete the kwartet game itself
     await db.kwartetGames.delete(gameToDeleteId)
   }
 
