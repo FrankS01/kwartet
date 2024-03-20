@@ -61,7 +61,7 @@ export class EditSetComponent implements OnInit, OnChanges {
         await this.deleteCurrentEditedSet();
         this.messageService.add({
           severity: 'success',
-          summary: 'Deleted set',
+          summary: 'Set deleted',
           detail: `Set "${this.currentEditedSet?.setName}" has been successfully deleted`
         })
         this.kwartetGameService.getKwartetGameById(this.currentEditedSet?.kwartetGameId!).then(game => {

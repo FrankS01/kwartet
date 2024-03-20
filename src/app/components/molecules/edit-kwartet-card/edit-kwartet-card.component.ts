@@ -21,7 +21,6 @@ export class EditKwartetCardComponent implements OnInit {
   // Used by the .html markup
   protected readonly CARD_COVER_FILE_SIZE = CARD_COVER_FILE_SIZE;
   protected readonly SET_TITLE_CHARACTER_LIMIT = SET_TITLE_CHARACTER_LIMIT;
-  protected readonly URL = URL
 
   // The full kwartet set that this card is a part of
   @Input() kwartetSet?: KwartetSet;
@@ -94,8 +93,8 @@ export class EditKwartetCardComponent implements OnInit {
         // Show confirmation toast to user
         this.messageService.add({
           severity: 'success',
-          summary: 'Success',
-          detail: `Changes to card ${this.kwartetCardNumber} have been saved.`,
+          summary: 'Card updated',
+          detail: `Changes to card ${this.kwartetCardNumber} have been saved`,
           life: 1500
         });
       },

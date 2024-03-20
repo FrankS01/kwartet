@@ -30,12 +30,13 @@ export class GamesComponent {
       Validators.maxLength(GAME_TITLE_CHARACTER_LIMIT)]
   });
 
-  constructor(private kwartetGameService: KwartetGameService, private messageService: MessageService) { }
+  constructor(private kwartetGameService: KwartetGameService, private messageService: MessageService) {
+  }
 
   /**
    * Create a new game, add it to the list of games and store it.
    */
-  private async createNewGame(){
+  private async createNewGame() {
     // Create game object
     let newGame: KwartetGame = {
       title: this.titleFormControl.value
@@ -45,7 +46,11 @@ export class GamesComponent {
     await this.kwartetGameService.createKwartetGame(newGame);
 
     // Show confirmation toast to user
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: `Game "${ this.titleFormControl.value }" was succesfully created.` });
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: `Game "${this.titleFormControl.value}" was succesfully created`
+    });
 
     // Reset form value
     this.titleFormControl.reset();

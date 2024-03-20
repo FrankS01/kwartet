@@ -1,18 +1,35 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { KwartetGame } from "../../../data/models/kwartetgame-model";
 import { ActivatedRoute, Router } from "@angular/router";
 import { KwartetGameService } from "../../../services/kwartet-game.service";
 import { ConfirmationService, MessageService } from "primeng/api";
+import { GAME_TITLE_CHARACTER_LIMIT } from "../../../config/global-settings";
+import { FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-game-settings',
   templateUrl: './game-settings.component.html',
   styleUrl: './game-settings.component.scss',
 })
-export class GameSettingsComponent {
+export class GameSettingsComponent implements OnInit {
+
+  // Used by the .html markup
+  protected readonly GAME_TITLE_CHARACTER_LIMIT = GAME_TITLE_CHARACTER_LIMIT;
 
   /** The game whose settings are being edited */
   @Input() kwartetGame?: KwartetGame
+
+  @Input() kwartetSetAmount: number = 0;
+
+  // Whether the "edit game" dialog is visible or not
+  editGameDialogIsVisible: boolean = false;
+
+  // Form value, used in "edit game" dialog
+  titleFormControl = new FormControl('', {
+    nonNullable: true,
+    validators: [Validators.required,
+      Validators.maxLength(GAME_TITLE_CHARACTER_LIMIT)]
+  });
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -20,6 +37,11 @@ export class GameSettingsComponent {
               private confirmationService: ConfirmationService,
               private messageService: MessageService) {
   }
+
+  ngOnInit(): void {
+    this.autofillForm();
+  }
+
   confirmDelete(event: Event) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
@@ -36,11 +58,42 @@ export class GameSettingsComponent {
         this.router.navigateByUrl("/games").then(() =>
           this.messageService.add({
             severity: 'success',
-            summary: 'Deleted game',
+            summary: 'Game deleted',
             detail: `Game "${this.kwartetGame?.title}" has been successfully deleted`
           })
         );
       }
     });
+  }
+
+  onEditButtonClicked() {
+    // Open dialog
+    this.editGameDialogIsVisible = true;
+  }
+
+  /**
+   * Edit a game (title)
+   * @private
+   */
+  private async editGameTitle() {
+    this.kwartetGame!.title = this.titleFormControl.value;
+    await this.kwartetGameService.updateKwartetGame(this.kwartetGame!).then(() => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Game title updated',
+        detail: `Game title has been successfully changed to "${this.kwartetGame?.title}"`
+      })
+    });
+
+
+  }
+
+  async onClickEditGameButton() {
+    this.editGameDialogIsVisible = false;
+    await this.editGameTitle();
+  }
+
+  private autofillForm() {
+    this.titleFormControl.setValue(this.kwartetGame?.title!);
   }
 }
