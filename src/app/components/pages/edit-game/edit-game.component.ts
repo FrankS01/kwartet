@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { KwartetGame } from "../../../data/models/kwartetgame-model";
 import { KwartetGameService } from "../../../services/kwartet-game.service";
@@ -18,7 +18,7 @@ import { KwartetCardService } from "../../../services/kwartet-card.service";
   templateUrl: './edit-game.component.html',
   styleUrl: './edit-game.component.scss'
 })
-export class EditGameComponent implements OnInit {
+export class EditGameComponent {
 
   // Used by the .html markup
   protected readonly Page = Page;
@@ -27,7 +27,7 @@ export class EditGameComponent implements OnInit {
   /** The game that is being edited */
   public kwartetGame$: Observable<KwartetGame | undefined>
 
-  kwartetSets?: KwartetSet[]
+  public kwartetSets$: Observable<KwartetSet[] | undefined>
 
   currentPage: Page = Page.GameOverview;
   currentSetId?: number = 0;
@@ -49,20 +49,9 @@ export class EditGameComponent implements OnInit {
               private kwartetCardService: KwartetCardService,
               private messageService: MessageService) {
     const gameId: number = Number(this.route.snapshot.paramMap.get('game-id'));
+
     this.kwartetGame$ = from(liveQuery(() => this.kwartetGameService.getKwartetGameById(gameId)));
-  }
-
-  async ngOnInit() {
-    // await this.getKwartetGameFromService();
-    await this.getKwartetSetsFromService();
-  }
-
-  /**
-   * Using the kwartet game uuid from the router and the {@link KwartetGameService}, retrieves a kwartet game
-   */
-  async getKwartetSetsFromService() {
-    const gameId: number = Number(this.route.snapshot.paramMap.get('game-id'));
-    this.kwartetSets = await this.kwartetSetService.getKwartetSetsByGameId(gameId);
+    this.kwartetSets$ = from(liveQuery(() => this.kwartetSetService.getKwartetSetsByGameId(gameId)))
   }
 
   async createNewSet() {
@@ -87,8 +76,6 @@ export class EditGameComponent implements OnInit {
           await this.kwartetCardService.createKwartetCard(newCard);
         }
 
-        // Update kwartet sets in this component
-        await this.getKwartetSetsFromService();
         // Show confirmation toast to user
         this.messageService.add({
           severity: 'success',

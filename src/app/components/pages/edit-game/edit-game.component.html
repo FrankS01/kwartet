@@ -21,10 +21,10 @@
       <!-- Kwartet set sidebar items -->
       <h1 class="pl-5 pt-3 m-0">SETS</h1>
       <ul class="list-none p-3 m-0">
-        <li *ngFor="let set of kwartetSets">
+        <li *ngFor="let set of kwartetSets$ | async">
           <app-sidebar-item icon="pi-pencil" text="{{set.setName}}" (click)="currentPage = Page.EditSet; currentSetId = set.id"></app-sidebar-item>
         </li>
-        <li *ngIf="kwartetSets?.length == 0">
+        <li *ngIf="(kwartetSets$ | async)?.length == 0">
           <p class="font-italic pl-3 pr-3 m-0">Add a set by clicking the button below!</p>
         </li>
         <li class="pt-3">
@@ -38,7 +38,7 @@
     <!-- Main content -->
     <main class="w-full m-6">
       <div [ngSwitch]="currentPage">
-        <app-game-settings [kwartetSetAmount]="kwartetSets?.length!" *ngSwitchCase=Page.GameOverview [kwartetGame]="kwartetGame"></app-game-settings>
+        <app-game-settings [kwartetSetAmount]="(kwartetSets$ | async)?.length!" *ngSwitchCase=Page.GameOverview [kwartetGame]="kwartetGame"></app-game-settings>
         <app-print *ngSwitchCase=Page.Print></app-print>
         <app-edit-set *ngSwitchCase=Page.EditSet [currentSetId]="currentSetId!"></app-edit-set>
       </div>

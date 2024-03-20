@@ -16,6 +16,9 @@ import { SET_TITLE_CHARACTER_LIMIT } from "../../../config/global-settings";
 })
 export class EditSetComponent implements OnInit, OnChanges {
 
+  // Used by the .html markup
+  protected readonly SET_TITLE_CHARACTER_LIMIT = SET_TITLE_CHARACTER_LIMIT;
+  
   @Input() currentSetId?: number;
   currentEditedSet?: KwartetSet
 
@@ -121,5 +124,4 @@ export class EditSetComponent implements OnInit, OnChanges {
     this.nameFormControl.setValue(this.currentEditedSet?.setName!);
   }
 
-  protected readonly SET_TITLE_CHARACTER_LIMIT = SET_TITLE_CHARACTER_LIMIT;
 }
