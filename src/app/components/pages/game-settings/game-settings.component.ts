@@ -21,10 +21,10 @@ export class GameSettingsComponent implements OnInit {
 
   @Input() kwartetSetAmount: number = 0;
 
-  // Whether the "edit game" dialog is visible or not
-  editGameDialogIsVisible: boolean = false;
+  // Whether the "edit game title" dialog is visible or not
+  editGameTitleDialogIsVisible: boolean = false;
 
-  // Form value, used in "edit game" dialog
+  // Form value, used in "edit game title" dialog
   titleFormControl = new FormControl('', {
     nonNullable: true,
     validators: [Validators.required,
@@ -66,13 +66,13 @@ export class GameSettingsComponent implements OnInit {
     });
   }
 
-  onEditButtonClicked() {
+  onEditGameTitleButtonClicked() {
     // Open dialog
-    this.editGameDialogIsVisible = true;
+    this.editGameTitleDialogIsVisible = true;
   }
 
   /**
-   * Edit a game (title)
+   * Edit a game title
    * @private
    */
   private async editGameTitle() {
@@ -84,12 +84,10 @@ export class GameSettingsComponent implements OnInit {
         detail: `Game title has been successfully changed to "${this.kwartetGame?.title}"`
       })
     });
-
-
   }
 
-  async onClickEditGameButton() {
-    this.editGameDialogIsVisible = false;
+  async onClickEditGameTitleButton() {
+    this.editGameTitleDialogIsVisible = false;
     await this.editGameTitle();
   }
 

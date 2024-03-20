@@ -12,14 +12,36 @@ export class KwartetSetService {
   constructor(private kwartetCardService: KwartetCardService) {}
 
   /**
-   * Using the kwartet set id, retrieves a single kwartet set
+   * Create a new kwartet set
+   * @param set The set to create
    */
-  async getKwartetSetById(id: number) {
-    return db.kwartetSets.where("id").equals(id).first()
+  async createKwartetSet(set: KwartetSet) {
+    return await db.kwartetSets.add(set);
   }
 
+
+  /**
+   * Using the kwartet set id, retrieves a single kwartet set
+   * @param setId Id of the set to retrieve
+   */
+  async getKwartetSetById(setId: number) {
+    return db.kwartetSets.where("id").equals(setId).first()
+  }
+
+  /**
+   * Using the kwartet game id, retrieves an array of kwartet sets
+   * @param gameId Id of the game to retrieve kwartet sets for
+   */
   async getKwartetSetsByGameId(gameId: number) {
     return db.kwartetSets.where("kwartetGameId").equals(gameId).toArray()
+  }
+
+  /**
+   * Updates an existing kwartet set
+   * @param setToUpdate The kwartet set to update
+   */
+  async updateKwartetSet(setToUpdate: KwartetSet) {
+    await db.kwartetSets.update(setToUpdate.id!, setToUpdate);
   }
 
   /**
@@ -37,9 +59,5 @@ export class KwartetSetService {
 
     // Delete the kwartet set itself
     await db.kwartetSets.delete(setId)
-  }
-
-  async createKwartetSet(set: KwartetSet) {
-    return await db.kwartetSets.add(set);
   }
 }

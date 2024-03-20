@@ -2,8 +2,13 @@
   <h1 class="m-0 mb-4">Set Editor</h1>
 
   <div *ngIf="currentEditedSet; else notLoaded" class="flex flex-column justify-content-center align-items-center">
-    <p class="m-0 mb-4">Set name: {{ currentEditedSet.setName }}</p>
-    <p class="m-0 mb-4">Click on a card to edit it</p>
+
+    <div class="flex flex-row">
+      <p class="mr-2">Set name: {{ currentEditedSet.setName }}</p>
+      <p-button (click)="onEditSetNameButtonClicked()" [text]="true" icon="pi pi-pencil"></p-button>
+    </div>
+
+    <p class="mb-4">Click on a card to edit it</p>
 
     <!-- Card previews -->
     <div class="flex justify-content-center flex-wrap">
@@ -29,3 +34,19 @@
     <p>The set could not be loaded.</p>
   </ng-template>
 </div>
+
+<p-dialog header="Edit set name" [(visible)]="editSetNameDialogIsVisible" [modal]="true" [draggable]="false"
+          [resizable]="false">
+  <div>
+    <p>What will be the new set name?</p>
+    <input id="name" type="text" placeholder="Enter set name..." required pInputText
+           [formControl]="nameFormControl"/>
+    <br>
+    <small class="p-error" *ngIf="nameFormControl.errors?.['maxlength']">The name must not be longer
+      than {{ SET_TITLE_CHARACTER_LIMIT }}
+      characters.</small>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button label="Save" (click)="onClickEditSetNameButton()" [disabled]=nameFormControl.invalid></p-button>
+  </ng-template>
+</p-dialog>

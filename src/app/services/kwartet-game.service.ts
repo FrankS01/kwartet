@@ -12,26 +12,27 @@ export class KwartetGameService {
   constructor(private kwartetSetService: KwartetSetService) {}
 
   /**
-   * Return all kwartet games
-   */
-  async getKwartetGames() {
-    return db.kwartetGames.toArray();
-  }
-
-  /**
-   * Using the kwartet game id, retrieves a single kwartet game
-   * @param id The kwartet game id to retrieve
-   */
-  async getKwartetGameById(id: number) {
-    return db.kwartetGames.where("id").equals(id).first();
-  }
-
-  /**
    * Creates a new kwartet game and stores it
    * @param gameToCreate The new kwartet game to be created
    */
   async createKwartetGame(gameToCreate: KwartetGame) {
     db.kwartetGames.add(gameToCreate);
+  }
+
+  /**
+   * Using the kwartet game id, retrieves a single kwartet game
+   * @param gameId The kwartet game id of the game to retrieve
+   */
+  async getKwartetGameById(gameId: number) {
+    return db.kwartetGames.where("id").equals(gameId).first();
+  }
+
+  /**
+   * Update an existing kwartet game
+   * @param updatedGame The updated kwartet game
+   */
+  async updateKwartetGame(updatedGame: KwartetGame) {
+    await db.kwartetGames.update(updatedGame.id!, updatedGame);
   }
 
   /**
@@ -51,11 +52,4 @@ export class KwartetGameService {
     await db.kwartetGames.delete(gameToDeleteId)
   }
 
-  /**
-   * Update an existing kwartet game
-   * @param updatedGame The updated kwartet game
-   */
-  async updateKwartetGame(updatedGame: KwartetGame) {
-    await db.kwartetGames.update(updatedGame.id!, updatedGame);
-  }
 }

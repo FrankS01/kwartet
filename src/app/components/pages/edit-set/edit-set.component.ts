@@ -6,6 +6,8 @@ import { ConfirmationService, MessageService } from "primeng/api";
 import { KwartetSetService } from "../../../services/kwartet-set.service";
 import { KwartetCard } from "../../../data/models/kwartetcard-model";
 import { KwartetCardService } from "../../../services/kwartet-card.service";
+import { FormControl, Validators } from "@angular/forms";
+import { SET_TITLE_CHARACTER_LIMIT } from "../../../config/global-settings";
 
 @Component({
   selector: 'app-edit-set',
@@ -19,6 +21,16 @@ export class EditSetComponent implements OnInit, OnChanges {
 
   kwartetCards: KwartetCard[] = []
 
+  // Whether the "edit set name" dialog is visible or not
+  editSetNameDialogIsVisible: boolean = false;
+
+  // Form value, used in "edit set name" dialog
+  nameFormControl = new FormControl('', {
+    nonNullable: true,
+    validators: [Validators.required,
+      Validators.maxLength(SET_TITLE_CHARACTER_LIMIT)]
+  });
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private kwartetGameService: KwartetGameService,
@@ -31,11 +43,13 @@ export class EditSetComponent implements OnInit, OnChanges {
   async ngOnInit() {
     await this.getCurrentEditedSet();
     await this.getKwartetCardsBySetId(this.currentEditedSet?.id!)
+    this.autofillForm();
   }
 
   async ngOnChanges() {
     await this.getCurrentEditedSet();
     await this.getKwartetCardsBySetId(this.currentEditedSet?.id!)
+    this.autofillForm();
   }
 
   async getCurrentEditedSet() {
@@ -43,7 +57,7 @@ export class EditSetComponent implements OnInit, OnChanges {
   }
 
   async getKwartetCardsBySetId(setId: number) {
-    this.kwartetCards =  await this.kwartetCardService.getKwartetCardsBySetId(setId);
+    this.kwartetCards = await this.kwartetCardService.getKwartetCardsBySetId(setId);
   }
 
   async confirmDeleteSet(event: Event) {
@@ -77,4 +91,35 @@ export class EditSetComponent implements OnInit, OnChanges {
   async deleteCurrentEditedSet() {
     await this.kwartetSetService.deleteKwartetSet(this.currentEditedSet?.id!)
   }
+
+  /**
+   * Edit a set name
+   * @private
+   */
+  private async editSetName() {
+    this.currentEditedSet!.setName = this.nameFormControl.value;
+    await this.kwartetSetService.updateKwartetSet(this.currentEditedSet!).then(() => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Set name updated',
+        detail: `Set name has been successfully changed to "${this.currentEditedSet?.setName}"`
+      })
+    });
+  }
+
+  onEditSetNameButtonClicked() {
+    // Open dialog
+    this.editSetNameDialogIsVisible = true;
+  }
+
+  async onClickEditSetNameButton() {
+    this.editSetNameDialogIsVisible = false;
+    await this.editSetName();
+  }
+
+  private autofillForm() {
+    this.nameFormControl.setValue(this.currentEditedSet?.setName!);
+  }
+
+  protected readonly SET_TITLE_CHARACTER_LIMIT = SET_TITLE_CHARACTER_LIMIT;
 }
