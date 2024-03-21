@@ -52,8 +52,7 @@ export class EditKwartetCardComponent implements OnInit {
   editCardForm = new FormGroup({
     name: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required,
-        Validators.maxLength(CARD_NAME_CHARACTER_LIMIT)]
+      validators: [Validators.maxLength(CARD_NAME_CHARACTER_LIMIT)]
     }),
     coverImage: new FormControl<File | null>(null)
   })
@@ -152,8 +151,8 @@ export class EditKwartetCardComponent implements OnInit {
   }
 
   autofillForm() {
-    // If the name of the card is "Unnamed card", don't set a value.
-    this.editCardForm.controls.name.setValue(this.currentKwartetCard!.name == 'Unnamed card' ? '' : this.currentKwartetCard!.name);
+    // If the name of the card is not set yet, don't set a value.
+    this.editCardForm.controls.name.setValue(this.currentKwartetCard!.name == undefined ? '' : this.currentKwartetCard!.name);
 
     if (this.currentKwartetCard!.coverImage) {
       this.editCardForm.controls.coverImage.setValue(this.currentKwartetCard!.coverImage);

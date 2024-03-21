@@ -12,7 +12,7 @@
 
     <!-- Kwartet card - set name -->
     <div class="flex align-items-center justify-content-center w-full bg-primary"
-    style="height: 1.5rem;">
+         style="height: 1.5rem;">
       <p class="m-1 text-0 font-medium">{{ kwartetSet.setName }}</p>
     </div>
 
@@ -32,8 +32,13 @@
     <div *ngFor="let card of kwartetCards; let i = index" [class.bg-primary]="card == currentKwartetCard"
          class="flex align-items-center justify-content-center w-full"
          style="height: 1.5rem;">
-      <p [class.text-gray-500]="card.name == 'Unnamed card'"
-         class="m-0 text-0 font-medium">{{ kwartetCards![i].name }}</p>
+
+      <p *ngIf="card.name == undefined || card.name == ''; else cardHasName"
+         class="m-0 text-0 font-medium text-gray-500">Unnamed card</p>
+      <ng-template #cardHasName>
+        <p *ngIf="card.name != undefined"
+           class="m-0 text-0 font-medium">{{ kwartetCards![i].name }}</p>
+      </ng-template>
     </div>
   </div>
 </div>
@@ -52,7 +57,6 @@
   <form [formGroup]="editCardForm">
 
     <p>Name</p>
-    <!-- If the cards name is Unnamed card, the value should not be filled in -->
     <input id="name" type="text" placeholder="Enter card name..." required pInputText formControlName="name"/>
     <br>
     <small class="p-error" *ngIf="editCardForm.controls.name.errors?.['maxlength']">The name must not be longer
@@ -70,6 +74,6 @@
                   [maxFileSize]="CARD_COVER_FILE_SIZE" (onSelect)="onSelectCoverImage($event)"></p-fileUpload>
   </form>
   <ng-template pTemplate="footer">
-    <p-button label="Save" (click)="onClickSaveCardButton()" [disabled]=editCardForm.invalid></p-button>
+    <p-button label="Save" (click)="onClickSaveCardButton()"></p-button>
   </ng-template>
 </p-dialog>

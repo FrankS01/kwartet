@@ -1,6 +1,6 @@
 export interface KwartetCard {
   id?: number;
   kwartetSetId: number;
-  name: string;
+  name?: string;
   coverImage?: File
 }

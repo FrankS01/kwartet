@@ -70,8 +70,7 @@ export class EditGameComponent {
         // Create 4 new card objects and store them
         for (let i = 0; i < 4; i++) {
           let newCard: KwartetCard = {
-            kwartetSetId: kwartetSetId,
-            name: "Unnamed card"
+            kwartetSetId: kwartetSetId
           }
           await this.kwartetCardService.createKwartetCard(newCard);
         }
