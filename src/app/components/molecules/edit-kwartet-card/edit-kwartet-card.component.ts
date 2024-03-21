@@ -10,6 +10,7 @@ import {
 import { MessageService } from "primeng/api";
 import { KwartetCardService } from "../../../services/kwartet-card.service";
 import { FileSelectEvent, FileUpload } from "primeng/fileupload";
+import { Ng2ImgMaxService } from "ng2-img-max";
 
 @Component({
   selector: 'app-edit-kwartet-card',
@@ -43,6 +44,9 @@ export class EditKwartetCardComponent implements OnInit {
   // Whether the "edit" overlay should be shown
   showEditOverlay: boolean = false;
 
+  // Whether the progress spinner in the edit card dialog should be shown
+  showProgressSpinner: boolean = false;
+
   // Used on the card preview
   existingCoverImageUrl: string = '';
 
@@ -58,7 +62,8 @@ export class EditKwartetCardComponent implements OnInit {
   })
 
   constructor(private messageService: MessageService,
-              private kwartetCardService: KwartetCardService) {
+              private kwartetCardService: KwartetCardService,
+              private imageCompressService: Ng2ImgMaxService) {
   }
 
   ngOnInit(): void {
@@ -108,8 +113,16 @@ export class EditKwartetCardComponent implements OnInit {
 
 
   onSelectCoverImage($event: FileSelectEvent) {
-    this.editCardForm.controls.coverImage.setValue($event.files[0])
-    this.generateTemporaryCoverImageUrl();
+    this.showProgressSpinner = true;
+    let file = $event.files[0];
+    this.imageCompressService.compressImage(file, 1).subscribe({
+      next: file => {
+        this.showProgressSpinner = false;
+        this.editCardForm.controls.coverImage.setValue(file as File)
+        this.generateTemporaryCoverImageUrl();
+      }
+    });
+
   }
 
   /**

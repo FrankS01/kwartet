@@ -29,6 +29,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { NgOptimizedImage } from "@angular/common";
 import { FileUploadModule } from "primeng/fileupload";
 import { PrintLayoutComponent } from "./components/printables/print-layout/print-layout.component";
+import { ProgressSpinnerModule } from "primeng/progressspinner";
 
 const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
   primeConfig.ripple = true;
@@ -68,7 +69,8 @@ const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
       registrationStrategy: 'registerWhenStable:30000'
     }),
     NgOptimizedImage,
-    FileUploadModule
+    FileUploadModule,
+    ProgressSpinnerModule
   ],
   providers: [
     MessageService,

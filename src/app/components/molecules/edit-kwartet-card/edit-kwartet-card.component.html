@@ -68,6 +68,7 @@
          class="h-10rem mb-2"
          [src]="temporaryCoverImageUrl"
          alt="Card cover image">
+    <p-progressSpinner *ngIf="showProgressSpinner"></p-progressSpinner>
     <p-fileUpload #fileUploadButton mode="basic" chooseLabel="Upload" uploadIcon="pi pi-upload"
                   accept="image/*"
                   [fileLimit]="1"
