@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Router } from "@angular/router";
-
 @Component({
   selector: 'app-shell',
   templateUrl: './shell.component.html',
@@ -10,14 +8,7 @@ import { Router } from "@angular/router";
 export class ShellComponent implements OnInit {
   title = 'Kwartet';
 
-  constructor(private router: Router) { }
-
   async ngOnInit() {
-    // Allows for ngOnInit to be called on routing to the same routing Component since we will never reuse a route
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
-      return false;
-    };
-
     // Persist IndexedDB storage
     await this.persistIndexedDb().then(async (persisted) => {
       if (persisted) {

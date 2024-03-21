@@ -1,0 +1,18 @@
+<!-- Sets -->
+<div>
+  <div *ngFor="let entry of kwartetCards | keyvalue; let setIndex = index"
+       class="flex flex-row mb-3">
+
+    <!-- Cards -->
+    <div *ngFor="let card of entry.value; let cardIndex = index"
+         class="mr-3">
+      <app-edit-kwartet-card [kwartetSet]="entry.key"
+                             [currentKwartetCard]="card"
+                             [kwartetCards]="entry.value"
+                             [kwartetCardNumber]="cardIndex + 1">
+      </app-edit-kwartet-card>
+    </div>
+    <!-- Only put two sets on one page -->
+    <div *ngIf="setIndex % 2 == 0" class="page-break"></div>
+  </div>
+</div>

@@ -28,6 +28,7 @@ import {
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NgOptimizedImage } from "@angular/common";
 import { FileUploadModule } from "primeng/fileupload";
+import { PrintLayoutComponent } from "./components/printables/print-layout/print-layout.component";
 
 const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
   primeConfig.ripple = true;
@@ -44,6 +45,7 @@ const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
     EditSetComponent,
     GameSettingsComponent,
     PrintComponent,
+    PrintLayoutComponent,
     SidebarComponent,
     SidebarItemComponent,
     EditKwartetCardComponent

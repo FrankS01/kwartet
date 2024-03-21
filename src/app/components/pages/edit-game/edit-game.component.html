@@ -39,8 +39,8 @@
     <main class="w-full m-6">
       <div [ngSwitch]="currentPage">
         <app-game-settings *ngSwitchCase=Page.GameOverview [kwartetGame]="kwartetGame" [kwartetSetAmount]="(kwartetSets$ | async)?.length!"></app-game-settings>
-        <app-print *ngSwitchCase=Page.Print [kwartetGame]="kwartetGame" [kwartetSets]="kwartetSets$ | async"></app-print>
-        <app-edit-set *ngSwitchCase=Page.EditSet [currentSetId]="currentSetId!"></app-edit-set>
+        <app-print *ngSwitchCase=Page.Print [gameId]="kwartetGame.id"></app-print>
+        <app-edit-set (changePage)="currentPage = $event" *ngSwitchCase=Page.EditSet [currentSetId]="currentSetId!"></app-edit-set>
       </div>
     </main>
   </div>

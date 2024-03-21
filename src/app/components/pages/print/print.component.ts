@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { KwartetGame } from "../../../data/models/kwartetgame-model";
-import { KwartetSet } from "../../../data/models/kwartetset-model";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-print',
@@ -9,10 +8,12 @@ import { KwartetSet } from "../../../data/models/kwartetset-model";
 })
 export class PrintComponent {
 
-  /** The game whose sets are being printed */
-  @Input() kwartetGame?: KwartetGame
+  /** The game that is being printed */
+  @Input() gameId?: number
 
-  /** The sets belonging to this game */
-  @Input() kwartetSets?: KwartetSet[] | null
+  constructor(private router: Router) { }
 
+  onClickPrintButton() {
+    void this.router.navigateByUrl("/print/" + this.gameId!);
+  }
 }

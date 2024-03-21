@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { KwartetSet } from "../../../data/models/kwartetset-model";
 import { KwartetGameService } from "../../../services/kwartet-game.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -8,6 +8,7 @@ import { KwartetCard } from "../../../data/models/kwartetcard-model";
 import { KwartetCardService } from "../../../services/kwartet-card.service";
 import { FormControl, Validators } from "@angular/forms";
 import { SET_TITLE_CHARACTER_LIMIT } from "../../../config/global-settings";
+import { Page } from "../../../data/models/page-enum";
 
 @Component({
   selector: 'app-edit-set',
@@ -18,7 +19,9 @@ export class EditSetComponent implements OnInit, OnChanges {
 
   // Used by the .html markup
   protected readonly SET_TITLE_CHARACTER_LIMIT = SET_TITLE_CHARACTER_LIMIT;
-  
+
+  @Output() changePage = new EventEmitter<Page>();
+
   @Input() currentSetId?: number;
   currentEditedSet?: KwartetSet
 
@@ -33,6 +36,7 @@ export class EditSetComponent implements OnInit, OnChanges {
     validators: [Validators.required,
       Validators.maxLength(SET_TITLE_CHARACTER_LIMIT)]
   });
+
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -81,8 +85,8 @@ export class EditSetComponent implements OnInit, OnChanges {
           summary: 'Set deleted',
           detail: `Set "${this.currentEditedSet?.setName}" has been successfully deleted`
         })
-        this.kwartetGameService.getKwartetGameById(this.currentEditedSet?.kwartetGameId!).then(game => {
-          void this.router.navigateByUrl("edit-game/" + game?.id!);
+        this.kwartetGameService.getKwartetGameById(this.currentEditedSet?.kwartetGameId!).then(() => {
+          this.changePage.emit(Page.GameOverview);
         })
       }
     });

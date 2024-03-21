@@ -1,0 +1,15 @@
+@media screen {
+  :host {
+    display: none;
+  }
+}
+
+@media print {
+  .page-break {
+    break-before: page;
+  }
+
+  @page {
+    size: A4 landscape;
+  }
+}
