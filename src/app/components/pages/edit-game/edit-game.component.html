@@ -38,8 +38,8 @@
     <!-- Main content -->
     <main class="w-full m-6">
       <div [ngSwitch]="currentPage">
-        <app-game-settings [kwartetSetAmount]="(kwartetSets$ | async)?.length!" *ngSwitchCase=Page.GameOverview [kwartetGame]="kwartetGame"></app-game-settings>
-        <app-print *ngSwitchCase=Page.Print></app-print>
+        <app-game-settings *ngSwitchCase=Page.GameOverview [kwartetGame]="kwartetGame" [kwartetSetAmount]="(kwartetSets$ | async)?.length!"></app-game-settings>
+        <app-print *ngSwitchCase=Page.Print [kwartetGame]="kwartetGame" [kwartetSets]="kwartetSets$ | async"></app-print>
         <app-edit-set *ngSwitchCase=Page.EditSet [currentSetId]="currentSetId!"></app-edit-set>
       </div>
     </main>
