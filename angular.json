@@ -150,6 +150,9 @@
               "devServerTarget": "Kwartet:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }

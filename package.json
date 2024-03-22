@@ -1,6 +1,6 @@
 {
   "name": "kwartet",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -39,6 +39,7 @@
     "@angular/compiler-cli": "^17.2.4",
     "@cypress/schematic": "^2.5.1",
     "@types/jasmine": "~5.1.0",
+    "angular-cli-ghpages": "^2.0.0-beta.2",
     "cypress": "latest",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
