@@ -12,12 +12,13 @@
 
     <!-- Kwartet card - set name -->
     <div class="flex align-items-center justify-content-center w-full bg-primary"
-         style="height: 1.5rem;">
+         style="height: 30px;">
       <p class="m-1 text-0 font-medium">{{ kwartetSet.setName }}</p>
     </div>
 
     <!-- Kwartet card - cover image -->
-    <div class="flex align-items-center justify-content-center h-8rem w-full bg-gray-300">
+    <div class="flex align-items-center justify-content-center w-full bg-gray-300"
+    style="min-height: 170px;">
       <img *ngIf="currentKwartetCard?.coverImage; else noImage"
            class="w-full h-full"
            style="object-fit: cover;"
@@ -30,8 +31,8 @@
 
     <!-- Kwartet card - all card names in this set -->
     <div *ngFor="let card of kwartetCards; let i = index" [class.bg-primary]="card == currentKwartetCard"
-         class="flex align-items-center justify-content-center w-full"
-         style="height: 1.5rem;">
+         class="flex align-items-center justify-content-center w-full h-full"
+         style="">
 
       <p *ngIf="card.name == undefined || card.name == ''; else cardHasName"
          class="m-0 text-0 font-medium text-gray-500">Unnamed card</p>
