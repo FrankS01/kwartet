@@ -1,5 +1,10 @@
 <div class="flex flex-column justify-content-center align-items-center text-center">
   <h1 class="m-0 mb-4">Print Game</h1>
   <p class="mb-4">You can print your game of kwartet on this page, allowing you to play it in real life!</p>
-  <p-button label="Print" icon="pi pi-print" (click)="onClickPrintButton()"></p-button>
+
+  <p-button *ngIf="kwartetSetAmount! > 0; else noSets" label="Print" icon="pi pi-print"
+            (click)="onClickPrintButton()"></p-button>
+  <ng-template #noSets>
+    <p>In order to print a game, create some kwartet sets first by pressing the "New set" button in the sidebar.</p>
+  </ng-template>
 </div>
