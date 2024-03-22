@@ -1,13 +1,25 @@
 @media screen {
-  :host {
+  #printed-page {
     display: none;
   }
+  #screen {
+    display: block;
+  }
+
 }
 
 @media print {
   .page-break {
     break-before: page;
   }
+
+  #printed-page {
+    display: block;
+  }
+  #screen {
+    display: none;
+  }
+
 
   @page {
     size: A4 landscape;
