@@ -11,6 +11,9 @@ export class PrintComponent {
   /** The game that is being printed */
   @Input() gameId?: number
 
+  /** The amount of kwartet sets that have been created */
+  @Input() kwartetSetAmount?: number;
+
   constructor(private router: Router) { }
 
   onClickPrintButton() {
