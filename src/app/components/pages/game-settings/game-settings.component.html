@@ -1,0 +1,32 @@
+<div class="flex flex-column justify-content-center align-items-center text-center">
+  <h1 class="m-0 mb-4">Game Overview</h1>
+
+  <div class="flex flex-row">
+    <p class="mr-2">Game name: {{ kwartetGame?.title }}</p>
+    <p-button (click)="onEditGameTitleButtonClicked()" [text]="true" icon="pi pi-pencil"></p-button>
+  </div>
+
+  <p *ngIf="kwartetSetAmount < 1" class="mb-5">This game does not have any sets yet.</p>
+  <p *ngIf="kwartetSetAmount == 1" class="mb-5">This game currently has {{ kwartetSetAmount }} set.</p>
+  <p *ngIf="kwartetSetAmount > 1" class="mb-5">This game currently has {{ kwartetSetAmount }} sets.</p>
+
+  <p-button (click)="confirmDelete($event)" icon="pi pi-times" label="Delete game" [outlined]="true"
+            severity="danger"></p-button>
+  <p-confirmDialog></p-confirmDialog>
+</div>
+
+<p-dialog header="Edit game title" [(visible)]="editGameTitleDialogIsVisible" [modal]="true" [draggable]="false"
+          [resizable]="false">
+  <div>
+    <p>What will be the new game title?</p>
+    <input id="name" type="text" placeholder="Enter game title..." required pInputText
+           [formControl]="titleFormControl"/>
+    <br>
+    <small class="p-error" *ngIf="titleFormControl.errors?.['maxlength']">The title must not be longer
+      than {{ GAME_TITLE_CHARACTER_LIMIT }}
+      characters.</small>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button label="Save" (click)="onClickEditGameTitleButton()" [disabled]=titleFormControl.invalid></p-button>
+  </ng-template>
+</p-dialog>

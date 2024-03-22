@@ -1,0 +1,31 @@
+<app-header previousRoute=""></app-header>
+
+<div class="flex flex-column align-items-center">
+  <p-button id="newGameButton" class="m-5" icon="pi pi-plus" label="New game" size="large" (click)="showCreateGameDialog()"></p-button>
+
+  <div class="flex justify-content-center flex-wrap ml-3 mr-3">
+    <div *ngFor="let game of loadedGames$ | async"
+         class="flex flex-column align-items-center ml-3 mr-3 mb-5 flipright animation-duration-400">
+      <div class="game__cover " [routerLink]="['/edit-game', game.id]"></div>
+      <div class="game__title">
+        <p>{{ game.title }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="New game" [(visible)]="createGameDialogIsVisible" [modal]="true" [draggable]="false"
+          [resizable]="false">
+  <div>
+    <p>What will this game be called?</p>
+    <input id="title" type="text" placeholder="Enter game title..." required pInputText
+           [formControl]="titleFormControl"/>
+    <br>
+    <small class="p-error" *ngIf="titleFormControl.errors?.['maxlength']">The title must not be longer
+      than {{ GAME_TITLE_CHARACTER_LIMIT }}
+      characters.</small>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button id="createNewGameButton" label="Create" (click)="onClickCreateGameButton()" [disabled]=titleFormControl.invalid></p-button>
+  </ng-template>
+</p-dialog>

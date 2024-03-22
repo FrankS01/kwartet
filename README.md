@@ -1,4 +1,9 @@
-# Kwartet
+# General information
+This project roughly follows the [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/) guidelines.
+
+Templates and pages are combined into the _pages_ folder.
+
+# Angular information
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.7.
 

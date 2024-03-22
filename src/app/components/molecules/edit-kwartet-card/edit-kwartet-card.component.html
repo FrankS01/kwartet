@@ -1,0 +1,81 @@
+<div class="relative">
+
+  <!-- Hover overlay -->
+  <div (click)="onCardPreviewClicked()"
+       class="absolute w-full h-full transition-colors transition-duration-150 hover:bg-black-alpha-80 border-overlay cursor-pointer flex justify-content-center align-items-center"
+       (mouseenter)="showEditOverlay = true" (mouseleave)="showEditOverlay = false">
+    <i *ngIf="showEditOverlay" class="pi pi-pencil" style="font-size: 2.5rem"></i>
+  </div>
+
+  <!-- Kwartet card -->
+  <div *ngIf="kwartetSet; else notLoaded" class="cover flex flex-column">
+
+    <!-- Kwartet card - set name -->
+    <div class="flex align-items-center justify-content-center w-full bg-primary"
+         style="height: 30px;">
+      <p class="m-1 text-0 font-medium">{{ kwartetSet.setName }}</p>
+    </div>
+
+    <!-- Kwartet card - cover image -->
+    <div class="flex align-items-center justify-content-center w-full bg-gray-300"
+    style="min-height: 170px;">
+      <img *ngIf="currentKwartetCard?.coverImage; else noImage"
+           class="w-full h-full"
+           style="object-fit: cover;"
+           [src]="existingCoverImageUrl"
+           alt="Card cover image">
+      <ng-template #noImage>
+        <p class="m-1 text-0">No cover image yet</p>
+      </ng-template>
+    </div>
+
+    <!-- Kwartet card - all card names in this set -->
+    <div *ngFor="let card of kwartetCards; let i = index" [class.bg-primary]="card == currentKwartetCard"
+         class="flex align-items-center justify-content-center w-full h-full"
+         style="">
+
+      <p *ngIf="card.name == undefined || card.name == ''; else cardHasName"
+         class="m-0 text-0 font-medium text-gray-500">Unnamed card</p>
+      <ng-template #cardHasName>
+        <p *ngIf="card.name != undefined"
+           class="m-0 text-0 font-medium">{{ kwartetCards![i].name }}</p>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<ng-template #notLoaded>
+  <p>The set could not be loaded.</p>
+</ng-template>
+
+<!-- Edit card dialog -->
+<p-dialog header="Editing card {{kwartetCardNumber}} in set {{kwartetSet?.setName}}"
+          [(visible)]="editCardDialogIsVisible"
+          [modal]="true"
+          [draggable]="false"
+          [resizable]="false"
+          (onHide)="onHideDialog()">
+  <form [formGroup]="editCardForm">
+
+    <p>Name</p>
+    <input id="name" type="text" placeholder="Enter card name..." required pInputText formControlName="name"/>
+    <br>
+    <small class="p-error" *ngIf="editCardForm.controls.name.errors?.['maxlength']">The name must not be longer
+      than {{ SET_TITLE_CHARACTER_LIMIT }}
+      characters.</small>
+
+    <p class="mt-4">Cover image</p>
+    <img *ngIf="editCardForm.controls.coverImage.value != null"
+         class="h-10rem mb-2"
+         [src]="temporaryCoverImageUrl"
+         alt="Card cover image">
+    <p-progressSpinner *ngIf="showProgressSpinner"></p-progressSpinner>
+    <p-fileUpload #fileUploadButton mode="basic" chooseLabel="Upload" uploadIcon="pi pi-upload"
+                  accept="image/*"
+                  [fileLimit]="1"
+                  [maxFileSize]="CARD_COVER_FILE_SIZE" (onSelect)="onSelectCoverImage($event)"></p-fileUpload>
+  </form>
+  <ng-template pTemplate="footer">
+    <p-button label="Save" (click)="onClickSaveCardButton()"></p-button>
+  </ng-template>
+</p-dialog>

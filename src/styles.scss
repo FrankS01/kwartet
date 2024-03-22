@@ -1,12 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
-$color-white: #FFFFFF;
-$color-lipstick: #6F2232;
-$color-dark: #1A1A1D;
-$color-link: #125699;
 
 body {
-  background-color: $color-dark;
-  color: $color-white;
+  margin: 0;
   font-family: 'Rubik', sans-serif;
 }
 
+@media screen {
+  body {
+    background-color: #1c1b22;
+  }
+}
+
+@media print {
+  body {
+    background-color: white;
+  }
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}

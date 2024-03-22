@@ -1,0 +1,52 @@
+<div class="flex flex-column justify-content-center align-items-center">
+  <h1 class="m-0 mb-4">Set Editor</h1>
+
+  <div *ngIf="currentEditedSet; else notLoaded" class="flex flex-column justify-content-center align-items-center">
+
+    <div class="flex flex-row">
+      <p class="mr-2">Set name: {{ currentEditedSet.setName }}</p>
+      <p-button (click)="onEditSetNameButtonClicked()" [text]="true" icon="pi pi-pencil"></p-button>
+    </div>
+
+    <p class="mb-4">Click on a card to edit it</p>
+
+    <!-- Card previews -->
+    <div class="flex justify-content-center flex-wrap">
+
+      <div *ngFor="let card of kwartetCards; let i = index"
+           class="flex flex-column align-items-center ml-3 mr-3">
+        <p>Card {{ i + 1 }}</p>
+        <app-edit-kwartet-card [kwartetSet]="currentEditedSet"
+                               [currentKwartetCard]="card"
+                               [kwartetCards]="kwartetCards"
+                               [kwartetCardNumber]="i+1">
+        </app-edit-kwartet-card>
+      </div>
+
+    </div>
+
+    <p-button class="mt-6" (click)="confirmDeleteSet($event)" icon="pi pi-times" label="Delete set" [outlined]="true"
+              severity="danger"></p-button>
+    <p-confirmDialog></p-confirmDialog>
+
+  </div>
+  <ng-template #notLoaded>
+    <p>The set could not be loaded.</p>
+  </ng-template>
+</div>
+
+<p-dialog header="Edit set name" [(visible)]="editSetNameDialogIsVisible" [modal]="true" [draggable]="false"
+          [resizable]="false">
+  <div>
+    <p>What will be the new set name?</p>
+    <input id="name" type="text" placeholder="Enter set name..." required pInputText
+           [formControl]="nameFormControl"/>
+    <br>
+    <small class="p-error" *ngIf="nameFormControl.errors?.['maxlength']">The name must not be longer
+      than {{ SET_TITLE_CHARACTER_LIMIT }}
+      characters.</small>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button label="Save" (click)="onClickEditSetNameButton()" [disabled]=nameFormControl.invalid></p-button>
+  </ng-template>
+</p-dialog>

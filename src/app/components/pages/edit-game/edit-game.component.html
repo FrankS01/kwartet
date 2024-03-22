@@ -1,0 +1,66 @@
+<!-- Wrapper -->
+<div class="flex flex-column min-h-screen">
+  <!-- Header -->
+  <app-header previousRoute="/games"></app-header>
+  <div *ngIf="kwartetGame$ | async as kwartetGame; else loading" class="flex-1 flex relative">
+
+    <!-- Sidebar -->
+    <app-sidebar footerText="Editing game {{kwartetGame.title}}">
+
+      <!-- General sidebar items -->
+      <h1 class="pl-5 pt-3 m-0">GENERAL</h1>
+      <ul class="list-none p-3 m-0">
+        <li>
+          <app-sidebar-item icon="pi-cog" text="Game Overview" (click)="currentPage = Page.GameOverview"></app-sidebar-item>
+        </li>
+        <li>
+          <app-sidebar-item icon="pi-print" text="Print" (click)="currentPage = Page.Print"></app-sidebar-item>
+        </li>
+      </ul>
+
+      <!-- Kwartet set sidebar items -->
+      <h1 class="pl-5 pt-3 m-0">SETS</h1>
+      <ul class="list-none p-3 m-0">
+        <li *ngFor="let set of kwartetSets$ | async">
+          <app-sidebar-item icon="pi-pencil" text="{{set.setName}}" (click)="currentPage = Page.EditSet; currentSetId = set.id"></app-sidebar-item>
+        </li>
+        <li *ngIf="(kwartetSets$ | async)?.length == 0">
+          <p class="font-italic pl-3 pr-3 m-0">Add a set by clicking the button below!</p>
+        </li>
+        <li class="pt-3">
+          <p-button class="pl-3 m-0" [rounded]="true" icon="pi pi-plus" label="New set"
+                    (click)="showCreateSetDialog()"></p-button>
+        </li>
+      </ul>
+
+    </app-sidebar>
+
+    <!-- Main content -->
+    <main class="w-full m-6">
+      <div [ngSwitch]="currentPage">
+        <app-game-settings *ngSwitchCase=Page.GameOverview [kwartetGame]="kwartetGame" [kwartetSetAmount]="(kwartetSets$ | async)?.length!"></app-game-settings>
+        <app-print *ngSwitchCase=Page.Print [gameId]="kwartetGame.id"></app-print>
+        <app-edit-set (changePage)="currentPage = $event" *ngSwitchCase=Page.EditSet [currentSetId]="currentSetId!"></app-edit-set>
+      </div>
+    </main>
+  </div>
+
+</div>
+
+<ng-template #loading>
+  <p>The game could not be loaded.</p>
+</ng-template>
+
+<p-dialog header="New set" [(visible)]="createSetDialogIsVisible" [modal]="true" [draggable]="false"
+          [resizable]="false">
+  <div>
+    <p>What will be the name of this set?</p>
+    <input id="name" type="text" placeholder="Set title" required pInputText [formControl]="nameFormControl"/>
+    <br>
+    <small class="p-error" *ngIf="nameFormControl.errors?.['maxlength']">The name must not be longer than {{SET_TITLE_CHARACTER_LIMIT}}
+      characters.</small>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button label="Create" (click)="onClickCreateSetButton()" [disabled]=nameFormControl.invalid></p-button>
+  </ng-template>
+</p-dialog>
