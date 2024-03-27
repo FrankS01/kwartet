@@ -3,12 +3,37 @@
 
   <div *ngIf="currentEditedSet; else notLoaded" class="flex flex-column justify-content-center align-items-center">
 
-    <div class="flex flex-row">
-      <p class="mr-2">Set name: {{ currentEditedSet.setName }}</p>
-      <p-button (click)="onEditSetNameButtonClicked()" [text]="true" icon="pi pi-pencil"></p-button>
+    <!-- Global set properties-->
+    <div class="flex flex-column">
+
+      <!-- Set name -->
+      <div class="flex flex-row">
+        <div class="flex mr-3">
+          <p>Name:</p>
+        </div>
+        <div class="flex justify-content-center align-items-center h-full">
+          <p-button label="{{currentEditedSet.setName}}" (click)="onEditSetNameButtonClicked()"
+                    [text]="true"></p-button>
+        </div>
+      </div>
+
+      <!-- Set color -->
+      <div class="flex flex-row">
+        <div class="flex mr-3">
+          <p>Color:</p>
+        </div>
+
+        <div class="flex w-full">
+          <div class="flex justify-content-center align-items-center w-full">
+            <p-colorPicker class="mr-3" [(ngModel)]="currentColorpickerValue"></p-colorPicker>
+            <p-button label="Apply" [rounded]="true" (onClick)="saveColorPickerSetColor()"></p-button>
+          </div>
+        </div>
+
+      </div>
     </div>
 
-    <p class="mb-4">Click on a card to edit it</p>
+    <p class="m-4">Click on a card to edit it</p>
 
     <!-- Card previews -->
     <div class="flex justify-content-center flex-wrap">

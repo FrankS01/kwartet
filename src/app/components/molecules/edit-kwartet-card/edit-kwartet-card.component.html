@@ -8,17 +8,20 @@
   </div>
 
   <!-- Kwartet card -->
-  <div *ngIf="kwartetSet; else notLoaded" class="cover flex flex-column">
+  <div *ngIf="kwartetSet; else notLoaded" class="cover flex flex-column"
+       [ngStyle]="{'border-color': kwartetSet.setColor}">
 
     <!-- Kwartet card - set name -->
-    <div class="flex align-items-center justify-content-center w-full bg-primary"
+    <div class="flex align-items-center justify-content-center w-full"
+         [ngStyle]="{'background-color': kwartetSet.setColor}"
          style="height: 30px;">
-      <p class="m-1 text-0 font-medium">{{ kwartetSet.setName }}</p>
+      <p class="m-1 font-medium"
+         [ngStyle]="{'color': fontColorContrast(kwartetSet.setColor)}">{{ kwartetSet.setName }}</p>
     </div>
 
     <!-- Kwartet card - cover image -->
     <div class="flex align-items-center justify-content-center w-full bg-gray-300"
-    style="min-height: 170px;">
+         style="min-height: 170px;">
       <img *ngIf="currentKwartetCard?.coverImage; else noImage"
            class="w-full h-full"
            style="object-fit: cover;"
@@ -30,15 +33,20 @@
     </div>
 
     <!-- Kwartet card - all card names in this set -->
-    <div *ngFor="let card of kwartetCards; let i = index" [class.bg-primary]="card == currentKwartetCard"
+    <div *ngFor="let card of kwartetCards; let i = index"
          class="flex align-items-center justify-content-center w-full h-full"
-         style="">
+         [ngStyle]="{'background-color': card === currentKwartetCard ? kwartetSet.setColor : 'white'}">
 
+      <!-- If the card has no name -->
       <p *ngIf="card.name == undefined || card.name == ''; else cardHasName"
          class="m-0 text-0 font-medium text-gray-500">Unnamed card</p>
+
+      <!-- If the card has a name -->
       <ng-template #cardHasName>
         <p *ngIf="card.name != undefined"
-           class="m-0 text-0 font-medium">{{ kwartetCards![i].name }}</p>
+           class="m-0 font-medium"
+           [ngStyle]="{'color': card === currentKwartetCard ? fontColorContrast(kwartetSet.setColor) : 'black'}">
+          {{ kwartetCards![i].name }}</p>
       </ng-template>
     </div>
   </div>
