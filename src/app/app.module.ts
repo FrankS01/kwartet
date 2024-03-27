@@ -12,7 +12,7 @@ import { RippleModule } from "primeng/ripple";
 import { DialogModule } from "primeng/dialog";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { InputTextModule } from "primeng/inputtext";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ToastModule } from "primeng/toast";
 import { ConfirmationService, MessageService, PrimeNGConfig } from "primeng/api";
 import { EditGameComponent } from "./components/pages/edit-game/edit-game.component";
@@ -30,6 +30,7 @@ import { NgOptimizedImage } from "@angular/common";
 import { FileUploadModule } from "primeng/fileupload";
 import { PrintLayoutComponent } from "./components/printables/print-layout/print-layout.component";
 import { ProgressSpinnerModule } from "primeng/progressspinner";
+import { ColorPickerModule } from "primeng/colorpicker";
 
 const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
   primeConfig.ripple = true;
@@ -51,27 +52,29 @@ const initializeAppFactory = (primeConfig: PrimeNGConfig) => () => {
     SidebarItemComponent,
     EditKwartetCardComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ButtonModule,
-    RippleModule,
-    DialogModule,
-    BrowserAnimationsModule,
-    InputTextModule,
-    ToastModule,
-    ReactiveFormsModule,
-    ConfirmDialogModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
-    NgOptimizedImage,
-    FileUploadModule,
-    ProgressSpinnerModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ButtonModule,
+        RippleModule,
+        DialogModule,
+        BrowserAnimationsModule,
+        InputTextModule,
+        ToastModule,
+        ReactiveFormsModule,
+        ConfirmDialogModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            // Register the ServiceWorker as soon as the application is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000'
+        }),
+        NgOptimizedImage,
+        FileUploadModule,
+        ProgressSpinnerModule,
+        ColorPickerModule,
+        FormsModule
+    ],
   providers: [
     MessageService,
     ConfirmationService,

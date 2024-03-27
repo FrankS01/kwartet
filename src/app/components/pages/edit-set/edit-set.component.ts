@@ -9,6 +9,7 @@ import { KwartetCardService } from "../../../services/kwartet-card.service";
 import { FormControl, Validators } from "@angular/forms";
 import { SET_TITLE_CHARACTER_LIMIT } from "../../../config/global-settings";
 import { Page } from "../../../data/models/page-enum";
+import { ColorPickerChangeEvent } from "primeng/colorpicker";
 
 @Component({
   selector: 'app-edit-set',
@@ -37,6 +38,7 @@ export class EditSetComponent implements OnInit, OnChanges {
       Validators.maxLength(SET_TITLE_CHARACTER_LIMIT)]
   });
 
+  currentColorpickerValue: string = "";
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -48,15 +50,18 @@ export class EditSetComponent implements OnInit, OnChanges {
   }
 
   async ngOnInit() {
-    await this.getCurrentEditedSet();
-    await this.getKwartetCardsBySetId(this.currentEditedSet?.id!)
-    this.autofillForm();
+    await this.initialize()
   }
 
   async ngOnChanges() {
+    await this.initialize();
+  }
+
+  async initialize() {
     await this.getCurrentEditedSet();
     await this.getKwartetCardsBySetId(this.currentEditedSet?.id!)
-    this.autofillForm();
+    this.autofillNameForm();
+    this.autofillColorPickerAndColorValue();
   }
 
   async getCurrentEditedSet() {
@@ -103,13 +108,12 @@ export class EditSetComponent implements OnInit, OnChanges {
    * Edit a set name
    * @private
    */
-  private async editSetName() {
-    this.currentEditedSet!.setName = this.nameFormControl.value;
+  private async editSet() {
     await this.kwartetSetService.updateKwartetSet(this.currentEditedSet!).then(() => {
       this.messageService.add({
         severity: 'success',
-        summary: 'Set name updated',
-        detail: `Set name has been successfully changed to "${this.currentEditedSet?.setName}"`
+        summary: 'Set updated',
+        detail: `Set has been successfully updated`
       })
     });
   }
@@ -121,11 +125,39 @@ export class EditSetComponent implements OnInit, OnChanges {
 
   async onClickEditSetNameButton() {
     this.editSetNameDialogIsVisible = false;
-    await this.editSetName();
+    this.currentEditedSet!.setName = this.nameFormControl.value;
+    await this.editSet();
   }
 
-  private autofillForm() {
+  private autofillNameForm() {
     this.nameFormControl.setValue(this.currentEditedSet?.setName!);
   }
 
+  async autofillColorPickerAndColorValue() {
+    // If the set has a color
+    if (this.currentEditedSet?.setColor) {
+      this.currentColorpickerValue = this.currentEditedSet?.setColor!
+    }
+
+    // If the set doesn't have a color property (for sets created before colors were added)
+    else {
+      this.currentColorpickerValue = "#60a5fa" // Default color for new sets
+      await this.saveColorPickerSetColor();
+    }
+  }
+
+  /**
+   * Update the color in the current edited set and store it using service
+   */
+  async saveColorPickerSetColor() {
+    this.currentEditedSet!.setColor = this.currentColorpickerValue;
+    await this.kwartetSetService.updateKwartetSet(this.currentEditedSet!).then(() => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Set color updated',
+        detail: `Set color has been successfully updated`,
+        life: 1000
+      })
+    });
+  }
 }

@@ -11,6 +11,7 @@ import { MessageService } from "primeng/api";
 import { KwartetCardService } from "../../../services/kwartet-card.service";
 import { FileSelectEvent, FileUpload } from "primeng/fileupload";
 import { Ng2ImgMaxService } from "ng2-img-max";
+import fontColorContrast from "font-color-contrast";
 
 @Component({
   selector: 'app-edit-kwartet-card',
@@ -22,6 +23,7 @@ export class EditKwartetCardComponent implements OnInit {
   // Used by the .html markup
   protected readonly CARD_COVER_FILE_SIZE = CARD_COVER_FILE_SIZE;
   protected readonly SET_TITLE_CHARACTER_LIMIT = SET_TITLE_CHARACTER_LIMIT;
+  protected readonly fontColorContrast = fontColorContrast;
 
   // The full kwartet set that this card is a part of
   @Input() kwartetSet?: KwartetSet;
@@ -172,5 +174,4 @@ export class EditKwartetCardComponent implements OnInit {
       this.generateTemporaryCoverImageUrl();
     }
   }
-
 }

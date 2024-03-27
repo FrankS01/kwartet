@@ -25,6 +25,7 @@
     "@angular/service-worker": "^17.2.4",
     "@types/uuid": "^9.0.8",
     "dexie": "^3.2.6",
+    "font-color-contrast": "^11.1.0",
     "ng2-img-max": "^2.2.9",
     "primeflex": "^3.3.1",
     "primeicons": "^6.0.1",

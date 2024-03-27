@@ -61,7 +61,8 @@ export class EditGameComponent {
         // Create new kwartet set object
         let newSet: KwartetSet = {
           kwartetGameId: kwartetGame?.id!,
-          setName: this.nameFormControl.value
+          setName: this.nameFormControl.value,
+          setColor: '#60a5fa'
         }
 
         // Store kwartet set
