@@ -1,7 +1,6 @@
 # Kwartet
 
 Kwartet is a web application for creating and printing your own variants of the game of quartet.
-Source code for kwartet - create your own game of quartets and print it with ease!
 
 The application is publicly hosted on https://kwartet.frankstam.nl.eu.org/
 
@@ -19,8 +18,6 @@ All user data is stored in the browser using the [IndexedDB API](https://develop
 
 ## Contributing
 
-This project is currently not accepting pull requests.
+**This project is currently not accepting pull requests.**
 
-This project roughly follows the [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/) guidelines.
-
-Templates and pages are combined into the _pages_ folder.
+The project roughly follows the [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/) guidelines. Templates and pages are combined into the _pages_ folder.
