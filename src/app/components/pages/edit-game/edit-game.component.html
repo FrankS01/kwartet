@@ -8,7 +8,7 @@
   <div *ngIf="kwartetGame$ | async as kwartetGame; else loading" class="flex-1 flex relative">
 
     <!-- Sidebar -->
-    <app-sidebar footerText="Editing game {{kwartetGame.title}}" class="lg:static absolute lg:block lg:shadow-none shadow-5 z-5 h-full" [ngClass]="sideBarIsVisible ? '' : 'hidden'">
+    <app-sidebar footerText="Editing game {{kwartetGame.title}}" class="absolute lg:block lg:shadow-none shadow-5 z-5 h-full" [ngClass]="sideBarIsVisible ? '' : 'hidden'">
 
       <!-- General sidebar items -->
       <h1 class="pl-5 pt-3 m-0">GENERAL</h1>
