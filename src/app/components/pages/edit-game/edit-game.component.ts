@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { KwartetGame } from "../../../data/models/kwartetgame-model";
 import { KwartetGameService } from "../../../services/kwartet-game.service";
 import { KwartetSet } from "../../../data/models/kwartetset-model";
@@ -35,6 +35,9 @@ export class EditGameComponent {
   // Whether the "create set" dialog is visible or not
   createSetDialogIsVisible: boolean = false;
 
+  // Whether the sidebar is visible or not
+  sideBarIsVisible: boolean = false;
+
   // Form value, used in "create set" dialog
   nameFormControl = new FormControl('', {
     nonNullable: true,
@@ -43,7 +46,6 @@ export class EditGameComponent {
   });
 
   constructor(private route: ActivatedRoute,
-              private router: Router,
               private kwartetGameService: KwartetGameService,
               private kwartetSetService: KwartetSetService,
               private kwartetCardService: KwartetCardService,
@@ -103,5 +105,9 @@ export class EditGameComponent {
   async onClickCreateSetButton() {
     this.createSetDialogIsVisible = false;
     await this.createNewSet();
+  }
+
+  showSideBar(visible: boolean) {
+    this.sideBarIsVisible = visible;
   }
 }
