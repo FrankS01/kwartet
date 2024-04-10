@@ -1,11 +1,14 @@
+<!-- Sidebar overlay -->
+<div *ngIf="sideBarIsVisible" class="z-4 fixed w-full h-full top-0 left-0 p-component-overlay lg:hidden"></div>
+
 <!-- Wrapper -->
 <div class="flex flex-column min-h-screen">
   <!-- Header -->
-  <app-header previousRoute="/games"></app-header>
+  <app-header class="z-5" previousRoute="/games" [showMenuButton]="true" (sideBarIsVisible)="showSideBar($event)"></app-header>
   <div *ngIf="kwartetGame$ | async as kwartetGame; else loading" class="flex-1 flex relative">
 
     <!-- Sidebar -->
-    <app-sidebar footerText="Editing game {{kwartetGame.title}}">
+    <app-sidebar footerText="Editing game {{kwartetGame.title}}" class="lg:static absolute lg:block lg:shadow-none shadow-5 z-5 h-full" [ngClass]="sideBarIsVisible ? '' : 'hidden'">
 
       <!-- General sidebar items -->
       <h1 class="pl-5 pt-3 m-0">GENERAL</h1>
@@ -43,6 +46,7 @@
         <app-edit-set (changePage)="currentPage = $event" *ngSwitchCase=Page.EditSet [currentSetId]="currentSetId!"></app-edit-set>
       </div>
     </main>
+
   </div>
 
 </div>

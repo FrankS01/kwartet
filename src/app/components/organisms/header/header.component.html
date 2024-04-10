@@ -1,9 +1,12 @@
-<header class="flex justify-content-between px-4 bg-primary">
-  <div class="flex flex-column justify-content-center align-items-start flex-1">
-    <p-button icon="pi pi-arrow-left" [rounded]="true" (click)="goBack(previousRoute)"></p-button>
+<header class="flex justify-content-between px-3 bg-primary">
+  <div class="flex flex-column justify-content-center flex-1">
+    <div class="flex flex-row">
+      <p-button icon="pi pi-arrow-left" [rounded]="true" (click)="goBack(previousRoute)"></p-button>
+      <p-button *ngIf="showMenuButton" icon="pi pi-bars" [rounded]="true" (click)="flipSidebarVisibility()" class="lg:hidden"></p-button>
+    </div>
   </div>
   <div class="flex-1">
-    <h1 class="text-center my-2 text-6xl text-0 ">Kwartet</h1>
+    <h1 class="text-center my-2 lg:text-6xl text-0 ">Kwartet</h1>
   </div>
   <div class="flex-1"></div>
 </header>
