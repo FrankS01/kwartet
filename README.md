@@ -2,7 +2,7 @@
 
 Kwartet is a web application for creating and printing your own variants of the game of quartet.
 
-The application is publicly hosted on https://kwartet.frankstam.nl.eu.org/
+The application is publicly hosted on https://kwartet.frankstam.dev
 
 This project is built using Angular in combination with the [PrimeNG](https://primeng.org/) component library.
 
