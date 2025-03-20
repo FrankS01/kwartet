@@ -18,6 +18,6 @@ All user data is stored in the browser using the [IndexedDB API](https://develop
 
 ## Contributing
 
-**This project is currently not accepting pull requests.**
+**This project is not accepting pull requests.**
 
 The project roughly follows the [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/) guidelines. Templates and pages are combined into the _pages_ folder.
